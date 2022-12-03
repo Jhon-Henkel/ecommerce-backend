@@ -1,0 +1,30 @@
+{
+    "name": "jhowrf/ecommerce-clean-code",
+    "description": "Loja virtual",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "src\\": "src/"
+        },
+        "files": [
+            "config.php"
+        ]
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit"
+    },
+    "authors": [
+        {
+            "name": "Jhonatan Henkel",
+            "email": "jhowrf@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "kint-php/kint": "^4.1",
+        "mockery/mockery": "dev-master",
+        "phpunit/phpunit": "^9"
+    },
+    "require": {
+        "ext-pdo": "*"
+    }
+}
