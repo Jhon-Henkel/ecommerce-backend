@@ -1,11 +1,11 @@
 <?php
 
-namespace Util\CpfValidator;
+namespace Unity\Tools;
 
 use PHPUnit\Framework\TestCase;
-use src\Util\CpfValidator\CpfValidator;
+use src\Tools\CpfTools;
 
-class CpfValidatorUnitTest extends TestCase
+class CpfToolsUnitTest extends TestCase
 {
     /**
      * @param string $value
@@ -15,7 +15,7 @@ class CpfValidatorUnitTest extends TestCase
      */
     public function testValidator(string $value, bool $expectedResult): void
     {
-        $this->assertEquals($expectedResult, CpfValidator::validate($value));
+        $this->assertEquals($expectedResult, CpfTools::validate($value));
     }
 
     public function dataProviderTestValidator(): array

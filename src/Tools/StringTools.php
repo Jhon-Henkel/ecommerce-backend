@@ -1,8 +1,8 @@
 <?php
 
-namespace src\Util;
+namespace src\Tools;
 
-class UtilString
+class StringTools
 {
     public static function onlyNumbers(string $string): string
     {

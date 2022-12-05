@@ -1,11 +1,11 @@
 <?php
 
-namespace Util;
+namespace Unity\Tools;
 
 use PHPUnit\Framework\TestCase;
-use src\Util\UtilString;
+use src\Tools\StringTools;
 
-class UtilStringUnitTest extends TestCase
+class StringToolsUnitTest extends TestCase
 {
     /**
      * @param string $value
@@ -15,7 +15,7 @@ class UtilStringUnitTest extends TestCase
      */
     public function testOnlyNumbers(string $value, string $expectedResult): void
     {
-        $onlyNumberFilter = new UtilString();
+        $onlyNumberFilter = new StringTools();
         $returnValue = $onlyNumberFilter->onlyNumbers($value);
         $this->assertEquals($expectedResult, $returnValue);
     }

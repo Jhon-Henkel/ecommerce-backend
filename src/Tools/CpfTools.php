@@ -1,15 +1,13 @@
 <?php
 
-namespace src\Util\CpfValidator;
+namespace src\Tools;
 
-use src\Util\UtilString;
-
-class CpfValidator
+class CpfTools
 {
     public static function validate (string $cpf): bool
     {
         if (!$cpf) return false;
-        $cpf = UtilString::onlyNumbers($cpf);
+        $cpf = StringTools::onlyNumbers($cpf);
         if (strlen($cpf) != 11) return false;
         for ($t = 9; $t < 11; $t++) {
             for ($d = 0, $c = 0; $c < $t; $c++) {
