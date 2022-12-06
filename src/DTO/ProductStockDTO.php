@@ -10,6 +10,7 @@ class ProductStockDTO
     private int $colorId;
     private int $sizeId;
     private int $bandId;
+    private float $price;
 
     /**
      * @return int
@@ -105,5 +106,21 @@ class ProductStockDTO
     public function setBandId(int $bandId): void
     {
         $this->bandId = $bandId;
+    }
+
+    /**
+     * @return float
+     */
+    public function getPrice(): float
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param float $price
+     */
+    public function setPrice(float $price): void
+    {
+        $this->price = $price;
     }
 }
