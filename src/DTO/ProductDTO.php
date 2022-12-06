@@ -5,9 +5,11 @@ namespace src\DTO;
 class ProductDTO
 {
     private int $id;
+    private string $code;
     private string $name;
     private int $stockId;
     private string $description;
+    private int $categoryId;
 
     /**
      * @return int
@@ -72,4 +74,37 @@ class ProductDTO
     {
         $this->description = $description;
     }
+
+    /**
+     * @return int
+     */
+    public function getCategoryId(): int
+    {
+        return $this->categoryId;
+    }
+
+    /**
+     * @param int $categoryId
+     */
+    public function setCategoryId(int $categoryId): void
+    {
+        $this->categoryId = $categoryId;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string $code
+     */
+    public function setCode(string $code): void
+    {
+        $this->code = $code;
+    }
+
 }

@@ -11,7 +11,8 @@
         ]
     },
     "scripts": {
-        "test": "vendor/bin/phpunit ./tests/Unit"
+        "test-php-unit": "vendor/bin/phpunit ./tests/Unit",
+        "test-php-integration": "vendor/bin/phpunit ./tests/Integration"
     },
     "authors": [
         {
