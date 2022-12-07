@@ -2,6 +2,8 @@
 
 namespace src\Tools;
 
+use src\Exceptions\DatabaseExceptions\QueryTypeException;
+
 class ValidateTools
 {
     public static function validateParamsFieldsInArray(array $paramsFields, array $validate): bool
@@ -12,5 +14,12 @@ class ValidateTools
             }
         }
         return true;
+    }
+
+    public static function validateQueryType(string $type, string $query): void
+    {
+        if (!preg_match('/^' . $type . '/i', $query)){
+            throw new QueryTypeException('Base de dados não é do tipo ' . $type);
+        }
     }
 }
