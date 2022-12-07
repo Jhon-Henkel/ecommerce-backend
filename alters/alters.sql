@@ -42,7 +42,7 @@ CREATE TABLE IF NOT EXISTS product_stock (
     product_stock_color_id int(10) NOT NULL,
     product_stock_size_id int(10) NOT NULL,
     product_stock_brand_id int(10) NOT NULL,
-    product_stock_price float(10) NOT NULL,
+    product_stock_price decimal (6, 2) NOT NULL,
     PRIMARY KEY (product_stock_id),
     FOREIGN KEY (product_stock_color_id) REFERENCES color(color_id),
     FOREIGN KEY (product_stock_size_id) REFERENCES size(size_id),
