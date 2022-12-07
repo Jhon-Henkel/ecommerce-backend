@@ -55,4 +55,12 @@ class BrandDTO
     {
         $this->name = $name;
     }
+
+    public function populateStdForDto(\stdClass $brand): BrandDTO
+    {
+        $brandDTO = new BrandDTO();
+        $brandDTO->setCode($brand->code);
+        $brandDTO->setName($brand->name);
+        return $brandDTO;
+    }
 }
