@@ -13,8 +13,13 @@ class Response
         exit(json_encode($print));
     }
 
-    public static function RenderRequiredAtributesMissing(): void
+    public static function RenderRequiredAttributesMissing(): void
     {
-        self::Render(HttpStatusCodeEnum::HTTP_DAB_REQUEST,ApiResponseMessageEnum::REQUIRED_ATRIBUTES_MISSING);
+        self::Render(HttpStatusCodeEnum::HTTP_DAB_REQUEST,ApiResponseMessageEnum::REQUIRED_ATTRIBUTES_MISSING);
+    }
+
+    public static function RenderAttributeAlreadyExists(string $attribute): void
+    {
+        self::Render(HttpStatusCodeEnum::HTTP_CONFLICT,ApiResponseMessageEnum::ATTRIBUTE_ALREADY_EXISTS . $attribute);
     }
 }

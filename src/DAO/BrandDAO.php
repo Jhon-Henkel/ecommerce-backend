@@ -15,4 +15,16 @@ class BrandDAO
         $database->insert($query, $params);
         return true;
     }
+
+    public function findByName(string $name): ?array
+    {
+        $database = new Database();
+        return $database->select("SELECT * FROM brand WHERE brand_name = :name", array('name' => $name));
+    }
+
+    public function findByCode(string $code): ?array
+    {
+        $database = new Database();
+        return $database->select("SELECT * FROM brand WHERE brand_code = :code", array('code' => $code));
+    }
 }
