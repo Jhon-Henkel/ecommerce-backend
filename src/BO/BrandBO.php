@@ -3,6 +3,7 @@
 namespace src\BO;
 
 use src\DTO\BrandDTO;
+use src\Factory\BrandDtoFactory;
 use stdClass;
 use src\Api\Response;
 use src\DAO\BrandDAO;
@@ -50,7 +51,7 @@ class BrandBO
         }
     }
 
-    public function FindLastInserted(): BrandDTO
+    public function findLastInserted(): BrandDTO
     {
         $brandDAO = new BrandDAO();
         $search = $brandDAO->findLastInserted();
@@ -64,5 +65,41 @@ class BrandBO
         $brandDTO->setName($brand['brand_name']);
         $brandDTO->setCode($brand['brand_code']);
         return $brandDTO;
+    }
+
+    public function findById(int $id): ?BrandDTO
+    {
+        $brandDAO = new BrandDAO();
+        $brand = $brandDAO->findById($id);
+        return $brand ? $this->populateDbToDto($brand) : null;
+    }
+
+    public function findAll(): ?array
+    {
+        $brandDAO = new BrandDAO();
+        $brands = $brandDAO->findAll();
+        if (!$brands) {
+            return null;
+        }
+        return $this->makeBrandsPublic($brands);
+    }
+
+    public function makeBrandsPublic(array $brands): array
+    {
+        $brandsFactored = array();
+        foreach ($brands as $brand) {
+            $brandDto = $this->populateDbToDto($brand);
+            $brandsFactored[] = BrandDtoFactory::makePublic($brandDto);
+        }
+        return $brandsFactored;
+    }
+
+    public function deleteById(int $id): void
+    {
+        if (!$this->findById($id)) {
+            Response::RenderNotFound();
+        }
+        $brandDAO = new BrandDAO();
+        $brandDAO->deleteById($id);
     }
 }

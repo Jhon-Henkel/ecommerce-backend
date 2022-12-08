@@ -75,6 +75,20 @@ class Database
         }
     }
 
+    public function delete(string $query, array $params = []):void
+    {
+        try {
+            $query = trim($query);
+            ValidateTools::validateQueryType(QueryTypeEnum::DELETE, $query);
+            $this->connectDb();
+            $conn = $this->conn->prepare($query);
+            $this->executeQueryConn($conn, $params);
+            $this->disconnectDb();
+        } catch (Exception $e) {
+            throw new QueryTypeException ($e->getMessage());
+        }
+    }
+
     public function executeQueryConn($conn, $params)
     {
         if ($params) {

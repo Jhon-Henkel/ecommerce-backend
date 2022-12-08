@@ -5,8 +5,6 @@ namespace src\Controllers;
 use src\Api\Response;
 use src\BO\BrandBO;
 use src\DAO\BrandDAO;
-use src\DTO\BrandDTO;
-use src\Enums\ApiResponseMessageEnum;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Factory\BrandDtoFactory;
@@ -14,18 +12,18 @@ use src\Tools\RequestTools;
 
 class BrandController
 {
-    public function postApi(\stdClass $brand)
+    public function apiPost(\stdClass $brand)
     {
         $brandBO = new BrandBO();
         $brandDAO = new BrandDAO();
         $brandBO->validatePostParamsApi(FieldsEnum::getValidateFields(), $brand);
         $brandToInsert = BrandDtoFactory::factory($brand);
         $brandDAO->insert($brandToInsert);
-        $inserted = $brandBO->FindLastInserted();
+        $inserted = $brandBO->findLastInserted();
         Response::Render(HttpStatusCodeEnum::HTTP_CREATED, BrandDtoFactory::makePublic($inserted));
     }
 
-    public function putApi(\stdClass $brand)
+    public function apiPut(\stdClass $brand)
     {
         $brandBO = new BrandBO();
         $brandDAO = new BrandDAO();
@@ -36,13 +34,27 @@ class BrandController
         Response::Render(HttpStatusCodeEnum::HTTP_OK, BrandDtoFactory::makePublic($brandToUpdate));
     }
 
-    public function getByCode(string $code)
+    public function apiGet(int $id)
     {
-        $brandDAO = new BrandDAO();
-        $brand = $brandDAO->findByCode($code);
+        $brandBO = new BrandBO();
+        $brand = $brandBO->findById($id);
         if ($brand){
-            Response::Render(HttpStatusCodeEnum::HTTP_OK, $brand);
+            Response::Render(HttpStatusCodeEnum::HTTP_OK, BrandDtoFactory::makePublic($brand));
         }
         Response::RenderNotFound();
+    }
+
+    public function apiIndex()
+    {
+        $brandBO = new BrandBO();
+        $brands = $brandBO->findAll();
+        Response::Render(HttpStatusCodeEnum::HTTP_OK, $brands);
+    }
+
+    public function apiDelete(int $id)
+    {
+        $brandBO = new BrandBO();
+        $brandBO->deleteById($id);
+        Response::Render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
     }
 }

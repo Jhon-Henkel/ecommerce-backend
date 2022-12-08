@@ -6,7 +6,7 @@ class RequestTools
 {
     public static function inputGet(string $key): mixed
     {
-        return $_GET[$key];
+        return $_GET[$key] ?? null;
     }
 
     public static function inputPost(string $key): mixed

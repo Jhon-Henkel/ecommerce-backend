@@ -63,4 +63,16 @@ class BrandDAO
         $result = $database->select($query);
         return reset($result);
     }
+
+    public function findAll(): array
+    {
+        $database = new Database();
+        return $database->select("SELECT * FROM brand");
+    }
+
+    public function deleteById(int $id): void
+    {
+        $database = new Database();
+        $database->delete("DELETE FROM brand WHERE brand_id = :id", array('id' => $id));
+    }
 }
