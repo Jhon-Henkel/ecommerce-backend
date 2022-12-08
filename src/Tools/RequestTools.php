@@ -14,6 +14,11 @@ class RequestTools
         return $_POST[$key];
     }
 
+    public static function inputServer(string $key): mixed
+    {
+        return $_SERVER[$key];
+    }
+
     public static function inputPhpInput(): ?object
     {
         return json_decode(file_get_contents('php://input'));

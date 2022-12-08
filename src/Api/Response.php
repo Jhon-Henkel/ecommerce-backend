@@ -15,11 +15,33 @@ class Response
 
     public static function RenderRequiredAttributesMissing(): void
     {
-        self::Render(HttpStatusCodeEnum::HTTP_DAB_REQUEST,ApiResponseMessageEnum::REQUIRED_ATTRIBUTES_MISSING);
+        self::Render(
+            HttpStatusCodeEnum::HTTP_DAB_REQUEST,
+            ApiResponseMessageEnum::REQUIRED_ATTRIBUTES_MISSING
+        );
     }
 
     public static function RenderAttributeAlreadyExists(string $attribute): void
     {
-        self::Render(HttpStatusCodeEnum::HTTP_CONFLICT,ApiResponseMessageEnum::ATTRIBUTE_ALREADY_EXISTS . $attribute);
+        self::Render(
+            HttpStatusCodeEnum::HTTP_CONFLICT,
+            ApiResponseMessageEnum::ATTRIBUTE_ALREADY_EXISTS . $attribute
+        );
+    }
+
+    public static function RenderMethodNotAllowed(): void
+    {
+        self::Render(
+            HttpStatusCodeEnum::HTTP_METHOD_NOT_ALLOWED,
+            ApiResponseMessageEnum::METHOD_NOT_ALLOWED
+        );
+    }
+
+    public static function RenderNotFound(): void
+    {
+        self::Render(
+            HttpStatusCodeEnum::HTTP_NOT_FOUND,
+            ApiResponseMessageEnum::NOT_FOUND
+        );
     }
 }

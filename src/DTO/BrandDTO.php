@@ -4,7 +4,7 @@ namespace src\DTO;
 
 class BrandDTO
 {
-    private int $id;
+    private ?int $id;
     private string $code;
     private string $name;
 
@@ -17,9 +17,9 @@ class BrandDTO
     }
 
     /**
-     * @param int $id
+     * @param ?int $id
      */
-    public function setId(int $id): void
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -54,13 +54,5 @@ class BrandDTO
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    public function populateStdForDto(\stdClass $brand): BrandDTO
-    {
-        $brandDTO = new BrandDTO();
-        $brandDTO->setCode($brand->code);
-        $brandDTO->setName($brand->name);
-        return $brandDTO;
     }
 }
