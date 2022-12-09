@@ -1,6 +1,6 @@
 <?php
 
-namespace Integration\Api;
+namespace Feature\Api;
 
 use PHPUnit\Framework\TestCase;
 

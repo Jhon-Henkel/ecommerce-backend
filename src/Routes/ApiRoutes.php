@@ -7,6 +7,7 @@ use src\Controllers\BrandController;
 use src\Api\Response;
 use src\Enums\FieldsEnum;
 use src\Enums\RequestTypeEnum;
+use src\Controllers\CategoryController;
 
 switch (RequestTools::inputGet(ApiRouteEnum::API)) {
     case (ApiRouteEnum::PRODUCT):
@@ -30,6 +31,15 @@ switch (RequestTools::inputGet(ApiRouteEnum::API)) {
                 } else {
                     $brandController->apiIndex();
                 }
+                break;
+            default:
+                Response::RenderMethodNotAllowed();
+        }
+    case (ApiRouteEnum::CATEGORY):
+        $categoryController = new CategoryController();
+        switch (RequestTools::inputServer(ApiRouteEnum::REQUEST_METHOD)) {
+            case(RequestTypeEnum::POST):
+                $categoryController->apiPost(RequestTools::inputPhpInput());
                 break;
             default:
                 Response::RenderMethodNotAllowed();

@@ -10,7 +10,9 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 # Fazer
 - Autenticação api
 - apiIndex com paginação
-- Documentação via swagger (ver possibilidade)
+- Documentação (ver possibilidade de usar swagger)
+- Chave estrangeira na coluna de categoria pai
+- Adequar api de marcas ao novo formato
 
 # API
 - Marcas
@@ -19,6 +21,8 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
   - URL: ?api=brand&id={brandId} Type: DELETE
   - URL: ?api=brand Type: POST JSON: {"code": "brand-test", "name": "Brand Test"}
   - URL: ?api=brand&id={brandId} Type: PUT JSON: {"code": "brand-test", "name": "Brand Test"}
+- Categoria
+  - URL: ?api=category  JSON: {"code": "category-test", "name": "Category Test"} OPTIONAL: {"fatherId": "2"}
 
 # Fazer testes automatizados
 - BrandDAO
@@ -27,3 +31,9 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 - BrandBO
 - Response
 - Api marcas (feature de get, post, put, delete)
+- CategoryController
+- CategoryBO
+- CategoryDAO
+- CategoryDtoFactory
+- BasicDAO
+- BasicBO
