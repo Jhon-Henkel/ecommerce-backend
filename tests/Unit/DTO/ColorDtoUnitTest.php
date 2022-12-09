@@ -5,7 +5,7 @@ namespace Unit\DTO;
 use PHPUnit\Framework\TestCase;
 use src\DTO\ColorDTO;
 
-class ColorDTOUnitTest extends TestCase
+class ColorDtoUnitTest extends TestCase
 {
     public object $color;
 

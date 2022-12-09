@@ -7,21 +7,35 @@ use src\Tools\RequestTools;
 
 class RequestToolsUnitTest extends TestCase
 {
-    public function testInputGet()
+    protected function setUp(): void
     {
-        $_GET['test-get'] = 'test-get-return';
-        $this->assertEquals('test-get-return', RequestTools::inputGet('test-get'));
+        $_POST['validPost'] = 'post-valid';
+        $_GET['validGet'] = 'get-valid';
+        $_SERVER['validServer'] = 'server-valid';
     }
 
-    public function testInputPost()
+    /**
+     * @param $value
+     * @param $expected
+     * @param $method
+     * @return void
+     * @dataProvider dataProvideInputRequests
+     */
+    public function testInputRequest($value, $expected, $method)
     {
-        $_POST['test-post'] = 'test-post-return';
-        $this->assertEquals('test-post-return', RequestTools::inputPost('test-post'));
+        $test = RequestTools::$method($value);
+        $this->assertEquals($expected, $test);
     }
 
-    public function testInputPhpInput()
+    public function dataProvideInputRequests(): array
     {
-        // todo desenvolver teste
-        self::markTestSkipped('Desenvolver');
+        return [
+            'test $_POST valid' => ['value' => 'validPost', 'expected' => 'post-valid', 'method' => 'inputPost'],
+            'test $_POST invalid' => ['value' => 'invalidPost', 'expected' => null, 'method' => 'inputPost'],
+            'test $_GET valid' => ['value' => 'validGet', 'expected' => 'get-valid', 'method' => 'inputGet'],
+            'test $_GET invalid' => ['value' => 'invalidGet', 'expected' => null, 'method' => 'inputGet'],
+            'test $_SERVER valid' => ['value' => 'validServer', 'expected' => 'server-valid', 'method' => 'inputServer'],
+            'test $_SERVER invalid' => ['value' => 'invalidServer', 'expected' => null, 'method' => 'inputServer'],
+        ];
     }
 }

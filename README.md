@@ -19,3 +19,11 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
   - URL: ?api=brand&id={brandId} Type: DELETE
   - URL: ?api=brand Type: POST JSON: {"code": "brand-test", "name": "Brand Test"}
   - URL: ?api=brand&id={brandId} Type: PUT JSON: {"code": "brand-test", "name": "Brand Test"}
+
+# Fazer testes automatizados
+- BrandDAO
+- BrandController
+- ProductController
+- BrandBO
+- Response
+- Api marcas (feature de get, post, put, delete)

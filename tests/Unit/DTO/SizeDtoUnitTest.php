@@ -5,7 +5,7 @@ namespace Unit\DTO;
 use PHPUnit\Framework\TestCase;
 use src\DTO\SizeDTO;
 
-class SizeDTOUnitTest extends TestCase
+class SizeDtoUnitTest extends TestCase
 {
     public object $size;
 

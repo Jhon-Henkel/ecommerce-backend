@@ -5,7 +5,7 @@ namespace Unit\DTO;
 use PHPUnit\Framework\TestCase;
 use src\DTO\CategoryDTO;
 
-class CategoryDTOUnitTest extends TestCase
+class CategoryDtoUnitTest extends TestCase
 {
     public object $category;
 
