@@ -7,14 +7,17 @@ use src\DAO\CategoryDAO;
 use src\DTO\CategoryDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
+use src\Factory\CategoryDtoFactory;
 
 class CategoryBO extends BasicBO
 {
     public CategoryDAO $dao;
+    public CategoryDtoFactory $factory;
 
     public function __construct()
     {
         $this->dao = new CategoryDAO('category');
+        $this->factory = new CategoryDtoFactory();
     }
 
     public function validatePostParamsApi(array $paramsFields, \stdClass $category): void
@@ -46,10 +49,37 @@ class CategoryBO extends BasicBO
         $this->dao->insert($columns, $values, $params);
     }
 
-    public function findLastInserted(): CategoryDTO
+    public function update(CategoryDTO $category)
     {
-        $search = $this->dao->findLastInserted();
-        return $this->populateDbToDto($search);
+        $values = 'category_code = :code, category_name = :name, category_father_id = :fatherId';
+        $where = 'category_id = :id';
+        $params = array(
+            'id' => $category->getId(),
+            'code' => $category->getCode(),
+            'name' => $category->getName(),
+            'fatherId' => $category->getFatherId()
+        );
+        $this->dao->update($values, $where, $params);
+    }
+
+    public function validatePutParamsApi(array $paramsFields, \stdClass $category): void
+    {
+        $this->validateFields($paramsFields, $category);
+        if (!$this->dao->findById($category->id)) {
+            Response::RenderNotFound();
+        }
+        if ($this->dao->findByCodeExceptId($category->code, $category->id)) {
+            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
+        }
+        if ($this->dao->findByNameExceptId($category->name, $category->id)) {
+            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
+        }
+        if (
+            isset($category->fatherId)
+            && !$this->dao->findById($category->fatherId)
+        ) {
+            Response::Render(HttpStatusCodeEnum::HTTP_NOT_FOUND, 'Categoria pai não encontrada!');
+        }
     }
 
     public function populateDbToDto(array $category): CategoryDTO

@@ -13,4 +13,30 @@ class BasicBO
             Response::RenderRequiredAttributesMissing();
         }
     }
+
+    public function deleteById(int $id)
+    {
+        $this->dao->deleteById($id);
+    }
+
+    public function findById(int $id)
+    {
+        $item = $this->dao->findById($id);
+        return $item ? $this->populateDbToDto($item) : null;
+    }
+
+    public function findAll()
+    {
+        $item =  $this->dao->findAll();
+        if (!$item) {
+            return null;
+        }
+        return $this->factory->makeItensPublic($item);
+    }
+
+    public function findLastInserted()
+    {
+        $search = $this->dao->findLastInserted();
+        return $this->populateDbToDto($search);
+    }
 }

@@ -41,6 +41,19 @@ switch (RequestTools::inputGet(ApiRouteEnum::API)) {
             case(RequestTypeEnum::POST):
                 $categoryController->apiPost(RequestTools::inputPhpInput());
                 break;
+            case (RequestTypeEnum::PUT):
+                $categoryController->apiPut(RequestTools::inputPhpInput());
+                break;
+            case (RequestTypeEnum::DELETE):
+                $categoryController->apiDelete((int)RequestTools::inputGet(FieldsEnum::ID));
+                break;
+            case (RequestTypeEnum::GET):
+                if (RequestTools::inputGet(FieldsEnum::ID)){
+                    $categoryController->apiGet((int)RequestTools::inputGet(FieldsEnum::ID));
+                } else {
+                    $categoryController->apiIndex();
+                }
+                break;
             default:
                 Response::RenderMethodNotAllowed();
         }

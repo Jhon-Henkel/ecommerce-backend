@@ -2,6 +2,7 @@
 
 namespace src\Factory;
 
+use src\BO\CategoryBO;
 use src\DTO\CategoryDTO;
 
 class CategoryDtoFactory
@@ -24,5 +25,16 @@ class CategoryDtoFactory
         $categoryPublic->name = $category->getName();
         $categoryPublic->fatherId = $category->getFatherId() ?? null;
         return $categoryPublic;
+    }
+
+    public function makeItensPublic(array $categories): array
+    {
+        $bo = new CategoryBO();
+        $categoryFactored = array();
+        foreach ($categories as $category) {
+            $categoryDto = $bo->populateDbToDto($category);
+            $categoryFactored[] = $this->makePublic($categoryDto);
+        }
+        return $categoryFactored;
     }
 }

@@ -2,21 +2,20 @@
 
 namespace src\Controllers;
 
-use src\Api\Response;
 use src\BO\CategoryBO;
 use src\Enums\FieldsEnum;
-use src\Enums\HttpStatusCodeEnum;
 use src\Factory\CategoryDtoFactory;
 
-class CategoryController
+class CategoryController extends BasicController
 {
-    public function apiPost(\stdClass $category)
+    public CategoryBO $bo;
+    public CategoryDtoFactory $factory;
+    public array $fieldsToValidate;
+
+    public function __construct()
     {
-        $categoryBO = new CategoryBO();
-        $categoryBO->validatePostParamsApi(FieldsEnum::getValidateCategoryFields(), $category);
-        $categoryToInsert = CategoryDtoFactory::factory($category);
-        $categoryBO->insert($categoryToInsert);
-        $inserted = $categoryBO->findLastInserted();
-        Response::Render(HttpStatusCodeEnum::HTTP_CREATED, CategoryDtoFactory::makePublic($inserted));
+        $this->bo = new CategoryBO();
+        $this->factory = new CategoryDtoFactory();
+        $this->fieldsToValidate = FieldsEnum::getValidateCategoryFields();
     }
 }
