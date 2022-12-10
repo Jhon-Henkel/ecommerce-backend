@@ -12,7 +12,6 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 - apiIndex com paginação
 - Documentação (ver possibilidade de usar swagger)
 - Chave estrangeira na coluna de categoria pai
-- Adequar api de marcas ao novo formato
 
 ---
 # EndPoint's API

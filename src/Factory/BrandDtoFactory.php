@@ -2,6 +2,7 @@
 
 namespace src\Factory;
 
+use src\BO\BrandBO;
 use src\DTO\BrandDTO;
 
 class BrandDtoFactory
@@ -22,5 +23,16 @@ class BrandDtoFactory
         $brandPublic->name = $brand->getName();
         $brandPublic->code = $brand->getCode();
         return $brandPublic;
+    }
+
+    public function makeItensPublic(array $brands): array
+    {
+        $bo = new BrandBO();
+        $categoryFactored = array();
+        foreach ($brands as $brand) {
+            $categoryDto = $bo->populateDbToDto($brand);
+            $categoryFactored[] = $this->makePublic($categoryDto);
+        }
+        return $categoryFactored;
     }
 }

@@ -4,58 +4,67 @@ namespace src\BO;
 
 use src\DTO\BrandDTO;
 use src\Factory\BrandDtoFactory;
-use stdClass;
 use src\Api\Response;
 use src\DAO\BrandDAO;
 use src\Enums\FieldsEnum;
-use src\Tools\ValidateTools;
 
-class BrandBO
+class BrandBO extends BasicBO
 {
-    /**
-     * @param array $paramsFields
-     * @param stdClass $brand
-     * @return void
-     */
-    public function validatePostParamsApi(array $paramsFields, stdClass $brand): void
+    public BrandDAO $dao;
+    public BrandDtoFactory $factory;
+
+    public function __construct()
     {
-        $brandDAO = new BrandDAO();
+        $this->dao = new BrandDAO('brand');
+        $this->factory = new BrandDtoFactory();
+    }
+
+    public function validatePostParamsApi(array $paramsFields, \stdClass $brand): void
+    {
         $this->validateFields($paramsFields, $brand);
-        if ($brandDAO->findByCode($brand->code)) {
+        if ($this->dao->findByCode($brand->code)) {
             Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
         }
-        if ($brandDAO->findByName($brand->name)) {
+        if ($this->dao->findByName($brand->name)) {
             Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
         }
     }
 
-    public function validatePutParamsApi(array $paramsFields, stdClass $brand): void
+    public function validatePutParamsApi(array $paramsFields, \stdClass $brand): void
     {
-        $brandDAO = new BrandDAO();
         $this->validateFields($paramsFields, $brand);
-        if (!$brandDAO->findById($brand->id)) {
+        if (!$this->dao->findById($brand->id)) {
             Response::RenderNotFound();
         }
-        if ($brandDAO->findByCodeExceptId($brand->code, $brand->id)) {
+        if ($this->dao->findByCodeExceptId($brand->code, $brand->id)) {
             Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
         }
-        if ($brandDAO->findByNameExceptId($brand->name, $brand->id)) {
+        if ($this->dao->findByNameExceptId($brand->name, $brand->id)) {
             Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
         }
     }
 
-    public function validateFields(array $paramsFields, stdClass $brand): void
+    public function insert(BrandDTO $brand): void
     {
-        if (!ValidateTools::validateParamsFieldsInArray($paramsFields, (array)$brand)) {
-            Response::RenderRequiredAttributesMissing();
-        }
+        $columns = 'brand_code, brand_name';
+        $values = ':code, :name';
+        $params = array(
+            'code' => $brand->getCode(),
+            'name' => $brand->getName(),
+        );
+        $this->dao->insert($columns, $values, $params);
     }
 
-    public function findLastInserted(): BrandDTO
+    public function update(BrandDTO $brand)
     {
-        $brandDAO = new BrandDAO();
-        $search = $brandDAO->findLastInserted();
-        return $this->populateDbToDto($search);
+        $values = 'brand_code = :code, brand_name = :name';
+        $where = 'brand_id = :id';
+        $params = array(
+            'id' => $brand->getId(),
+            'code' => $brand->getCode(),
+            'name' => $brand->getName(),
+        );
+        $this->dao->update($values, $where, $params);
     }
 
     public function populateDbToDto(array $brand): BrandDTO
@@ -65,41 +74,5 @@ class BrandBO
         $brandDTO->setName($brand['brand_name']);
         $brandDTO->setCode($brand['brand_code']);
         return $brandDTO;
-    }
-
-    public function findById(int $id): ?BrandDTO
-    {
-        $brandDAO = new BrandDAO();
-        $brand = $brandDAO->findById($id);
-        return $brand ? $this->populateDbToDto($brand) : null;
-    }
-
-    public function findAll(): ?array
-    {
-        $brandDAO = new BrandDAO();
-        $brands = $brandDAO->findAll();
-        if (!$brands) {
-            return null;
-        }
-        return $this->makeBrandsPublic($brands);
-    }
-
-    public function makeBrandsPublic(array $brands): array
-    {
-        $brandsFactored = array();
-        foreach ($brands as $brand) {
-            $brandDto = $this->populateDbToDto($brand);
-            $brandsFactored[] = BrandDtoFactory::makePublic($brandDto);
-        }
-        return $brandsFactored;
-    }
-
-    public function deleteById(int $id): void
-    {
-        if (!$this->findById($id)) {
-            Response::RenderNotFound();
-        }
-        $brandDAO = new BrandDAO();
-        $brandDAO->deleteById($id);
     }
 }
