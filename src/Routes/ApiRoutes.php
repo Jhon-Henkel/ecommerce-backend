@@ -9,6 +9,7 @@ use src\Enums\FieldsEnum;
 use src\Enums\RequestTypeEnum;
 use src\Controllers\CategoryController;
 use src\Controllers\ColorController;
+use src\Controllers\SizeController;
 
 switch (RequestTools::inputGet(ApiRouteEnum::API)) {
     case (ApiRouteEnum::PRODUCT):
@@ -75,6 +76,28 @@ switch (RequestTools::inputGet(ApiRouteEnum::API)) {
                     $colorController->apiGet((int)RequestTools::inputGet(FieldsEnum::ID));
                 } else {
                     $colorController->apiIndex();
+                }
+                break;
+            default:
+                Response::RenderMethodNotAllowed();
+        }
+    case (ApiRouteEnum::SIZE):
+        $sizeController = new SizeController();
+        switch (RequestTools::inputServer(ApiRouteEnum::REQUEST_METHOD)) {
+            case (RequestTypeEnum::POST):
+                $sizeController->apiPost(RequestTools::inputPhpInput());
+                break;
+            case (RequestTypeEnum::PUT):
+                $sizeController->apiPut(RequestTools::inputPhpInput());
+                break;
+            case (RequestTypeEnum::DELETE):
+                $sizeController->apiDelete((int)RequestTools::inputGet(FieldsEnum::ID));
+                break;
+            case (RequestTypeEnum::GET):
+                if (RequestTools::inputGet(FieldsEnum::ID)){
+                    $sizeController->apiGet((int)RequestTools::inputGet(FieldsEnum::ID));
+                } else {
+                    $sizeController->apiIndex();
                 }
                 break;
             default:

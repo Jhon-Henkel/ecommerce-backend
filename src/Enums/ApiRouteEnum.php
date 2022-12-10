@@ -9,5 +9,6 @@ class ApiRouteEnum
     const PRODUCT = 'product';
     const COLOR = 'color';
     const BRAND = 'brand';
+    const SIZE = 'size';
     const API = 'api';
 }
