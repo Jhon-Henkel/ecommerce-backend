@@ -5,7 +5,6 @@ namespace src\BO;
 use src\Api\Response;
 use src\DAO\CategoryDAO;
 use src\DTO\CategoryDTO;
-use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Factory\CategoryDtoFactory;
 
@@ -18,23 +17,6 @@ class CategoryBO extends BasicBO
     {
         $this->dao = new CategoryDAO('category');
         $this->factory = new CategoryDtoFactory();
-    }
-
-    public function validatePostParamsApi(array $paramsFields, \stdClass $category): void
-    {
-        $this->validateFields($paramsFields, $category);
-        if ($this->dao->findByCode($category->code)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
-        }
-        if ($this->dao->findByName($category->name)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
-        }
-        if (
-            isset($category->fatherId)
-            && !$this->dao->findById($category->fatherId)
-        ) {
-            Response::Render(HttpStatusCodeEnum::HTTP_NOT_FOUND, 'Categoria pai não encontrada!');
-        }
     }
 
     public function insert(CategoryDTO $category): void
@@ -62,33 +44,25 @@ class CategoryBO extends BasicBO
         $this->dao->update($values, $where, $params);
     }
 
-    public function validatePutParamsApi(array $paramsFields, \stdClass $category): void
+    public function validatePostParamsApi(array $paramsFields, \stdClass $object): void
     {
-        $this->validateFields($paramsFields, $category);
-        if (!$this->dao->findById($category->id)) {
-            Response::RenderNotFound();
-        }
-        if ($this->dao->findByCodeExceptId($category->code, $category->id)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
-        }
-        if ($this->dao->findByNameExceptId($category->name, $category->id)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
-        }
+        parent::validatePostParamsApi($paramsFields, $object);
         if (
-            isset($category->fatherId)
-            && !$this->dao->findById($category->fatherId)
+            isset($object->fatherId)
+            && !$this->dao->findById($object->fatherId)
         ) {
             Response::Render(HttpStatusCodeEnum::HTTP_NOT_FOUND, 'Categoria pai não encontrada!');
         }
     }
 
-    public function populateDbToDto(array $category): CategoryDTO
+    public function validatePutParamsApi(array $paramsFields, \stdClass $object): void
     {
-        $categoryDTO = new CategoryDTO();
-        $categoryDTO->setId($category['category_id']);
-        $categoryDTO->setName($category['category_name']);
-        $categoryDTO->setCode($category['category_code']);
-        $categoryDTO->setFatherId($category['category_father_id']);
-        return $categoryDTO;
+        parent::validatePutParamsApi($paramsFields, $object);
+        if (
+            isset($object->fatherId)
+            && !$this->dao->findById($object->fatherId)
+        ) {
+            Response::Render(HttpStatusCodeEnum::HTTP_NOT_FOUND, 'Categoria pai não encontrada!');
+        }
     }
 }

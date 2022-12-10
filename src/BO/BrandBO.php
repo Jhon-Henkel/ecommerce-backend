@@ -4,9 +4,7 @@ namespace src\BO;
 
 use src\DTO\BrandDTO;
 use src\Factory\BrandDtoFactory;
-use src\Api\Response;
 use src\DAO\BrandDAO;
-use src\Enums\FieldsEnum;
 
 class BrandBO extends BasicBO
 {
@@ -17,31 +15,6 @@ class BrandBO extends BasicBO
     {
         $this->dao = new BrandDAO('brand');
         $this->factory = new BrandDtoFactory();
-    }
-
-    public function validatePostParamsApi(array $paramsFields, \stdClass $brand): void
-    {
-        $this->validateFields($paramsFields, $brand);
-        if ($this->dao->findByCode($brand->code)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
-        }
-        if ($this->dao->findByName($brand->name)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
-        }
-    }
-
-    public function validatePutParamsApi(array $paramsFields, \stdClass $brand): void
-    {
-        $this->validateFields($paramsFields, $brand);
-        if (!$this->dao->findById($brand->id)) {
-            Response::RenderNotFound();
-        }
-        if ($this->dao->findByCodeExceptId($brand->code, $brand->id)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
-        }
-        if ($this->dao->findByNameExceptId($brand->name, $brand->id)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
-        }
     }
 
     public function insert(BrandDTO $brand): void
@@ -65,14 +38,5 @@ class BrandBO extends BasicBO
             'name' => $brand->getName(),
         );
         $this->dao->update($values, $where, $params);
-    }
-
-    public function populateDbToDto(array $brand): BrandDTO
-    {
-        $brandDTO = new BrandDTO();
-        $brandDTO->setId($brand['brand_id']);
-        $brandDTO->setName($brand['brand_name']);
-        $brandDTO->setCode($brand['brand_code']);
-        return $brandDTO;
     }
 }

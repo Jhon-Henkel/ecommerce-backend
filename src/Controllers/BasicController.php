@@ -7,8 +7,10 @@ use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Tools\RequestTools;
 
-class BasicController
+abstract class BasicController
 {
+    abstract public function __construct();
+
     public function apiPost(\stdClass $object)
     {
         $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);

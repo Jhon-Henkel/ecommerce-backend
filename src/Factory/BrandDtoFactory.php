@@ -2,12 +2,11 @@
 
 namespace src\Factory;
 
-use src\BO\BrandBO;
 use src\DTO\BrandDTO;
 
-class BrandDtoFactory
+class BrandDtoFactory extends BasicDtoFactory
 {
-    public static function factory(\stdClass $brand): BrandDTO
+    public function factory(\stdClass $brand): BrandDTO
     {
         $brandFactored = new BrandDTO();
         $brandFactored->setId($brand->id ?? null);
@@ -16,7 +15,7 @@ class BrandDtoFactory
         return $brandFactored;
     }
 
-    public static function makePublic(BrandDTO $brand): \stdClass
+    public function makePublic(BrandDTO $brand): \stdClass
     {
         $brandPublic = new \stdClass();
         $brandPublic->id = $brand->getId();
@@ -25,14 +24,12 @@ class BrandDtoFactory
         return $brandPublic;
     }
 
-    public function makeItensPublic(array $brands): array
+    public function populateDbToDto(array $brand): BrandDTO
     {
-        $bo = new BrandBO();
-        $categoryFactored = array();
-        foreach ($brands as $brand) {
-            $categoryDto = $bo->populateDbToDto($brand);
-            $categoryFactored[] = $this->makePublic($categoryDto);
-        }
-        return $categoryFactored;
+        $brandDTO = new BrandDTO();
+        $brandDTO->setId($brand['brand_id']);
+        $brandDTO->setName($brand['brand_name']);
+        $brandDTO->setCode($brand['brand_code']);
+        return $brandDTO;
     }
 }

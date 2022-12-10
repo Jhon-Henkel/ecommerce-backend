@@ -4,7 +4,7 @@ namespace src\DAO;
 
 use src\Database;
 
-class BasicDAO
+abstract class BasicDAO
 {
     public string $table;
     public Database $database;

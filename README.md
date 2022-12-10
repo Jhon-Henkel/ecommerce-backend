@@ -53,3 +53,4 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 - ColorBO
 - ColorDAO
 - ColorDtoFactory
+- BasicDtoFactory

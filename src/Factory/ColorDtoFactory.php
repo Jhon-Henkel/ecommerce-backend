@@ -2,12 +2,11 @@
 
 namespace src\Factory;
 
-use src\BO\ColorBO;
 use src\DTO\ColorDTO;
 
-class ColorDtoFactory
+class ColorDtoFactory extends BasicDtoFactory
 {
-    public static function factory(\stdClass $color): ColorDTO
+    public function factory(\stdClass $color): ColorDTO
     {
         $colorFactored = new ColorDTO();
         $colorFactored->setCode($color->code);
@@ -16,7 +15,7 @@ class ColorDtoFactory
         return $colorFactored;
     }
 
-    public static function makePublic(ColorDTO $color): \stdClass
+    public function makePublic(ColorDTO $color): \stdClass
     {
         $colorPublic = new \stdClass();
         $colorPublic->id = $color->getId();
@@ -25,14 +24,12 @@ class ColorDtoFactory
         return $colorPublic;
     }
 
-    public function makeItensPublic(array $categories): array
+    public function populateDbToDto(array $color): ColorDTO
     {
-        $bo = new ColorBO();
-        $categoryFactored = array();
-        foreach ($categories as $category) {
-            $categoryDto = $bo->populateDbToDto($category);
-            $categoryFactored[] = $this->makePublic($categoryDto);
-        }
-        return $categoryFactored;
+        $colorDTO = new ColorDTO();
+        $colorDTO->setId($color['color_id']);
+        $colorDTO->setName($color['color_name']);
+        $colorDTO->setCode($color['color_code']);
+        return $colorDTO;
     }
 }

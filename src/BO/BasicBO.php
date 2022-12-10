@@ -3,10 +3,13 @@
 namespace src\BO;
 
 use src\Api\Response;
+use src\Enums\FieldsEnum;
 use src\Tools\ValidateTools;
 
-class BasicBO
+abstract class BasicBO
 {
+    abstract public function __construct();
+
     public function validateFields(array $paramsFields, \stdClass $category): void
     {
         if (!ValidateTools::validateParamsFieldsInArray($paramsFields, (array)$category)) {
@@ -22,7 +25,7 @@ class BasicBO
     public function findById(int $id)
     {
         $item = $this->dao->findById($id);
-        return $item ? $this->populateDbToDto($item) : null;
+        return $item ? $this->factory->populateDbToDto($item) : null;
     }
 
     public function findAll()
@@ -37,6 +40,31 @@ class BasicBO
     public function findLastInserted()
     {
         $search = $this->dao->findLastInserted();
-        return $this->populateDbToDto($search);
+        return $this->factory->populateDbToDto($search);
+    }
+
+    public function validatePostParamsApi(array $paramsFields, \stdClass $object): void
+    {
+        $this->validateFields($paramsFields, $object);
+        if ($this->dao->findByCode($object->code)) {
+            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
+        }
+        if ($this->dao->findByName($object->name)) {
+            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
+        }
+    }
+
+    public function validatePutParamsApi(array $paramsFields, \stdClass $object): void
+    {
+        $this->validateFields($paramsFields, $object);
+        if (!$this->dao->findById($object->id)) {
+            Response::RenderNotFound();
+        }
+        if ($this->dao->findByCodeExceptId($object->code, $object->id)) {
+            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
+        }
+        if ($this->dao->findByNameExceptId($object->name, $object->id)) {
+            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
+        }
     }
 }

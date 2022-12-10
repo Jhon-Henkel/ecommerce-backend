@@ -2,12 +2,11 @@
 
 namespace src\Factory;
 
-use src\BO\CategoryBO;
 use src\DTO\CategoryDTO;
 
-class CategoryDtoFactory
+class CategoryDtoFactory extends BasicDtoFactory
 {
-    public static function factory(\stdClass $category): CategoryDTO
+    public function factory(\stdClass $category): CategoryDTO
     {
         $categoryFactored = new CategoryDTO();
         $categoryFactored->setFatherId($category->fatherId ?? null);
@@ -17,7 +16,7 @@ class CategoryDtoFactory
         return $categoryFactored;
     }
 
-    public static function makePublic(CategoryDTO $category): \stdClass
+    public function makePublic(CategoryDTO $category): \stdClass
     {
         $categoryPublic = new \stdClass();
         $categoryPublic->id = $category->getId();
@@ -27,14 +26,13 @@ class CategoryDtoFactory
         return $categoryPublic;
     }
 
-    public function makeItensPublic(array $categories): array
+    public function populateDbToDto(array $category): CategoryDTO
     {
-        $bo = new CategoryBO();
-        $categoryFactored = array();
-        foreach ($categories as $category) {
-            $categoryDto = $bo->populateDbToDto($category);
-            $categoryFactored[] = $this->makePublic($categoryDto);
-        }
-        return $categoryFactored;
+        $categoryDTO = new CategoryDTO();
+        $categoryDTO->setId($category['category_id']);
+        $categoryDTO->setName($category['category_name']);
+        $categoryDTO->setCode($category['category_code']);
+        $categoryDTO->setFatherId($category['category_father_id']);
+        return $categoryDTO;
     }
 }
