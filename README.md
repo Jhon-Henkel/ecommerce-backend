@@ -13,8 +13,9 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 - Documentação (ver possibilidade de usar swagger)
 - Chave estrangeira na coluna de categoria pai
 - Adequar api de marcas ao novo formato
+
 ---
-# Documentação API
+# EndPoint's API
 ###Marcas
   - Type: GET URL: ?api=brand
   - Type: GET URL: ?api=brand&id={brandId} 
@@ -27,7 +28,13 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
   - Type: DELETE URL: ?api=category&id={categoryId} 
   - Type: POST URL: ?api=category JSON: {"code": "category-test", "name": "Category Test"} OPTIONAL: {"fatherId": "2"}
   - Type: PUT URL: ?api=category&id={categoryId} JSON: {"code": "category-test", "name": "Category Test"} OPTIONAL: {"fatherId": "2"}
-  
+###Cores
+  - Type: GET URL: ?api=color
+  - Type: GET URL: ?api=color&id={colorId}
+  - Type: DELETE URL: ?api=color&id={colorId}
+  - Type: POST URL: ?api=color JSON: {"code": "color-test", "name": "Color Test"}
+  - Type: POST URL: ?api=color&id={colorId} JSON: {"code": "color-test", "name": "Color Test"}
+
 ---
 # Fazer testes automatizados
 - BrandDAO
@@ -43,3 +50,7 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 - BasicDAO
 - BasicBO
 - BasicController
+- ColorController
+- ColorBO
+- ColorDAO
+- ColorDtoFactory

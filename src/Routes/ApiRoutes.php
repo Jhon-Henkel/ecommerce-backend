@@ -8,6 +8,7 @@ use src\Api\Response;
 use src\Enums\FieldsEnum;
 use src\Enums\RequestTypeEnum;
 use src\Controllers\CategoryController;
+use src\Controllers\ColorController;
 
 switch (RequestTools::inputGet(ApiRouteEnum::API)) {
     case (ApiRouteEnum::PRODUCT):
@@ -57,4 +58,28 @@ switch (RequestTools::inputGet(ApiRouteEnum::API)) {
             default:
                 Response::RenderMethodNotAllowed();
         }
+    case (ApiRouteEnum::COLOR):
+        $colorController = new ColorController();
+        switch (RequestTools::inputServer(ApiRouteEnum::REQUEST_METHOD)) {
+            case (RequestTypeEnum::POST):
+                $colorController->apiPost(RequestTools::inputPhpInput());
+                break;
+            case (RequestTypeEnum::PUT):
+                $colorController->apiPut(RequestTools::inputPhpInput());
+                break;
+            case (RequestTypeEnum::DELETE):
+                $colorController->apiDelete((int)RequestTools::inputGet(FieldsEnum::ID));
+                break;
+            case (RequestTypeEnum::GET):
+                if (RequestTools::inputGet(FieldsEnum::ID)){
+                    $colorController->apiGet((int)RequestTools::inputGet(FieldsEnum::ID));
+                } else {
+                    $colorController->apiIndex();
+                }
+                break;
+            default:
+                Response::RenderMethodNotAllowed();
+        }
+    default:
+        Response::RenderMethodNotAllowed();
 }

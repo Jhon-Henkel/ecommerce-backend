@@ -16,7 +16,7 @@ class BrandController
     {
         $brandBO = new BrandBO();
         $brandDAO = new BrandDAO();
-        $brandBO->validatePostParamsApi(FieldsEnum::getValidateBrandFields(), $brand);
+        $brandBO->validatePostParamsApi(FieldsEnum::getBasicValidateFields(), $brand);
         $brandToInsert = BrandDtoFactory::factory($brand);
         $brandDAO->insert($brandToInsert);
         $inserted = $brandBO->findLastInserted();
@@ -28,7 +28,7 @@ class BrandController
         $brandBO = new BrandBO();
         $brandDAO = new BrandDAO();
         $brand->id = (int)RequestTools::inputGet(FieldsEnum::ID);
-        $brandBO->validatePutParamsApi(FieldsEnum::getValidateBrandFields(), $brand);
+        $brandBO->validatePutParamsApi(FieldsEnum::getBasicValidateFields(), $brand);
         $brandToUpdate = BrandDtoFactory::factory($brand);
         $brandDAO->update($brandToUpdate);
         Response::Render(HttpStatusCodeEnum::HTTP_OK, BrandDtoFactory::makePublic($brandToUpdate));

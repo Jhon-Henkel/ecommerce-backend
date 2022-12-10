@@ -8,12 +8,7 @@ class FieldsEnum
     const NAME = 'name';
     const ID = 'id';
 
-    public static function getValidateBrandFields(): array
-    {
-        return [self::CODE, self::NAME];
-    }
-
-    public static function getValidateCategoryFields(): array
+    public static function getBasicValidateFields(): array
     {
         return [self::CODE, self::NAME];
     }

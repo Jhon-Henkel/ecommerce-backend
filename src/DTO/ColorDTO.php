@@ -4,22 +4,22 @@ namespace src\DTO;
 
 class ColorDTO
 {
-    private int $id;
+    private null|int $id;
     private string $code;
     private string $name;
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getId(): int
+    public function getId(): null|int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param null|int $id
      */
-    public function setId(int $id): void
+    public function setId(null|int $id): void
     {
         $this->id = $id;
     }

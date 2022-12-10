@@ -16,6 +16,6 @@ class CategoryController extends BasicController
     {
         $this->bo = new CategoryBO();
         $this->factory = new CategoryDtoFactory();
-        $this->fieldsToValidate = FieldsEnum::getValidateCategoryFields();
+        $this->fieldsToValidate = FieldsEnum::getBasicValidateFields();
     }
 }
