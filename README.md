@@ -3,9 +3,9 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 
 # Bibliotecas
 - Kint
-- phpunit
-- jest
-- composer
+- Php Unit
+- Jest
+- Composer
 
 # Fazer
 - Autenticação api
