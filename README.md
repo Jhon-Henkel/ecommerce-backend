@@ -18,7 +18,7 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 
 ---
 ## Documentações
-- [Api de produtos e seus atributos](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/Documentation/ApiProductAndAttributes.md)
+- [Api de produtos e seus atributos](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/Documentation/ApiProductAndAttributes.md{:target="_blank"})
 
 ---
 ## *Como rodar os testes*
