@@ -4,26 +4,32 @@ namespace src\DTO;
 
 class ProductStockDTO
 {
-    private int $id;
+    private  null|int $id;
     private string $code;
+    private string $name;
     private int $quantity;
     private int $colorId;
     private int $sizeId;
     private int $bandId;
+    private int $productId;
     private float $price;
+    private int $width;
+    private int $height;
+    private int $length;
+    private int $grossWeight;
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getId(): int
+    public function getId(): null|int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param null|int $id
      */
-    public function setId(int $id): void
+    public function setId(null|int $id): void
     {
         $this->id = $id;
     }
@@ -42,6 +48,22 @@ class ProductStockDTO
     public function setCode(string $code): void
     {
         $this->code = $code;
+    }
+
+    /**
+     * @return string
+     */
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param string $name
+     */
+    public function setName(string $name): void
+    {
+        $this->name = $name;
     }
 
     /**
@@ -109,6 +131,22 @@ class ProductStockDTO
     }
 
     /**
+    * @return int
+    */
+    public function getProductId(): int
+    {
+        return $this->productId;
+    }
+
+    /**
+     * @param int $productId
+     */
+    public function setProductId(int $productId): void
+    {
+        $this->productId = $productId;
+    }
+
+    /**
      * @return float
      */
     public function getPrice(): float
@@ -122,5 +160,69 @@ class ProductStockDTO
     public function setPrice(float $price): void
     {
         $this->price = $price;
+    }
+
+    /**
+     * @return int
+     */
+    public function getWidth(): int
+    {
+        return $this->width;
+    }
+
+    /**
+     * @param int $width
+     */
+    public function setWidth(int $width): void
+    {
+        $this->width = $width;
+    }
+
+    /**
+     * @return int
+     */
+    public function getHeight(): int
+    {
+        return $this->height;
+    }
+
+    /**
+     * @param int $height
+     */
+    public function setHeight(int $height): void
+    {
+        $this->height = $height;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLength(): int
+    {
+        return $this->length;
+    }
+
+    /**
+     * @param int $length
+     */
+    public function setLength(int $length): void
+    {
+        $this->length = $length;
+    }
+
+    /**
+     * @return int
+     */
+    public function getGrossWeight(): int
+    {
+        return $this->grossWeight;
+    }
+
+    /**
+     * @param int $grossWeight
+     */
+    public function setGrossWeight(int $grossWeight): void
+    {
+        $this->grossWeight = $grossWeight;
     }
 }

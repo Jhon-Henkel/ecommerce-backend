@@ -6,30 +6,34 @@ use src\DTO\ColorDTO;
 
 class ColorDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $color): ColorDTO
+    public function factory(\stdClass $item): ColorDTO
     {
         $colorFactored = new ColorDTO();
-        $colorFactored->setCode($color->code);
-        $colorFactored->setName($color->name);
-        $colorFactored->setId($color->id ?? null);
+        $colorFactored->setCode($item->code);
+        $colorFactored->setName($item->name);
+        $colorFactored->setId($item->id ?? null);
         return $colorFactored;
     }
 
-    public function makePublic(ColorDTO $color): \stdClass
+    /**
+     * @param ColorDTO $item
+     * @return \stdClass
+     */
+    public function makePublic($item): \stdClass
     {
         $colorPublic = new \stdClass();
-        $colorPublic->id = $color->getId();
-        $colorPublic->code = $color->getCode();
-        $colorPublic->name = $color->getName();
+        $colorPublic->id = $item->getId();
+        $colorPublic->code = $item->getCode();
+        $colorPublic->name = $item->getName();
         return $colorPublic;
     }
 
-    public function populateDbToDto(array $color): ColorDTO
+    public function populateDbToDto(array $item): ColorDTO
     {
         $colorDTO = new ColorDTO();
-        $colorDTO->setId($color['color_id']);
-        $colorDTO->setName($color['color_name']);
-        $colorDTO->setCode($color['color_code']);
+        $colorDTO->setId($item['color_id']);
+        $colorDTO->setName($item['color_name']);
+        $colorDTO->setCode($item['color_code']);
         return $colorDTO;
     }
 }

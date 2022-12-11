@@ -6,30 +6,34 @@ use src\DTO\SizeDTO;
 
 class SizeDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $size): SizeDTO
+    public function factory(\stdClass $item): SizeDTO
     {
         $sizeFactored = new SizeDTO();
-        $sizeFactored->setCode($size->code);
-        $sizeFactored->setName($size->name);
-        $sizeFactored->setId($size->id ?? null);
+        $sizeFactored->setCode($item->code);
+        $sizeFactored->setName($item->name);
+        $sizeFactored->setId($item->id ?? null);
         return $sizeFactored;
     }
 
-    public function makePublic(SizeDTO $size): \stdClass
+    /**
+     * @param SizeDTO $item
+     * @return \stdClass
+     */
+    public function makePublic($item): \stdClass
     {
         $sizePublic = new \stdClass();
-        $sizePublic->id = $size->getId();
-        $sizePublic->code = $size->getCode();
-        $sizePublic->name = $size->getName();
+        $sizePublic->id = $item->getId();
+        $sizePublic->code = $item->getCode();
+        $sizePublic->name = $item->getName();
         return $sizePublic;
     }
 
-    public function populateDbToDto(array $size): SizeDTO
+    public function populateDbToDto(array $item): SizeDTO
     {
         $sizeDTO = new SizeDTO();
-        $sizeDTO->setId($size['size_id']);
-        $sizeDTO->setName($size['size_name']);
-        $sizeDTO->setCode($size['size_code']);
+        $sizeDTO->setId($item['size_id']);
+        $sizeDTO->setName($item['size_name']);
+        $sizeDTO->setCode($item['size_code']);
         return $sizeDTO;
     }
 }

@@ -12,6 +12,9 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 - apiIndex com paginação
 - Documentação (ver possibilidade de usar swagger)
 - Chave estrangeira na coluna de categoria pai
+- Delete de atributo terá que validar se o mesmo não está vinculado a algum produto.
+- Validar quantidade de caracteres dos valores inseridos
+- Validar se os campos obrigatórios não são nulos
 
 ---
 # EndPoint's API
@@ -51,7 +54,7 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
     - Type: POST 
         URL: ?api=color 
         JSON: {"code": "color-test", "name": "Color Test"}
-    - Type: POST 
+    - Type: PUT 
         URL: ?api=color&id={colorId}
         JSON: {"code": "color-test", "name": "Color Test"}
 ### Tamanhos
@@ -64,31 +67,19 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
     - Type: POST 
         URL: ?api=size 
         JSON: {"code": "size-test", "name": "Size Test"}
-    - Type: POST 
+    - Type: PUT 
         URL: ?api=size&id={sizeId} 
         JSON: {"code": "size-test", "name": "Size Test"}
-
----
-# Fazer testes automatizados
-- BrandDAO
-- BrandController
-- ProductController
-- BrandBO
-- Response
-- Api marcas (feature de get, post, put, delete)
-- CategoryController
-- CategoryBO
-- CategoryDAO
-- CategoryDtoFactory
-- BasicDAO
-- BasicBO
-- BasicController
-- ColorController
-- ColorBO
-- ColorDAO
-- ColorDtoFactory
-- BasicDtoFactory
-- SizeBO
-- SizeController
-- SizeDAO
-- SizeDtoFactory
+### Produtos
+    - Type: GET
+        URL: ?api=product
+    - Type: GET
+        URL: ?api=product&id={productId}
+    - Type: DELETE
+        URL: ?api=product&id={productId}
+    - Type: POST 
+        URL: ?api=product
+        JSON: {"code": "product-code", "name": "product-name", "description": "product-description", "categoryId": 1, "stock": [{"code": "stock-1", "name": "stock 1 name", "quantity": 10, "colorId": 1, "sizeId": 2, "brandId": 3, "price": 1500, "width": 10, "height": 150, "length": 20, "grossWeight": 1600}, {"code": "stock-2", "name": "stock 2 name", "quantity": 5, "colorId": 2, "sizeId": 1, "brandId": 4, "price": 1600, "width": 50, "height": 2, "length": 200, "grossWeight": 50}]}
+    - Type: PUT
+        URL: ?api=product&id={productId}
+        JSON: {"code": "product-codeee", "name": "product-nameee", "description": "product-description", "categoryId": 1}

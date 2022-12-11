@@ -4,25 +4,25 @@ namespace src\DTO;
 
 class ProductDTO
 {
-    private int $id;
+    private null|int $id;
     private string $code;
     private string $name;
-    private int $stockId;
-    private string $description;
+    private string $url;
+    private null|string $description;
     private int $categoryId;
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getId(): int
+    public function getId(): null|int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param null|int $id
      */
-    public function setId(int $id): void
+    public function setId(null|int $id): void
     {
         $this->id = $id;
     }
@@ -44,33 +44,33 @@ class ProductDTO
     }
 
     /**
-     * @return int
-     */
-    public function getStockId(): int
-    {
-        return $this->stockId;
-    }
-
-    /**
-     * @param int $stockId
-     */
-    public function setStockId(int $stockId): void
-    {
-        $this->stockId = $stockId;
-    }
-
-    /**
      * @return string
      */
-    public function getDescription(): string
+    public function getUrl(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @param string $url
+     */
+    public function setUrl(string $url): void
+    {
+        $this->url = $url;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDescription(): null|string
     {
         return $this->description;
     }
 
     /**
-     * @param string $description
+     * @param null|string $description
      */
-    public function setDescription(string $description): void
+    public function setDescription(null|string $description): void
     {
         $this->description = $description;
     }

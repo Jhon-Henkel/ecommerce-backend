@@ -6,30 +6,34 @@ use src\DTO\BrandDTO;
 
 class BrandDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $brand): BrandDTO
+    public function factory(\stdClass $item): BrandDTO
     {
         $brandFactored = new BrandDTO();
-        $brandFactored->setId($brand->id ?? null);
-        $brandFactored->setName($brand->name);
-        $brandFactored->setCode($brand->code);
+        $brandFactored->setId($item->id ?? null);
+        $brandFactored->setName($item->name);
+        $brandFactored->setCode($item->code);
         return $brandFactored;
     }
 
-    public function makePublic(BrandDTO $brand): \stdClass
+    /**
+     * @param BrandDTO $item
+     * @return \stdClass
+     */
+    public function makePublic($item): \stdClass
     {
         $brandPublic = new \stdClass();
-        $brandPublic->id = $brand->getId();
-        $brandPublic->name = $brand->getName();
-        $brandPublic->code = $brand->getCode();
+        $brandPublic->id = $item->getId();
+        $brandPublic->name = $item->getName();
+        $brandPublic->code = $item->getCode();
         return $brandPublic;
     }
 
-    public function populateDbToDto(array $brand): BrandDTO
+    public function populateDbToDto(array $item): BrandDTO
     {
         $brandDTO = new BrandDTO();
-        $brandDTO->setId($brand['brand_id']);
-        $brandDTO->setName($brand['brand_name']);
-        $brandDTO->setCode($brand['brand_code']);
+        $brandDTO->setId($item['brand_id']);
+        $brandDTO->setName($item['brand_name']);
+        $brandDTO->setCode($item['brand_code']);
         return $brandDTO;
     }
 }

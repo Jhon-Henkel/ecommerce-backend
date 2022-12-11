@@ -47,6 +47,22 @@ class Database
         }
     }
 
+    public function selectCount(string $query, array $params = null): null|int
+    {
+        try {
+            $query = trim($query);
+            ValidateTools::validateQueryType(QueryTypeEnum::SELECT, $query);
+            $this->connectDb();
+            $conn = $this->conn->prepare($query);
+            $this->executeQueryConn($conn, $params);
+            $results = $conn->rowCount();
+            $this->disconnectDb();
+            return $results;
+        } catch (Exception $e) {
+            throw new QueryTypeException ($e->getMessage());
+        }
+    }
+
     public function insert(string $query, $params = null): void
     {
         try {

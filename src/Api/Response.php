@@ -44,4 +44,12 @@ class Response
             ApiResponseMessageEnum::NOT_FOUND
         );
     }
+
+    public static function RenderAttributeNotFound(string $attribute): void
+    {
+        self::Render(
+            HttpStatusCodeEnum::HTTP_NOT_FOUND,
+            ApiResponseMessageEnum::ATTRIBUTE_NOT_FOUND . $attribute
+        );
+    }
 }

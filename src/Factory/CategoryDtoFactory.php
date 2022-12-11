@@ -6,33 +6,37 @@ use src\DTO\CategoryDTO;
 
 class CategoryDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $category): CategoryDTO
+    public function factory(\stdClass $item): CategoryDTO
     {
         $categoryFactored = new CategoryDTO();
-        $categoryFactored->setFatherId($category->fatherId ?? null);
-        $categoryFactored->setCode($category->code);
-        $categoryFactored->setName($category->name);
-        $categoryFactored->setId($category->id ?? null);
+        $categoryFactored->setFatherId($item->fatherId ?? null);
+        $categoryFactored->setCode($item->code);
+        $categoryFactored->setName($item->name);
+        $categoryFactored->setId($item->id ?? null);
         return $categoryFactored;
     }
 
-    public function makePublic(CategoryDTO $category): \stdClass
+    /**
+     * @param CategoryDTO $item
+     * @return \stdClass
+     */
+    public function makePublic($item): \stdClass
     {
         $categoryPublic = new \stdClass();
-        $categoryPublic->id = $category->getId();
-        $categoryPublic->code = $category->getCode();
-        $categoryPublic->name = $category->getName();
-        $categoryPublic->fatherId = $category->getFatherId() ?? null;
+        $categoryPublic->id = $item->getId();
+        $categoryPublic->code = $item->getCode();
+        $categoryPublic->name = $item->getName();
+        $categoryPublic->fatherId = $item->getFatherId() ?? null;
         return $categoryPublic;
     }
 
-    public function populateDbToDto(array $category): CategoryDTO
+    public function populateDbToDto(array $item): CategoryDTO
     {
         $categoryDTO = new CategoryDTO();
-        $categoryDTO->setId($category['category_id']);
-        $categoryDTO->setName($category['category_name']);
-        $categoryDTO->setCode($category['category_code']);
-        $categoryDTO->setFatherId($category['category_father_id']);
+        $categoryDTO->setId($item['category_id']);
+        $categoryDTO->setName($item['category_name']);
+        $categoryDTO->setCode($item['category_code']);
+        $categoryDTO->setFatherId($item['category_father_id']);
         return $categoryDTO;
     }
 }

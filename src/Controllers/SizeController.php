@@ -17,6 +17,5 @@ class SizeController extends BasicController
         $this->bo = new SizeBO();
         $this->factory = new SizeDtoFactory();
         $this->fieldsToValidate = FieldsEnum::getBasicValidateFields();
-
     }
 }

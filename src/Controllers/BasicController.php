@@ -14,8 +14,8 @@ abstract class BasicController
     public function apiPost(\stdClass $object)
     {
         $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);
-        $categoryToInsert = $this->factory->factory($object);
-        $this->bo->insert($categoryToInsert);
+        $itemToInsert = $this->factory->factory($object);
+        $this->bo->insert($itemToInsert);
         $inserted = $this->bo->findLastInserted();
         Response::Render(HttpStatusCodeEnum::HTTP_CREATED, $this->factory->makePublic($inserted));
     }
@@ -24,9 +24,9 @@ abstract class BasicController
     {
         $object->id = (int)RequestTools::inputGet(FieldsEnum::ID);
         $this->bo->validatePutParamsApi($this->fieldsToValidate, $object);
-        $categoryToUpdate = $this->factory->factory($object);
-        $this->bo->update($categoryToUpdate);
-        Response::Render(HttpStatusCodeEnum::HTTP_OK, $this->factory->makePublic($categoryToUpdate));
+        $itemToUpdate = $this->factory->factory($object);
+        $this->bo->update($itemToUpdate);
+        Response::Render(HttpStatusCodeEnum::HTTP_OK, $this->factory->makePublic($itemToUpdate));
     }
 
     public function apiGet(int $id)

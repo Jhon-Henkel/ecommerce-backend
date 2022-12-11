@@ -10,14 +10,14 @@ abstract class BasicBO
 {
     abstract public function __construct();
 
-    public function validateFields(array $paramsFields, \stdClass $category): void
+    public function validateFieldsExist(array $paramsFields, \stdClass $item): void
     {
-        if (!ValidateTools::validateParamsFieldsInArray($paramsFields, (array)$category)) {
+        if (!ValidateTools::validateParamsFieldsInArray($paramsFields, (array)$item)) {
             Response::RenderRequiredAttributesMissing();
         }
     }
 
-    public function deleteById(int $id)
+    public function deleteById(int $id): void
     {
         $this->dao->deleteById($id);
     }
@@ -26,6 +26,11 @@ abstract class BasicBO
     {
         $item = $this->dao->findById($id);
         return $item ? $this->factory->populateDbToDto($item) : null;
+    }
+
+    public function countById(int $id): int
+    {
+        return $this->dao->countByColumnValue(FieldsEnum::ID, $id);
     }
 
     public function findAll()
@@ -43,28 +48,61 @@ abstract class BasicBO
         return $this->factory->populateDbToDto($search);
     }
 
-    public function validatePostParamsApi(array $paramsFields, \stdClass $object): void
+    public function validatePostParamsApi(array $paramsFields, \stdClass $item): void
     {
-        $this->validateFields($paramsFields, $object);
-        if ($this->dao->findByCode($object->code)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
+        $this->validateFieldsExist($paramsFields, $item);
+        $this->validateItemValueMustNotExistsInDb($paramsFields, $item);
+    }
+
+    public function insert($item): void
+    {
+        $columns = $this->dao->getColumnsToInsert();
+        $values = $this->dao->getParamsStringToInsert();
+        $params = $this->dao->getParamsArrayToInsert($item);
+        $this->dao->insert($columns, $values, $params);
+    }
+
+    public function update($item)
+    {
+        $values = $this->dao->getUpdateSting();
+        $where = $this->dao->getWhereClausuleToUpdate();
+        $params = $this->dao->getParamsArrayToUpdate($item);
+        $this->dao->update($values, $where, $params);
+    }
+
+    public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
+    {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
+            Response::RenderNotFound();
         }
-        if ($this->dao->findByName($object->name)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
+        $this->validateFieldsExist($paramsFields, $item);
+        $this->validateItemValueMustNotExistsInDbExceptId($paramsFields, $item, $item->id);
+    }
+
+    public function validateItemValueShouldExistsInDb(array $shouldExists, \stdClass $item): void
+    {
+        foreach ($shouldExists as $field) {
+            if (!$this->dao->countByColumnValue($field, $item->$field)) {
+                Response::RenderAttributeNotFound($field . " " . $item->$field);
+            }
         }
     }
 
-    public function validatePutParamsApi(array $paramsFields, \stdClass $object): void
+    public function validateItemValueMustNotExistsInDb(array $mustNotExists, \stdClass $item): void
     {
-        $this->validateFields($paramsFields, $object);
-        if (!$this->dao->findById($object->id)) {
-            Response::RenderNotFound();
+        foreach ($mustNotExists as $paramField) {
+            if ($this->dao->countByColumnValue($paramField, $item->$paramField)) {
+                Response::RenderAttributeAlreadyExists($paramField);
+            }
         }
-        if ($this->dao->findByCodeExceptId($object->code, $object->id)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::CODE);
-        }
-        if ($this->dao->findByNameExceptId($object->name, $object->id)) {
-            Response::RenderAttributeAlreadyExists(FieldsEnum::NAME);
+    }
+
+    public function validateItemValueMustNotExistsInDbExceptId(array $mustNotExists, \stdClass $item, int $id): void
+    {
+        foreach ($mustNotExists as $paramField) {
+            if ($this->dao->countByColumnValueExceptId($paramField, $item->$paramField, $id)) {
+                Response::RenderAttributeAlreadyExists($paramField);
+            }
         }
     }
 }

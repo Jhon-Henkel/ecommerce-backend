@@ -9,6 +9,13 @@ abstract class BasicDAO
     public string $table;
     public Database $database;
 
+    abstract function getColumnsToInsert(): string;
+    abstract function getParamsStringToInsert(): string;
+    abstract function getParamsArrayToInsert($item): array;
+    abstract function getUpdateSting(): string;
+    abstract function getWhereClausuleToUpdate(): string;
+    abstract function getParamsArrayToUpdate($item): array;
+
     public function __construct(string $table)
     {
         $this->table = $table;
@@ -84,5 +91,22 @@ abstract class BasicDAO
     public function findAll(): array
     {
         return $this->database->select("SELECT * FROM $this->table");
+    }
+
+    public function countByColumnValue(string $field, string $value): int
+    {
+        $query = "SELECT * FROM " . $this->table;
+        $query .= " WHERE " . $this->table . "_" . $field . " = :value";
+        $params = array('value' => $value);
+        return $this->database->selectCount($query, $params);
+    }
+
+    public function countByColumnValueExceptId(string $field, string $value, int $id): int
+    {
+        $query = "SELECT * FROM " . $this->table;
+        $query .= " WHERE " . $this->table . "_" . $field . " = :value";
+        $query .= " AND " . $this->table . "_id NOT IN (:id)";
+        $params = array('value' => $value, 'id' => $id);
+        return $this->database->selectCount($query, $params);
     }
 }
