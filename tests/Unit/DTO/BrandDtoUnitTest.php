@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\DTO;
+namespace tests\Unit\DTO;
 
 use PHPUnit\Framework\TestCase;
 use src\DTO\BrandDTO;

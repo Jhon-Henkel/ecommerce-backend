@@ -3,6 +3,7 @@
 namespace src\Factory;
 
 use src\DTO\ProductDTO;
+use src\Tools\StringTools;
 
 class ProductDtoFactory extends BasicDtoFactory
 {
@@ -14,7 +15,7 @@ class ProductDtoFactory extends BasicDtoFactory
         $productFactored->setCode($item->code);
         $productFactored->setCategoryId($item->categoryId);
         $productFactored->setDescription($item->description ?? null);
-        $productFactored->setUrl($item->code ?? $this->factoryUrl($item));
+        $productFactored->setUrl($item->url ?? $this->factoryUrl($item));
         return $productFactored;
     }
 
@@ -32,7 +33,9 @@ class ProductDtoFactory extends BasicDtoFactory
 
     public function factoryUrl(\stdClass $product): string
     {
-        return $product->code . '\/' . $product->name;
+        $name = StringTools::replaceSpacesInDashes($product->name);
+        $code = StringTools::replaceSpacesInDashes($product->code);
+        return strtolower($code) . '/' . strtolower($name);
     }
 
     /**

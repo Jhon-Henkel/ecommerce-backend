@@ -1,6 +1,6 @@
 <?php
 
-namespace Unit\Tools;
+namespace tests\Unit\Tools;
 
 use PHPUnit\Framework\TestCase;
 use src\Tools\RequestTools;

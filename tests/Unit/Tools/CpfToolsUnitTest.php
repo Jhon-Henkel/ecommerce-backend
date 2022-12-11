@@ -1,6 +1,6 @@
 <?php
 
-namespace Unity\Tools;
+namespace tests\Unit\Tools;
 
 use PHPUnit\Framework\TestCase;
 use src\Tools\CpfTools;

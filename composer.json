@@ -4,7 +4,8 @@
     "type": "project",
     "autoload": {
         "psr-4": {
-            "src\\": "src/"
+            "src\\": "src/",
+            "tests\\": "tests/"
         },
         "files": [
             "config.php"

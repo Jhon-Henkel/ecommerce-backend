@@ -9,8 +9,13 @@ class StringTools
         return (string)preg_replace("/[^0-9]/", "", $string);
     }
 
-    public function priceBR($value): string
+    public static function priceBR(float $value): string
     {
         return 'R$ ' . preg_replace('/\./', ',', $value);
+    }
+
+    public static function replaceSpacesInDashes(string $string): string
+    {
+        return preg_replace('/ /', '-', $string);
     }
 }
