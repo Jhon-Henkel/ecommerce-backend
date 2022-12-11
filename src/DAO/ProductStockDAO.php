@@ -43,6 +43,17 @@ class ProductStockDAO extends BasicDAO
         );
     }
 
+    function getUpdateSting(): string
+    {
+        $updateString = 'product_stock_code = :product_id, product_stock_name = :name,';
+        $updateString .= ' product_stock_quantity = :quantity, product_stock_color_id = :color_id,';
+        $updateString .= ' product_stock_size_id = :size_id, product_stock_brand_id = :brand_id,';
+        $updateString .= ' product_stock_product_id = :product_id, product_stock_price = :price,';
+        $updateString .= ' product_stock_width = :width, product_stock_height = :height,';
+        $updateString .= ' product_stock_length = :length, product_stock_gross_weight = :gross_weight';
+        return $updateString;
+    }
+
     public function findByProductId(int $id): null|array
     {
         $query = 'SELECT * FROM product_stock WHERE product_stock_product_id = :id';
@@ -55,18 +66,17 @@ class ProductStockDAO extends BasicDAO
         $this->database->delete($query, array('id' => $id));
     }
 
-    function getUpdateSting(): string
-    {
-        // TODO: Implement getUpdateSting() method.
-    }
-
     function getWhereClausuleToUpdate(): string
     {
-        // TODO: Implement getWhereClausuleToUpdate() method.
+        return 'product_stock_id = :id';
     }
 
+    /**
+     * @param ProductStockDTO $item
+     * @return array
+     */
     function getParamsArrayToUpdate($item): array
     {
-        // TODO: Implement getParamsArrayToUpdate() method.
+        return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }
 }

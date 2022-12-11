@@ -5,7 +5,9 @@ namespace src\Enums;
 class FieldsEnum
 {
     const CATEGORY_ID_JSON = 'categoryId';
+    const PRODUCT_ID_JSON = "productId";
     const CATEGORY_ID_DB = 'category_id';
+    const PRODUCT_ID_DB = "product_id";
     const GROSS_WEIGHT = "grossWeight";
     const DESCRIPTION = 'description';
     const COLOR_ID_JSON = "colorId";
@@ -54,6 +56,11 @@ class FieldsEnum
             self::LENGTH,
             self::GROSS_WEIGHT
         );
+    }
+
+    public static function getProductStockAllFieldsToInsert(): array
+    {
+        return array_merge(self::getProductStockAllFields(), array(self::PRODUCT_ID_JSON));
     }
 
     public static function getProductStockFieldsValuesShouldExistsInDb(): array

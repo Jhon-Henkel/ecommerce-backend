@@ -10,10 +10,14 @@ use src\Enums\RequestTypeEnum;
 use src\Controllers\CategoryController;
 use src\Controllers\ColorController;
 use src\Controllers\SizeController;
+use src\Controllers\ProductStockController;
 
 switch (RequestTools::inputGet(ApiRouteEnum::API)) {
     case (ApiRouteEnum::PRODUCT):
         $controller = new ProductController();
+        break;
+    case (ApiRouteEnum::PRODUCT_STOCK):
+        $controller = new ProductStockController();
         break;
     case (ApiRouteEnum::BRAND):
         $controller = new BrandController();

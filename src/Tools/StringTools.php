@@ -8,4 +8,9 @@ class StringTools
     {
         return (string)preg_replace("/[^0-9]/", "", $string);
     }
+
+    public function priceBR($value): string
+    {
+        return 'R$ ' . preg_replace('/\./', ',', $value);
+    }
 }

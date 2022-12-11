@@ -23,18 +23,23 @@ class ProductStockBO extends BasicBO
     {
         $this->validateFieldsExist($paramsFields, $stock);
         $this->validateItemValueMustNotExistsInDb(FieldsEnum::getBasicValidateFields(), $stock);
-        $sizeBO = new SizeBO();
-        if (!$sizeBO->countById($stock->sizeId)) {
-            Response::RenderAttributeNotFound(FieldsEnum::SIZE_ID_JSON);
-        }
-        $colorBO = new ColorBO();
-        if (!$colorBO->countById($stock->colorId)) {
-            Response::RenderAttributeNotFound(FieldsEnum::COLOR_ID_JSON);
-        }
-        $brandBO = new BrandBO();
-        if (!$brandBO->countById($stock->brandId)) {
-            Response::RenderAttributeNotFound(FieldsEnum::BRAND_ID_JSON);
-        }
+        $this->validationsAttributesIdsExistsForApi($stock);
+    }
+
+    public function validatePostParamsApi(array $paramsFields, \stdClass $item): void
+    {
+        $this->validateFieldsExist($paramsFields, $item);
+        $this->validateProductExistsForApiById($item->productId);
+        $this->validationsAttributesIdsExistsForApi($item);
+        parent::validatePostParamsApi(FieldsEnum::getBasicValidateFields(), $item);
+    }
+
+    public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
+    {
+        $this->validateFieldsExist($paramsFields, $item);
+        $this->validateProductExistsForApiById($item->productId);
+        $this->validationsAttributesIdsExistsForApi($item);
+        parent::validatePutParamsApi(FieldsEnum::getBasicValidateFields(), $item);
     }
 
     public function insertMultipleStocks(array $stocks): void
@@ -57,5 +62,43 @@ class ProductStockBO extends BasicBO
     public function deleteStocksByProductId(int $id): void
     {
         $this->dao->deleteByProductId($id);
+    }
+
+    public function validationsAttributesIdsExistsForApi(\stdClass $item): void
+    {
+        $this->validateColorExistsForApiById($item->colorId);
+        $this->validateSizeExistsForApiById($item->sizeId);
+        $this->validateBrandExistsForApiById($item->brandId);
+    }
+
+    public function validateProductExistsForApiById(int $id): void
+    {
+        if (!$this->dao->countByColumnValue(FieldsEnum::PRODUCT_ID_DB, $id)) {
+            Response::RenderAttributeNotFound(FieldsEnum::PRODUCT_ID_JSON);
+        }
+    }
+
+    public function validateColorExistsForApiById(int $id): void
+    {
+        $colorBO = new ColorBO();
+        if (!$colorBO->countById($id)) {
+            Response::RenderAttributeNotFound(FieldsEnum::COLOR_ID_JSON);
+        }
+    }
+
+    public function validateSizeExistsForApiById(int $id): void
+    {
+        $sizeBO = new SizeBO();
+        if (!$sizeBO->countById($id)) {
+            Response::RenderAttributeNotFound(FieldsEnum::SIZE_ID_JSON);
+        }
+    }
+
+    public function validateBrandExistsForApiById(int $id): void
+    {
+        $brandBO = new BrandBO();
+        if (!$brandBO->countById($id)) {
+            Response::RenderAttributeNotFound(FieldsEnum::BRAND_ID_JSON);
+        }
     }
 }

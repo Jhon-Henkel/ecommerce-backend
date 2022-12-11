@@ -79,15 +79,6 @@ abstract class BasicBO
         $this->validateItemValueMustNotExistsInDbExceptId($paramsFields, $item, $item->id);
     }
 
-    public function validateItemValueShouldExistsInDb(array $shouldExists, \stdClass $item): void
-    {
-        foreach ($shouldExists as $field) {
-            if (!$this->dao->countByColumnValue($field, $item->$field)) {
-                Response::RenderAttributeNotFound($field . " " . $item->$field);
-            }
-        }
-    }
-
     public function validateItemValueMustNotExistsInDb(array $mustNotExists, \stdClass $item): void
     {
         foreach ($mustNotExists as $paramField) {
