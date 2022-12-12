@@ -13,7 +13,7 @@ abstract class BasicBO
     public function validateFieldsExist(array $paramsFields, \stdClass $item): void
     {
         if (!ValidateTools::validateParamsFieldsInArray($paramsFields, (array)$item)) {
-            Response::RenderRequiredAttributesMissing();
+            Response::renderRequiredAttributesMissing();
         }
     }
 
@@ -73,7 +73,7 @@ abstract class BasicBO
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
-            Response::RenderNotFound();
+            Response::renderNotFound();
         }
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateItemValueMustNotExistsInDbExceptId($paramsFields, $item, $item->id);
@@ -83,7 +83,7 @@ abstract class BasicBO
     {
         foreach ($mustNotExists as $paramField) {
             if ($this->dao->countByColumnValue($paramField, $item->$paramField)) {
-                Response::RenderAttributeAlreadyExists($paramField);
+                Response::renderAttributeAlreadyExists($paramField);
             }
         }
     }
@@ -92,7 +92,7 @@ abstract class BasicBO
     {
         foreach ($mustNotExists as $paramField) {
             if ($this->dao->countByColumnValueExceptId($paramField, $item->$paramField, $id)) {
-                Response::RenderAttributeAlreadyExists($paramField);
+                Response::renderAttributeAlreadyExists($paramField);
             }
         }
     }

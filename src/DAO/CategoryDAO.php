@@ -6,13 +6,12 @@ use src\DTO\CategoryDTO;
 
 class CategoryDAO extends BasicDAO
 {
-
-    function getColumnsToInsert(): string
+    public function getColumnsToInsert(): string
     {
         return 'category_code, category_name, category_father_id';
     }
 
-    function getParamsStringToInsert(): string
+    public function getParamsStringToInsert(): string
     {
         return ':code, :name, :fatherId';
     }
@@ -21,7 +20,7 @@ class CategoryDAO extends BasicDAO
      * @param CategoryDTO $item
      * @return array
      */
-    function getParamsArrayToInsert($item): array
+    public function getParamsArrayToInsert($item): array
     {
         return array(
             'code' => $item->getCode(),
@@ -30,12 +29,12 @@ class CategoryDAO extends BasicDAO
         );
     }
 
-    function getUpdateSting(): string
+    public function getUpdateSting(): string
     {
         return 'category_code = :code, category_name = :name, category_father_id = :fatherId';
     }
 
-    function getWhereClausuleToUpdate(): string
+    public function getWhereClausuleToUpdate(): string
     {
         return 'category_id = :id';
     }
@@ -44,7 +43,7 @@ class CategoryDAO extends BasicDAO
      * @param CategoryDTO $item
      * @return array
      */
-    function getParamsArrayToUpdate($item): array
+    public function getParamsArrayToUpdate($item): array
     {
         return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }

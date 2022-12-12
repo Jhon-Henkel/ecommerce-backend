@@ -26,7 +26,7 @@ class CategoryBO extends BasicBO
         if (isset($object->fatherId) && !$this->dao->findById($object->fatherId)) {
             $statusCode = HttpStatusCodeEnum::HTTP_NOT_FOUND;
             $message = ApiResponseMessageEnum::FATHER_CATEGORY_NOT_FOUND;
-            Response::Render($statusCode, $message);
+            Response::render($statusCode, $message);
         }
     }
 
@@ -36,7 +36,7 @@ class CategoryBO extends BasicBO
         if (isset($object->fatherId) && !$this->dao->findById($object->fatherId)) {
             $statusCode = HttpStatusCodeEnum::HTTP_NOT_FOUND;
             $message = ApiResponseMessageEnum::FATHER_CATEGORY_NOT_FOUND;
-            Response::Render($statusCode, $message);
+            Response::render($statusCode, $message);
         }
     }
 }

@@ -9,7 +9,7 @@ use src\Tools\RequestTools;
 
 abstract class BasicController
 {
-    abstract public function __construct();
+    public abstract function __construct();
 
     public function apiPost(\stdClass $object)
     {
@@ -17,7 +17,7 @@ abstract class BasicController
         $itemToInsert = $this->factory->factory($object);
         $this->bo->insert($itemToInsert);
         $inserted = $this->bo->findLastInserted();
-        Response::Render(HttpStatusCodeEnum::HTTP_CREATED, $this->factory->makePublic($inserted));
+        Response::render(HttpStatusCodeEnum::HTTP_CREATED, $this->factory->makePublic($inserted));
     }
 
     public function apiPut(\stdClass $object)
@@ -26,27 +26,27 @@ abstract class BasicController
         $this->bo->validatePutParamsApi($this->fieldsToValidate, $object);
         $itemToUpdate = $this->factory->factory($object);
         $this->bo->update($itemToUpdate);
-        Response::Render(HttpStatusCodeEnum::HTTP_OK, $this->factory->makePublic($itemToUpdate));
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $this->factory->makePublic($itemToUpdate));
     }
 
     public function apiGet(int $id)
     {
         $item = $this->bo->findById($id);
         if ($item){
-            Response::Render(HttpStatusCodeEnum::HTTP_OK, $this->factory->makePublic($item));
+            Response::render(HttpStatusCodeEnum::HTTP_OK, $this->factory->makePublic($item));
         }
-        Response::RenderNotFound();
+        Response::renderNotFound();
     }
 
     public function apiIndex()
     {
         $itens = $this->bo->findAll();
-        Response::Render(HttpStatusCodeEnum::HTTP_OK, $itens);
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $itens);
     }
 
     public function apiDelete(int $id)
     {
         $this->bo->deleteById($id);
-        Response::Render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
+        Response::render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
     }
 }

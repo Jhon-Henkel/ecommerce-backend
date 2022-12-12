@@ -7,47 +7,47 @@ use src\Enums\HttpStatusCodeEnum;
 
 class Response
 {
-    public static function Render(int $code, mixed $print): void
+    public static function render(int $code, mixed $print): void
     {
         http_response_code($code);
         exit(json_encode($print));
     }
 
-    public static function RenderRequiredAttributesMissing(): void
+    public static function renderRequiredAttributesMissing(): void
     {
-        self::Render(
+        self::render(
             HttpStatusCodeEnum::HTTP_DAB_REQUEST,
             ApiResponseMessageEnum::REQUIRED_ATTRIBUTES_MISSING
         );
     }
 
-    public static function RenderAttributeAlreadyExists(string $attribute): void
+    public static function renderAttributeAlreadyExists(string $attribute): void
     {
-        self::Render(
+        self::render(
             HttpStatusCodeEnum::HTTP_CONFLICT,
             ApiResponseMessageEnum::ATTRIBUTE_ALREADY_EXISTS . $attribute
         );
     }
 
-    public static function RenderMethodNotAllowed(): void
+    public static function renderMethodNotAllowed(): void
     {
-        self::Render(
+        self::render(
             HttpStatusCodeEnum::HTTP_METHOD_NOT_ALLOWED,
             ApiResponseMessageEnum::METHOD_NOT_ALLOWED
         );
     }
 
-    public static function RenderNotFound(): void
+    public static function renderNotFound(): void
     {
-        self::Render(
+        self::render(
             HttpStatusCodeEnum::HTTP_NOT_FOUND,
             ApiResponseMessageEnum::NOT_FOUND
         );
     }
 
-    public static function RenderAttributeNotFound(string $attribute): void
+    public static function renderAttributeNotFound(string $attribute): void
     {
-        self::Render(
+        self::render(
             HttpStatusCodeEnum::HTTP_NOT_FOUND,
             ApiResponseMessageEnum::ATTRIBUTE_NOT_FOUND . $attribute
         );

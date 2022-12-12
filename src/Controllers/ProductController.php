@@ -34,20 +34,20 @@ class ProductController extends BasicController
         $stockBO->insertMultipleStocks($stocksToInsert);
         $stocksInserted = $stockBO->findByProductId($productInserted->getId());
         $productInsertedWithStock = $this->bo->factoryProductWithStockPublic($productInserted, $stocksInserted);
-        Response::Render(HttpStatusCodeEnum::HTTP_CREATED, $productInsertedWithStock);
+        Response::render(HttpStatusCodeEnum::HTTP_CREATED, $productInsertedWithStock);
     }
 
     public function apiGet(int $id)
     {
         $product = $this->bo->findById($id);
         if (!$product){
-            Response::RenderNotFound();
+            Response::renderNotFound();
         }
-        Response::Render(HttpStatusCodeEnum::HTTP_OK, $product);
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $product);
     }
 
     public function apiIndex()
     {
-        Response::Render(HttpStatusCodeEnum::HTTP_OK, $this->bo->findAll());
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $this->bo->findAll());
     }
 }

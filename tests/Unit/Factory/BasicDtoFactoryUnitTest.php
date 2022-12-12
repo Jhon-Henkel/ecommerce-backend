@@ -19,20 +19,20 @@ class BasicDtoFactoryUnitTest extends TestCase
 
             public BrandDtoFactory $brandDtoFactory;
 
-            function __construct()
+            public function __construct()
             {
                 $this->brandDtoFactory = new BrandDtoFactory();
             }
 
-            function factory(\stdClass $item): BrandDTO
+            public function factory(\stdClass $item): BrandDTO
             {
                 return $this->brandDtoFactory->factory($item);
             }
-            function makePublic($item): \stdClass
+            public function makePublic($item): \stdClass
             {
                 return $this->brandDtoFactory->makePublic($item);
             }
-            function populateDbToDto(array $item): BrandDTO
+            public function populateDbToDto(array $item): BrandDTO
             {
                 return $this->brandDtoFactory->populateDbToDto($item);
             }

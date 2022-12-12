@@ -32,7 +32,7 @@ switch (RequestTools::inputGet(ApiRouteEnum::API)) {
         $controller = new SizeController();
         break;
     default:
-        Response::RenderMethodNotAllowed();
+        Response::renderMethodNotAllowed();
 }
 
 if (isset($controller)) {
@@ -59,6 +59,6 @@ if (isset($controller)) {
             unset($controller);
             break;
         default:
-            Response::RenderMethodNotAllowed();
+            Response::renderMethodNotAllowed();
     }
 }

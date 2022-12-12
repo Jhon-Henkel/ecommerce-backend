@@ -26,19 +26,19 @@ class ProductBO extends BasicBO
         $this->validateItemValueMustNotExistsInDb(FieldsEnum::getBasicValidateFields(), $product);
         $categoryBO = new CategoryBO();
         if (!$categoryBO->countById($product->categoryId)) {
-            Response::RenderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
+            Response::renderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
         }
     }
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $product): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $product->id)) {
-            Response::RenderNotFound();
+            Response::renderNotFound();
         }
         $this->validateFieldsExist($paramsFields, $product);
         $categoryBO = new CategoryBO();
         if (!$categoryBO->countById($product->categoryId)) {
-            Response::RenderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
+            Response::renderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
         }
         $this->validateItemValueMustNotExistsInDbExceptId(FieldsEnum::getBasicValidateFields(), $product, $product->id);
     }

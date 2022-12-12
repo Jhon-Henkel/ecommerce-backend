@@ -74,7 +74,7 @@ class ProductStockBO extends BasicBO
     public function validateProductExistsForApiById(int $id): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::PRODUCT_ID_DB, $id)) {
-            Response::RenderAttributeNotFound(FieldsEnum::PRODUCT_ID_JSON);
+            Response::renderAttributeNotFound(FieldsEnum::PRODUCT_ID_JSON);
         }
     }
 
@@ -82,7 +82,7 @@ class ProductStockBO extends BasicBO
     {
         $colorBO = new ColorBO();
         if (!$colorBO->countById($id)) {
-            Response::RenderAttributeNotFound(FieldsEnum::COLOR_ID_JSON);
+            Response::renderAttributeNotFound(FieldsEnum::COLOR_ID_JSON);
         }
     }
 
@@ -90,7 +90,7 @@ class ProductStockBO extends BasicBO
     {
         $sizeBO = new SizeBO();
         if (!$sizeBO->countById($id)) {
-            Response::RenderAttributeNotFound(FieldsEnum::SIZE_ID_JSON);
+            Response::renderAttributeNotFound(FieldsEnum::SIZE_ID_JSON);
         }
     }
 
@@ -98,7 +98,7 @@ class ProductStockBO extends BasicBO
     {
         $brandBO = new BrandBO();
         if (!$brandBO->countById($id)) {
-            Response::RenderAttributeNotFound(FieldsEnum::BRAND_ID_JSON);
+            Response::renderAttributeNotFound(FieldsEnum::BRAND_ID_JSON);
         }
     }
 }

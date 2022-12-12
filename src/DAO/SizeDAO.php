@@ -6,13 +6,12 @@ use src\DTO\SizeDTO;
 
 class SizeDAO extends BasicDAO
 {
-
-    function getColumnsToInsert(): string
+    public function getColumnsToInsert(): string
     {
         return 'size_code, size_name';
     }
 
-    function getParamsStringToInsert(): string
+    public function getParamsStringToInsert(): string
     {
         return ':code, :name';
     }
@@ -21,17 +20,17 @@ class SizeDAO extends BasicDAO
      * @param SizeDTO $item
      * @return array
      */
-    function getParamsArrayToInsert($item): array
+    public function getParamsArrayToInsert($item): array
     {
         return array('code' => $item->getCode(), 'name' => $item->getName());
     }
 
-    function getUpdateSting(): string
+    public function getUpdateSting(): string
     {
         return 'size_code = :code, size_name = :name';
     }
 
-    function getWhereClausuleToUpdate(): string
+    public function getWhereClausuleToUpdate(): string
     {
         return 'size_id = :id';
     }
@@ -40,7 +39,7 @@ class SizeDAO extends BasicDAO
      * @param SizeDTO $item
      * @return array
      */
-    function getParamsArrayToUpdate($item): array
+    public function getParamsArrayToUpdate($item): array
     {
         return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }

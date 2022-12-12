@@ -43,7 +43,7 @@ class ProductStockDAO extends BasicDAO
         );
     }
 
-    function getUpdateSting(): string
+    public function getUpdateSting(): string
     {
         $updateString = 'product_stock_code = :product_id, product_stock_name = :name,';
         $updateString .= ' product_stock_quantity = :quantity, product_stock_color_id = :color_id,';
@@ -66,7 +66,7 @@ class ProductStockDAO extends BasicDAO
         $this->database->delete($query, array('id' => $id));
     }
 
-    function getWhereClausuleToUpdate(): string
+    public function getWhereClausuleToUpdate(): string
     {
         return 'product_stock_id = :id';
     }
@@ -75,7 +75,7 @@ class ProductStockDAO extends BasicDAO
      * @param ProductStockDTO $item
      * @return array
      */
-    function getParamsArrayToUpdate($item): array
+    public function getParamsArrayToUpdate($item): array
     {
         return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }

@@ -9,12 +9,12 @@ abstract class BasicDAO
     public string $table;
     public Database $database;
 
-    abstract function getColumnsToInsert(): string;
-    abstract function getParamsStringToInsert(): string;
-    abstract function getParamsArrayToInsert($item): array;
-    abstract function getUpdateSting(): string;
-    abstract function getWhereClausuleToUpdate(): string;
-    abstract function getParamsArrayToUpdate($item): array;
+    public abstract function getColumnsToInsert(): string;
+    public abstract function getParamsStringToInsert(): string;
+    public abstract function getParamsArrayToInsert($item): array;
+    public abstract function getUpdateSting(): string;
+    public abstract function getWhereClausuleToUpdate(): string;
+    public abstract function getParamsArrayToUpdate($item): array;
 
     public function __construct(string $table)
     {
