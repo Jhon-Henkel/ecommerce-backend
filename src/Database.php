@@ -11,7 +11,7 @@ use src\Exceptions\DatabaseExceptions\DatabaseConnectException;
 
 class Database
 {
-    private ?\PDO $conn;
+    private null|PDO $conn;
 
     private function connectDb(): void
     {
@@ -63,7 +63,7 @@ class Database
         }
     }
 
-    public function insert(string $query, $params = null): void
+    public function insert(string $query, array $params = null): void
     {
         try {
             $query = trim($query);
@@ -77,7 +77,7 @@ class Database
         }
     }
 
-    public function update(string $query, array $params = []): void
+    public function update(string $query, array $params = null): void
     {
         try {
             $query = trim($query);
@@ -91,7 +91,7 @@ class Database
         }
     }
 
-    public function delete(string $query, array $params = []):void
+    public function delete(string $query, array $params = null):void
     {
         try {
             $query = trim($query);
@@ -105,7 +105,7 @@ class Database
         }
     }
 
-    public function executeQueryConn($conn, $params)
+    public function executeQueryConn($conn, null|array $params)
     {
         if ($params) {
             return $conn->execute($params);

@@ -6,10 +6,22 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Executar o ***composer update*** e o ***npm update*** dentro do container docker.
 - Criar o banco de dados e as tabelas de acordo com o aquivo [SQL](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/alters/alters.sql).
 - Alterar as configurações no arquivo ***config.php*** conforme for necessário.
+- Para rodar coverage, deve-se colocar o seguinte código (caso não tenha) no php.ini do container:
+    ````
+        [XDEBUG]
+        zend_extension="xdebug.so"
+        xdebug.mode=coverage
+        xdebug.client_host = 127.0.0.1
+        xdebug.client_port = 9003
+        xdebug.start_with_request=trigger
+    ````
 ---
 # *Como rodar os testes*
-- **Unitários:** composer run test-php-unit
-- **Integração:** composer run test-php-feature
+- **Unitários:** composer run php-unit
+- **Coverage unitário:** composer run php-unit-coverage
+- **Integração:** composer run php-feature
+- **Coverage integração:** composer run php-feature-coverage
+- **Atalho relatório coverage:** (Aqui)[http://localhost/tests/coverage/] 
 ---
 # *Bibliotecas Utilizadas*
 - Kint

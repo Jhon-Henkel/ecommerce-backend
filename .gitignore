@@ -3,3 +3,5 @@ vendor
 node_modules
 .docker
 .phpunit.result.cache
+tests/coverage
+.phpunit.cache/
