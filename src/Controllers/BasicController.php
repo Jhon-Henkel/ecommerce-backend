@@ -22,7 +22,7 @@ abstract class BasicController
 
     public function apiPut(\stdClass $object)
     {
-        $object->id = (int)RequestTools::inputGet(FieldsEnum::ID);
+        $object->id = (int)RequestTools::inputGet(FieldsEnum::ID_JSON);
         $this->bo->validatePutParamsApi($this->fieldsToValidate, $object);
         $itemToUpdate = $this->factory->factory($object);
         $this->bo->update($itemToUpdate);

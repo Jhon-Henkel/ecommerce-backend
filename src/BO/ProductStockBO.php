@@ -22,7 +22,7 @@ class ProductStockBO extends BasicBO
     public function validatePostParamsInProductInsertApi(array $paramsFields, \stdClass $stock): void
     {
         $this->validateFieldsExist($paramsFields, $stock);
-        $this->validateItemValueMustNotExistsInDb(FieldsEnum::getBasicValidateFields(), $stock);
+        $this->validateItemValueMustNotExistsInDb(FieldsEnum::getBasicRequiredFields(), $stock);
         $this->validationsAttributesIdsExistsForApi($stock);
     }
 
@@ -31,7 +31,7 @@ class ProductStockBO extends BasicBO
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateProductExistsForApiById($item->productId);
         $this->validationsAttributesIdsExistsForApi($item);
-        parent::validatePostParamsApi(FieldsEnum::getBasicValidateFields(), $item);
+        parent::validatePostParamsApi(FieldsEnum::getBasicRequiredFields(), $item);
     }
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
@@ -39,7 +39,7 @@ class ProductStockBO extends BasicBO
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateProductExistsForApiById($item->productId);
         $this->validationsAttributesIdsExistsForApi($item);
-        parent::validatePutParamsApi(FieldsEnum::getBasicValidateFields(), $item);
+        parent::validatePutParamsApi(FieldsEnum::getBasicRequiredFields(), $item);
     }
 
     public function insertMultipleStocks(array $stocks): void

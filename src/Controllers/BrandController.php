@@ -16,6 +16,6 @@ class BrandController extends BasicController
     {
         $this->bo = new BrandBO();
         $this->factory = new BrandDtoFactory();
-        $this->fieldsToValidate = FieldsEnum::getBasicValidateFields();
+        $this->fieldsToValidate = FieldsEnum::getBasicRequiredFields();
     }
 }

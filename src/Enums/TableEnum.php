@@ -10,4 +10,6 @@ class TableEnum
     const CATEGORY = 'category';
     const COLOR = 'color';
     const SIZE = 'size';
+    const ADDRESS = 'address';
+    const CLIENT = 'client';
 }

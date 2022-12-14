@@ -19,7 +19,7 @@ class ProductController extends BasicController
     {
         $this->bo = new ProductBO();
         $this->factory = new ProductDtoFactory();
-        $this->fieldsToValidate = FieldsEnum::getProductAllFields();
+        $this->fieldsToValidate = FieldsEnum::getProductRequiredFields();
     }
 
     public function apiPost(\stdClass $product)

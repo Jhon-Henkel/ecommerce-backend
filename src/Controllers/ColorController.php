@@ -16,6 +16,6 @@ class ColorController extends BasicController
     {
         $this->bo = new ColorBO();
         $this->factory = new ColorDtoFactory();
-        $this->fieldsToValidate = FieldsEnum::getBasicValidateFields();
+        $this->fieldsToValidate = FieldsEnum::getBasicRequiredFields();
     }
 }

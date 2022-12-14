@@ -16,6 +16,6 @@ class ProductStockController extends BasicController
     {
         $this->bo = new ProductStockBO();
         $this->factory = new ProductStockDtoFactory();
-        $this->fieldsToValidate = FieldsEnum::getProductStockAllFields();
+        $this->fieldsToValidate = FieldsEnum::getProductStockRequiredFields();
     }
 }

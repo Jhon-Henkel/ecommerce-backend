@@ -23,7 +23,7 @@ class ProductBO extends BasicBO
     public function validatePostParamsApi(array $paramsFields, \stdClass $product): void
     {
         $this->validateFieldsExist($paramsFields, $product);
-        $this->validateItemValueMustNotExistsInDb(FieldsEnum::getBasicValidateFields(), $product);
+        $this->validateItemValueMustNotExistsInDb(FieldsEnum::getBasicRequiredFields(), $product);
         $categoryBO = new CategoryBO();
         if (!$categoryBO->countById($product->categoryId)) {
             Response::renderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
@@ -32,7 +32,7 @@ class ProductBO extends BasicBO
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $product): void
     {
-        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $product->id)) {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID_JSON, $product->id)) {
             Response::renderNotFound();
         }
         $this->validateFieldsExist($paramsFields, $product);
@@ -40,14 +40,14 @@ class ProductBO extends BasicBO
         if (!$categoryBO->countById($product->categoryId)) {
             Response::renderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
         }
-        $this->validateItemValueMustNotExistsInDbExceptId(FieldsEnum::getBasicValidateFields(), $product, $product->id);
+        $this->validateItemValueMustNotExistsInDbExceptId(FieldsEnum::getBasicRequiredFields(), $product, $product->id);
     }
 
     public function validateStocksInInsert(array $stocks): void
     {
         $stockBO = new ProductStockBO();
         foreach ($stocks as $stock) {
-            $stockBO->validatePostParamsInProductInsertApi(FieldsEnum::getProductStockAllFields(), $stock);
+            $stockBO->validatePostParamsInProductInsertApi(FieldsEnum::getProductStockRequiredFields(), $stock);
         }
     }
 

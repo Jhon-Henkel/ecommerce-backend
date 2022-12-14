@@ -17,7 +17,7 @@ class ValidateToolsUnitTest extends TestCase
      */
     public function testValidateParamsFieldsInArray(array $value, bool $expectedResult)
     {
-        $validateParams = array(FieldsEnum::CODE, FieldsEnum::NAME);
+        $validateParams = array(FieldsEnum::CODE_JSON, FieldsEnum::NAME_JSON);
         $this->assertEquals($expectedResult, ValidateTools::validateParamsFieldsInArray($validateParams, $value));
     }
 
@@ -48,11 +48,11 @@ class ValidateToolsUnitTest extends TestCase
     {
         return [
             'shouldBeValidWhenReturnIsTrue' => [
-                'value' => [FieldsEnum::NAME => 'test', FieldsEnum::CODE => 'test-444'],
+                'value' => [FieldsEnum::NAME_JSON => 'test', FieldsEnum::CODE_JSON => 'test-444'],
                 'expectedResult' => true
             ],
             'shouldBeValidWhenReturnIsFalse' => [
-                'value' => [FieldsEnum::CODE => '58456'],
+                'value' => [FieldsEnum::CODE_JSON => '58456'],
                 'expectedResult' => false
             ],
             'shouldBeValidWhenReturnIsFalseAndValueIsEmpty' => [
