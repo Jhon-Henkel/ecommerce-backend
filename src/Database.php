@@ -4,6 +4,7 @@ namespace src;
 
 use PDO;
 use Exception;
+use src\Configs\DatabaseConfigs;
 use src\Enums\QueryTypeEnum;
 use src\Tools\ValidateTools;
 use src\Exceptions\DatabaseExceptions\QueryTypeException;
@@ -18,11 +19,11 @@ class Database
         try {
             $this->conn = new \PDO(
                 'mysql:'
-                . 'host=' . DATABASE_SERVER . ';'
-                . 'dbname=' . DATABASE_DATABASE . ';'
-                . 'charset=' . DATABASE_CHARSET,
-                DATABASE_USER,
-                DATABASE_PASS,
+                . 'host=' . DatabaseConfigs::DATABASE_SERVER . ';'
+                . 'dbname=' . DatabaseConfigs::DATABASE_DATABASE . ';'
+                . 'charset=' . DatabaseConfigs::DATABASE_CHARSET,
+                DatabaseConfigs::DATABASE_USER,
+                DatabaseConfigs::DATABASE_PASS,
                 array(PDO::ATTR_PERSISTENT => true)
             );
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);

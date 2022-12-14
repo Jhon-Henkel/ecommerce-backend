@@ -5,7 +5,7 @@ Plataforma de ecommerce feita com base no conceito clean code, clean architectur
 Para iniciar asse projeto, basta executar os seguintes passos:
 - Executar o ***composer update*** e o ***npm update*** dentro do container docker.
 - Criar o banco de dados e as tabelas de acordo com o aquivo [SQL](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/alters/alters.sql).
-- Alterar as configurações no arquivo ***config.php*** conforme for necessário.
+- Alterar as configurações na pasta ***src/Configs*** conforme for necessário.
 - Para rodar coverage, deve-se colocar o seguinte código (caso não tenha) no php.ini do container:
     ````
         [XDEBUG]

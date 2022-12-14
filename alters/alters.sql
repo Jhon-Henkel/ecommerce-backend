@@ -67,3 +67,37 @@ CREATE TABLE IF NOT EXISTS product_stock (
     FOREIGN KEY (product_stock_brand_id) REFERENCES brand(brand_id),
     FOREIGN KEY (product_stock_product_id) REFERENCES product(product_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- criando tabela cliente --
+CREATE TABLE IF NOT EXISTS client (
+    client_id int(10) NOT NULL AUTO_INCREMENT,
+    client_name varchar(255) NOT NULL,
+    client_document_type varchar(20) NOT NULL,
+    client_document varchar(20) NOT NULL UNIQUE,
+    client_main_phone varchar(20) DEFAULT NULL,
+    client_second_phone varchar(20) DEFAULT NULL,
+    client_email varchar(150) NOT NULL UNIQUE,
+    client_birth_date datetime NOT NULL,
+    client_password varchar(255) NOT NULL,
+    client_created_at datetime DEFAULT current_timestamp(),
+    client_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    PRIMARY KEY (client_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- criando tabela endereço cliente --
+CREATE TABLE IF NOT EXISTS address (
+    address_id int(10) NOT NULL AUTO_INCREMENT,
+    address_client_id int(10) NOT NULL UNIQUE,
+    address_street varchar(255) NOT NULL,
+    address_zip_code varchar(10) NOT NULL,
+    address_number int(10) DEFAULT NULL,
+    address_complement varchar(255) DEFAULT NULL,
+    address_district varchar(255) NOT NULL,
+    address_city varchar(255) NOT NULL,
+    address_state varchar(255) NOT NULL,
+    address_reference varchar(255) NOT NULL,
+    address_created_at datetime DEFAULT current_timestamp(),
+    address_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    PRIMARY KEY (address_id),
+    FOREIGN KEY (address_client_id) REFERENCES client(client_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

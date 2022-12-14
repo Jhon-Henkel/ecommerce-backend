@@ -27,6 +27,7 @@
         <exclude>
             <directory>src/Enums</directory>
             <directory>src/Exceptions</directory>
+            <directory>src/Configs</directory>
         </exclude>
     </coverage>
 </phpunit>
