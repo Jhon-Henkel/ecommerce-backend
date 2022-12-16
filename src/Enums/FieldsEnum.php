@@ -11,7 +11,6 @@ class FieldsEnum
     const PRODUCT_ID_JSON = "productId";
     const BIRTH_DATE_JSON = "birthDate";
     const CATEGORY_ID_DB = 'category_id';
-    const REFERENCE_JSON = "reference";
     const CLIENT_ID_JSON = "clientId";
     const COLOR_ID_JSON = "colorId";
     const PRODUCT_ID_DB = "product_id";
@@ -88,7 +87,6 @@ class FieldsEnum
     public static function getClientRequiredFields(): array
     {
         return array(
-            self::ID_JSON,
             self::NAME_JSON,
             self::DOCUMENT_TYPE_JSON,
             self::DOCUMENT_JSON,
@@ -98,17 +96,30 @@ class FieldsEnum
         );
     }
 
-    public static function getAddressRequiredFields(): array
+    public static function getClientRequiredFieldsMustNotExistsInDb(): array
     {
         return array(
-            self::ID_JSON,
-            self::CLIENT_ID_JSON,
+            self::DOCUMENT_JSON,
+            self::EMAIL_JSON
+        );
+    }
+
+    public static function getAddressRequiredFieldsInClientInsert(): array
+    {
+        return array(
             self::STREET_JSON,
             self::ZIP_CODE_JSON,
             self::DISTRICT_JSON,
             self::CITY_JSON,
-            self::STATE_JSON,
-            self::REFERENCE_JSON
+            self::STATE_JSON
+        );
+    }
+
+    public static function getAddressRequiredFields(): array
+    {
+        return array_merge(
+            self::getAddressRequiredFieldsInClientInsert(),
+            array(self::CLIENT_ID_JSON,)
         );
     }
 }

@@ -2,21 +2,39 @@
 
 namespace src\DAO;
 
+use src\DTO\ClientDTO;
+use src\Tools\StringTools;
+
 class ClientDAO extends BasicDAO
 {
     public function getColumnsToInsert(): string
     {
-        // TODO: Implement getColumnsToInsert() method.
+        $columns = "client_name, client_document_type, client_document, client_main_phone,";
+        $columns .= " client_second_phone, client_email, client_birth_date, client_password";
+        return $columns;
     }
 
     public function getParamsStringToInsert(): string
     {
-        // TODO: Implement getParamsStringToInsert() method.
+        return ":name, :documentType, :document, :mainPhone, :secondPhone, :email, :birthDate, :password";
     }
 
+    /**
+     * @param ClientDTO $item
+     * @return array
+     */
     public function getParamsArrayToInsert($item): array
     {
-        // TODO: Implement getParamsArrayToInsert() method.
+        return array(
+            'name' => $item->getName(),
+            'documentType' => $item->getDocumentType(),
+            'document' => $item->getDocument(),
+            'mainPhone' => $item->getMainPhone(),
+            'secondPhone' => $item->getSecondPhone(),
+            'email' => $item->getEmail(),
+            'birthDate' => StringTools::dateTimeToString($item->getBirthDate()),
+            'password' => $item->getPassword()
+        );
     }
 
     public function getUpdateSting(): string

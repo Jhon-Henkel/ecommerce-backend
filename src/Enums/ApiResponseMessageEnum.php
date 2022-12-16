@@ -10,4 +10,5 @@ class ApiResponseMessageEnum
     const NOT_FOUND = 'Registro não encontrado!';
     const ATTRIBUTE_NOT_FOUND = 'O id do seguinte atributo não foi encontrado: ';
     const FATHER_CATEGORY_NOT_FOUND = 'Categoria pai não encontrada!';
+    const INVALID_VALUE = 'O valor para o seguinte campo é inválido: ';
 }

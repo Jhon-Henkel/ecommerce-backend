@@ -52,4 +52,10 @@ class Response
             ApiResponseMessageEnum::ATTRIBUTE_NOT_FOUND . $attribute
         );
     }
+
+    public static function renderInvalidFieldValue(string $field): void
+    {
+        $message = ApiResponseMessageEnum::INVALID_VALUE . $field;
+        Response::render(HttpStatusCodeEnum::HTTP_FORBIDDEN, $message);
+    }
 }

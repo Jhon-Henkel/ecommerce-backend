@@ -6,31 +6,31 @@ use DateTime;
 
 class AddressDTO
 {
-    private int $id;
+    private null|int $id;
     private int $clientId;
     private string $street;
     private string $zipCode;
-    private null|int $addressNumber;
+    private null|int $number;
     private null|string $complement;
     private string $district;
     private string $city;
     private string $state;
-    private string $reference;
+    private null|string $reference;
     private null|DateTime $createdAt;
     private null|DateTime $updatedAt;
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getId(): int
+    public function getId(): null|int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param null|int $id
      */
-    public function setId(int $id): void
+    public function setId(null|int $id): void
     {
         $this->id = $id;
     }
@@ -86,17 +86,17 @@ class AddressDTO
     /**
      * @return int|null
      */
-    public function getAddressNumber(): ?int
+    public function getNumber(): null|int
     {
-        return $this->addressNumber;
+        return $this->number;
     }
 
     /**
-     * @param int|null $addressNumber
+     * @param int|null $number
      */
-    public function setAddressNumber(?int $addressNumber): void
+    public function setNumber(null|int $number): void
     {
-        $this->addressNumber = $addressNumber;
+        $this->number = $number;
     }
 
     /**
@@ -164,17 +164,17 @@ class AddressDTO
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getReference(): string
+    public function getReference(): string|null
     {
         return $this->reference;
     }
 
     /**
-     * @param string $reference
+     * @param string|null $reference
      */
-    public function setReference(string $reference): void
+    public function setReference(string|null $reference): void
     {
         $this->reference = $reference;
     }

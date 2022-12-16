@@ -12,4 +12,6 @@ class ApiRouteEnum
     const BRAND = 'brand';
     const SIZE = 'size';
     const API = 'api';
+    const APP = 'app';
+    const CLIENT = 'client';
 }

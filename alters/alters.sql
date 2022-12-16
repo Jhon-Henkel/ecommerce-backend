@@ -72,7 +72,7 @@ CREATE TABLE IF NOT EXISTS product_stock (
 CREATE TABLE IF NOT EXISTS client (
     client_id int(10) NOT NULL AUTO_INCREMENT,
     client_name varchar(255) NOT NULL,
-    client_document_type varchar(20) NOT NULL,
+    client_document_type int(10) NOT NULL,
     client_document varchar(20) NOT NULL UNIQUE,
     client_main_phone varchar(20) DEFAULT NULL,
     client_second_phone varchar(20) DEFAULT NULL,
@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS address (
     address_district varchar(255) NOT NULL,
     address_city varchar(255) NOT NULL,
     address_state varchar(255) NOT NULL,
-    address_reference varchar(255) NOT NULL,
+    address_reference varchar(255) DEFAULT NULL,
     address_created_at datetime DEFAULT current_timestamp(),
     address_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (address_id),

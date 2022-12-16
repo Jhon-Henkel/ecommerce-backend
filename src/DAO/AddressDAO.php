@@ -2,21 +2,39 @@
 
 namespace src\DAO;
 
+use src\DTO\AddressDTO;
+
 class AddressDAO extends BasicDAO
 {
     public function getColumnsToInsert(): string
     {
-        // TODO: Implement getColumnsToInsert() method.
+        $columns = 'address_client_id, address_street, address_zip_code, address_number,';
+        $columns .= ' address_complement, address_district, address_city, address_state, address_reference';
+        return $columns;
     }
 
     public function getParamsStringToInsert(): string
     {
-        // TODO: Implement getParamsStringToInsert() method.
+        return ':clientId, :street, :zip, :number, :complement, :district, :city, :state, :reference';
     }
 
+    /**
+     * @param AddressDTO $item
+     * @return array
+     */
     public function getParamsArrayToInsert($item): array
     {
-        // TODO: Implement getParamsArrayToInsert() method.
+        return array(
+            'clientId' => $item->getClientId(),
+            'street' => $item->getStreet(),
+            'zip' => $item->getZipCode(),
+            'number' => $item->getNumber(),
+            'complement' => $item->getComplement(),
+            'district' => $item->getDistrict(),
+            'city' => $item->getCity(),
+            'state' => $item->getState(),
+            'reference' => $item->getReference()
+        );
     }
 
     public function getUpdateSting(): string

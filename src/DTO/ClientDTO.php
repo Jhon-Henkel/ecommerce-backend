@@ -6,9 +6,9 @@ use DateTime;
 
 class ClientDTO
 {
-    private int $id;
+    private null|int $id;
     private string $name;
-    private string $documentType;
+    private int $documentType;
     private string $document;
     private null|string $mainPhone;
     private null|string $secondPhone;
@@ -19,17 +19,17 @@ class ClientDTO
     private null|DateTime $updatedAt;
 
     /**
-     * @return int
+     * @return null|int
      */
-    public function getId(): int
+    public function getId(): null|int
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param null|int $id
      */
-    public function setId(int $id): void
+    public function setId(null|int $id): void
     {
         $this->id = $id;
     }
@@ -51,17 +51,17 @@ class ClientDTO
     }
 
     /**
-     * @return string
+     * @return int
      */
-    public function getDocumentType(): string
+    public function getDocumentType(): int
     {
         return $this->documentType;
     }
 
     /**
-     * @param string $documentType
+     * @param int $documentType
      */
-    public function setDocumentType(string $documentType): void
+    public function setDocumentType(int $documentType): void
     {
         $this->documentType = $documentType;
     }

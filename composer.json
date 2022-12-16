@@ -12,8 +12,7 @@
     "scripts": {
         "php-unit": "vendor/bin/phpunit ./tests/Unit",
         "php-coverage": "vendor/bin/phpunit --coverage-html ./tests/coverage/",
-        "php-feature": "vendor/bin/phpunit ./tests/Feature",
-        "php-feature-coverage": "vendor/bin/phpunit --coverage-html ./tests/coverage/ ./tests/Feature"
+        "php-feature": "vendor/bin/phpunit ./tests/Feature"
     },
     "authors": [
         {

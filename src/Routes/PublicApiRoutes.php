@@ -5,8 +5,6 @@ use src\Enums\ApiRouteEnum;
 use src\Controllers\ProductController;
 use src\Controllers\BrandController;
 use src\Api\Response;
-use src\Enums\FieldsEnum;
-use src\Enums\RequestTypeEnum;
 use src\Controllers\CategoryController;
 use src\Controllers\ColorController;
 use src\Controllers\SizeController;
@@ -31,34 +29,6 @@ if (RequestTools::inputGet(ApiRouteEnum::API)) {
             break;
         case (ApiRouteEnum::SIZE):
             $controller = new SizeController();
-            break;
-        default:
-            Response::renderMethodNotAllowed();
-    }
-}
-
-if (isset($controller)) {
-    switch (RequestTools::inputServer(ApiRouteEnum::REQUEST_METHOD)) {
-        case (RequestTypeEnum::POST):
-            $controller->apiPost(RequestTools::inputPhpInput());
-            unset($controller);
-            break;
-        case (RequestTypeEnum::PUT):
-            $controller->apiPut(RequestTools::inputPhpInput());
-            unset($controller);
-            break;
-        case (RequestTypeEnum::DELETE):
-            $controller->apiDelete((int)RequestTools::inputGet(FieldsEnum::ID_JSON));
-            unset($controller);
-            break;
-        case (RequestTypeEnum::GET):
-            $id = RequestTools::inputGet(FieldsEnum::ID_JSON);
-            if ($id){
-                $controller->apiGet((int)$id);
-            } else {
-                $controller->apiIndex();
-            }
-            unset($controller);
             break;
         default:
             Response::renderMethodNotAllowed();
