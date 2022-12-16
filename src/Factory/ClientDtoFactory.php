@@ -4,7 +4,7 @@ namespace src\Factory;
 
 use src\DTO\AddressDTO;
 use src\DTO\ClientDTO;
-use src\Tools\StringTools;
+use src\Tools\DateTools;
 
 class ClientDtoFactory extends BasicDtoFactory
 {
@@ -18,7 +18,7 @@ class ClientDtoFactory extends BasicDtoFactory
         $client->setMainPhone($item->mainPhone ?? null);
         $client->setSecondPhone($item->secondPhone ?? null);
         $client->setEmail($item->email);
-        $client->setBirthDate(StringTools::dateTimeConverter($item->birthDate));
+        $client->setBirthDate(DateTools::dateTimeConverter($item->birthDate));
         $client->setPassword($item->password);
         return $client;
     }
@@ -37,7 +37,7 @@ class ClientDtoFactory extends BasicDtoFactory
         $client->mainPhone = $item->getMainPhone();
         $client->secondPhone = $item->getSecondPhone();
         $client->email = $item->getEmail();
-        $client->birthDate = StringTools::dateTimeToString($item->getBirthDate());
+        $client->birthDate = DateTools::dateTimeToString($item->getBirthDate());
         $client->password = $item->getPassword();
         return $client;
     }
@@ -52,7 +52,7 @@ class ClientDtoFactory extends BasicDtoFactory
         $client->setMainPhone($item['client_main_phone']);
         $client->setSecondPhone($item['client_second_phone']);
         $client->setEmail($item['client_email']);
-        $client->setBirthDate(StringTools::dateTimeConverter($item['client_birth_date']));
+        $client->setBirthDate(DateTools::dateTimeConverter($item['client_birth_date']));
         $client->setPassword($item['client_password']);
         return $client;
     }

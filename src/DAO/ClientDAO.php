@@ -3,7 +3,7 @@
 namespace src\DAO;
 
 use src\DTO\ClientDTO;
-use src\Tools\StringTools;
+use src\Tools\DateTools;
 
 class ClientDAO extends BasicDAO
 {
@@ -32,7 +32,7 @@ class ClientDAO extends BasicDAO
             'mainPhone' => $item->getMainPhone(),
             'secondPhone' => $item->getSecondPhone(),
             'email' => $item->getEmail(),
-            'birthDate' => StringTools::dateTimeToString($item->getBirthDate()),
+            'birthDate' => DateTools::dateTimeToString($item->getBirthDate()),
             'password' => $item->getPassword()
         );
     }
