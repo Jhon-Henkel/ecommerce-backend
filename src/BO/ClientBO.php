@@ -5,6 +5,7 @@ namespace src\BO;
 use src\Api\Response;
 use src\DAO\ClientDAO;
 use src\DTO\AddressDTO;
+use src\DTO\ClientDTO;
 use src\Enums\DocumentEnum;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
@@ -26,6 +27,7 @@ class ClientBO extends BasicBO
 
     public function validatePostParamsApi(array $paramsFields, \stdClass $client): void
     {
+        $paramsFields = array_merge($paramsFields, array(FieldsEnum::ADDRESS_JSON));
         $this->validateFieldsExist($paramsFields, $client);
         $this->validateClientDataApi($client);
         $this->validateItemValueMustNotExistsInDb(FieldsEnum::getClientRequiredFieldsMustNotExistsInDb(), $client);
@@ -79,5 +81,46 @@ class ClientBO extends BasicBO
         $this->validateClientDataApi($item);
         $fields = FieldsEnum::getClientRequiredFieldsMustNotExistsInDb();
         $this->validateItemValueMustNotExistsInDbExceptId($fields, $item, $item->id);
+    }
+
+    public function findById(int $id): \stdClass|null
+    {
+        $client = parent::findById($id);
+        if (!$client) {
+            return null;
+        }
+        $addressBO = new AddressBO();
+        $addresses = $addressBO->findByClientId($id);
+        return $this->factoryClientWithAddressesPublic($client, $addresses);
+    }
+
+    public function factoryClientWithAddressesPublic(ClientDTO $client, array $addresses): \stdClass
+    {
+        $addressBO = new AddressBO();
+        $publicAddresses = array();
+        foreach ($addresses as $address) {
+            $publicAddresses[] = $addressBO->factory->makePublic($address);
+        }
+        return $this->factory->factoryClientWithAddressesPublic($client, $publicAddresses);
+    }
+
+    public function findAll(): array
+    {
+        $addressBO = new AddressBO();
+        $clients = parent::findall();
+        $clientWhitAddresses = array();
+        foreach ($clients as $client) {
+            $addresses = $addressBO->findByClientId($client->id);
+            $client = $this->factory->factory($client);
+            $clientWhitAddresses[] = $this->factoryClientWithAddressesPublic($client, $addresses);
+        }
+        return $clientWhitAddresses;
+    }
+
+    public function deleteById(int $id): void
+    {
+        $addressBO = new AddressBO();
+        $addressBO->deleteAddressesByClientId($id);
+        parent::deleteById($id);
     }
 }

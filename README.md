@@ -38,6 +38,7 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Validar quantidade de caracteres dos valores inseridos.
 - Validar se os campos obrigatórios não são nulos.
 - Colocar o 'criado em' e de 'atualizado em' nas tabelas de produtos e seus atributos.
+- Salvar CPF no banco com formatação mesmo se vir sem formatação.
 
 ---
 ## Documentações

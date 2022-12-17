@@ -64,4 +64,11 @@ class ClientDtoFactory extends BasicDtoFactory
         $client->address = $addressFactory->makePublic($address);
         return $client;
     }
+
+    public function factoryClientWithAddressesPublic(ClientDTO $client, array $addresses): \stdClass
+    {
+        $clientFactored = $this->makePublic($client);
+        $clientFactored->address = $addresses;
+        return $clientFactored;
+    }
 }

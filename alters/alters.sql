@@ -87,7 +87,7 @@ CREATE TABLE IF NOT EXISTS client (
 -- criando tabela endereço cliente --
 CREATE TABLE IF NOT EXISTS address (
     address_id int(10) NOT NULL AUTO_INCREMENT,
-    address_client_id int(10) NOT NULL UNIQUE,
+    address_client_id int(10) NOT NULL,
     address_street varchar(255) NOT NULL,
     address_zip_code varchar(10) NOT NULL,
     address_number int(10) DEFAULT NULL,

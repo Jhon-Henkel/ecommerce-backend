@@ -51,4 +51,16 @@ class AddressDAO extends BasicDAO
     {
         // TODO: Implement getParamsArrayToUpdate() method.
     }
+
+    public function findByClientId(int $id): null|array
+    {
+        $query = 'SELECT * FROM address WHERE address_client_id = :id';
+        return $this->database->select($query, array('id' => $id));
+    }
+
+    public function deleteByClientId(int $id): void
+    {
+        $query = "DELETE FROM address WHERE address_client_id = :id";
+        $this->database->delete($query, array('id' => $id));
+    }
 }

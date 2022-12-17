@@ -36,4 +36,18 @@ class ClientController extends BasicController
         $clientWithAddress = $this->factory->factoryClientWithAddress($clientInserted, $addressInserted);
         Response::render(HttpStatusCodeEnum::HTTP_CREATED, $clientWithAddress);
     }
+
+    public function apiGet(int $id)
+    {
+        $client = $this->bo->findById($id);
+        if (!$client){
+            Response::renderNotFound();
+        }
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $client);
+    }
+
+    public function apiIndex()
+    {
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $this->bo->findAll());
+    }
 }

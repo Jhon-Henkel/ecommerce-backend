@@ -1,4 +1,11 @@
 # *EndPoint's API Produtos e seus atributos*
+### *Cliente*
+- ***GET***
+    - **URL:** ?api=client
+- ***GET***
+    - **URL:** ?api=client&id={clientId}
+- ***DELETE***
+    - **URL:** ?api=client&id={clientId}
 - ***POST***
     - **URL:** ?api=client
     - **Required Fields | Type:**
@@ -40,3 +47,4 @@
             "password": "12345678"
         }
         ````
+### *Endereço*
