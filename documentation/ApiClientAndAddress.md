@@ -1,6 +1,9 @@
-client routes
-    post ?app=client
-    json
+# *EndPoint's API Produtos e seus atributos*
+- ***POST***
+    - **URL:** ?api=client
+    - **Required Fields | Type:**
+    - **JSON:**
+        ````
         {
             "name": "joaozinho teste",
             "documentType": 2,
@@ -20,8 +23,12 @@ client routes
                 "reference": "proximo ao mercado do vilmar"
             }
         }
-    put ?app=client&id={clientId}
-    json
+        ````
+- **PUT**
+    - **URL:** ?api=client&id={clientId}
+    - **Required Fields | Type:**
+    - **JSON:**
+        ````
         {
             "name": "joaozinho teste",
             "documentType": 2,
@@ -32,3 +39,4 @@ client routes
             "birthDate": "1995-10-10 00:00:00",
             "password": "12345678"
         }
+        ````
