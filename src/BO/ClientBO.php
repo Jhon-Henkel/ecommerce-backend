@@ -69,4 +69,15 @@ class ClientBO extends BasicBO
         $address->clientId = $clientId;
         return $addressDtoFactory->factory($address);
     }
+
+    public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
+    {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID_JSON, $item->id)) {
+            Response::renderNotFound();
+        }
+        $this->validateFieldsExist($paramsFields, $item);
+        $this->validateClientDataApi($item);
+        $fields = FieldsEnum::getClientRequiredFieldsMustNotExistsInDb();
+        $this->validateItemValueMustNotExistsInDbExceptId($fields, $item, $item->id);
+    }
 }

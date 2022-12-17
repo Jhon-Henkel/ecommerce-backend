@@ -39,16 +39,19 @@ class ClientDAO extends BasicDAO
 
     public function getUpdateSting(): string
     {
-        // TODO: Implement getUpdateSting() method.
+        $updateString = "client_name = :name, client_document_type = :documentType, client_document = :document,";
+        $updateString .= " client_main_phone = :mainPhone, client_second_phone = :secondPhone,";
+        $updateString .= " client_email = :email, client_birth_date = :birthDate, client_password = :password";
+        return $updateString;
     }
 
     public function getWhereClausuleToUpdate(): string
     {
-        // TODO: Implement getWhereClausuleToUpdate() method.
+        return 'client_id = :id';
     }
 
     public function getParamsArrayToUpdate($item): array
     {
-        // TODO: Implement getParamsArrayToUpdate() method.
+        return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }
 }
