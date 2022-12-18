@@ -48,3 +48,9 @@
         }
         ````
 ### *Endereço*
+- ***GET***
+  - **URL:** ?api=address
+- ***GET***
+  - **URL:** ?api=address&id={addressId}
+- ***DELETE***
+  - **URL:** ?api=client&id={clientId}

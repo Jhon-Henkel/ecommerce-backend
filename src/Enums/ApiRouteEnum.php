@@ -14,4 +14,5 @@ class ApiRouteEnum
     const API = 'api';
     const APP = 'app';
     const CLIENT = 'client';
+    const ADDRESS = 'address';
 }

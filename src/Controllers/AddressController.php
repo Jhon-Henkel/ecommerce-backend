@@ -6,7 +6,7 @@ use src\BO\AddressBO;
 use src\Enums\FieldsEnum;
 use src\Factory\AddressDtoFactory;
 
-class AddressController
+class AddressController extends BasicController
 {
     public AddressBO $bo;
     public AddressDtoFactory $factory;
