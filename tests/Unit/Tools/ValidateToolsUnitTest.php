@@ -34,6 +34,16 @@ class ValidateToolsUnitTest extends TestCase
         ValidateTools::validateQueryType($type, $query);
     }
 
+    /**
+     * @return void
+     * @dataProvider validateEmailDataProvider
+     */
+    public function testValidateEmail($email, $expect)
+    {
+        $valid = ValidateTools::validateEmail($email);
+        $this->assertEquals($expect, $valid);
+    }
+
     public function dataProviderQueryValidator(): array
     {
         return [
@@ -59,6 +69,15 @@ class ValidateToolsUnitTest extends TestCase
                 'value' => [],
                 'expectedResult' => false
             ]
+        ];
+    }
+
+    public function validateEmailDataProvider(): array
+    {
+        return [
+            'ShouldBeValidReturnsTrue' => ['email' => 'test@test.com', 'expect' => true],
+            'ShouldBeValidReturnsFalse' => ['email' => 'abcd', 'expect' => false],
+            'ShouldBeValidReturnsFalseInputNumbers' => ['email' => 1234, 'expect' => false]
         ];
     }
 }

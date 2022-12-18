@@ -32,7 +32,7 @@ class ClientDAO extends BasicDAO
             'mainPhone' => $item->getMainPhone(),
             'secondPhone' => $item->getSecondPhone(),
             'email' => $item->getEmail(),
-            'birthDate' => DateTools::dateTimeToString($item->getBirthDate()),
+            'birthDate' => DateTools::dateTimeToStringConverter($item->getBirthDate()),
             'password' => $item->getPassword()
         );
     }
