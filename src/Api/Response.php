@@ -16,7 +16,7 @@ class Response
     public static function renderRequiredAttributesMissing(): void
     {
         self::render(
-            HttpStatusCodeEnum::HTTP_DAB_REQUEST,
+            HttpStatusCodeEnum::HTTP_BAD_REQUEST,
             ApiResponseMessageEnum::REQUIRED_ATTRIBUTES_MISSING
         );
     }
@@ -56,6 +56,6 @@ class Response
     public static function renderInvalidFieldValue(string $field): void
     {
         $message = ApiResponseMessageEnum::INVALID_VALUE . $field;
-        Response::render(HttpStatusCodeEnum::HTTP_FORBIDDEN, $message);
+        Response::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 }

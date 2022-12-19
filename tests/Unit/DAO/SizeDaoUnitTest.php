@@ -5,7 +5,7 @@ namespace tests\Unit\DAO;
 use PHPUnit\Framework\TestCase;
 use src\DAO\SizeDAO;
 use src\DTO\SizeDTO;
-use tests\Unit\Traits\SizeTraits;
+use tests\Traits\SizeTraits;
 
 class SizeDaoUnitTest extends TestCase
 {

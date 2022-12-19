@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\Unit\Traits;
+namespace tests\Traits;
 
 use src\DTO\SizeDTO;
 

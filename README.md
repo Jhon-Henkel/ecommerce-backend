@@ -28,6 +28,7 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Php Unit
 - Jest
 - Composer
+- GuzzleHttp
 ---
 # Fazer
 - Autenticação nas API's.

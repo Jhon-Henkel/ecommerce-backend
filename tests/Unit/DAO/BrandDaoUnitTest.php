@@ -5,7 +5,7 @@ namespace tests\Unit\DAO;
 use PHPUnit\Framework\TestCase;
 use src\DAO\BrandDAO;
 use src\DTO\BrandDTO;
-use tests\Unit\Traits\BrandTraits;
+use tests\Traits\BrandTraits;
 
 class BrandDaoUnitTest extends TestCase
 {

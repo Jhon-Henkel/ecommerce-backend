@@ -5,7 +5,7 @@ namespace tests\Unit\DAO;
 use PHPUnit\Framework\TestCase;
 use src\DAO\ProductDAO;
 use src\DTO\ProductDTO;
-use tests\Unit\Traits\ProductTraits;
+use tests\Traits\ProductTraits;
 
 class ProductDaoUnitTest extends TestCase
 {

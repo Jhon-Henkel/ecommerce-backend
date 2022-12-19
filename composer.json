@@ -27,6 +27,7 @@
     },
     "require": {
         "ext-pdo": "*",
-        "ext-openssl": "*"
+        "ext-openssl": "*",
+        "guzzlehttp/guzzle": "^7.0"
     }
 }

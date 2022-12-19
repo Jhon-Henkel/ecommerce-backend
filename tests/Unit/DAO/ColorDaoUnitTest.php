@@ -5,7 +5,7 @@ namespace tests\Unit\DAO;
 use PHPUnit\Framework\TestCase;
 use src\DAO\ColorDAO;
 use src\DTO\ColorDTO;
-use tests\Unit\Traits\ColorTraits;
+use tests\Traits\ColorTraits;
 
 class ColorDaoUnitTest extends TestCase
 {
