@@ -18,7 +18,7 @@
             "name": "Brand Test"
         }
         ````
-- **PUT**
+- ***PUT***
     - **URL:** ?api=brand&id={brandId}
     - **Required Fields|Type:**
         - code | string
@@ -32,13 +32,13 @@
         ````
 ---
 ### *Categorias*
-- **GET**
+- ***GET***
     - **URL:** ?api=category
-- **GET**
+- ***GET***
     - **URL:** ?api=category&id={categoryId}
-- **DELETE**
+- ***DELETE***
     - **URL:** ?api=category&id={categoryId}
-- **POST**
+- ***POST***
     - **URL:** ?api=category
     - **Required Fields:**
         - code | string
@@ -53,7 +53,7 @@
             "fatherId": 2
         }
         ````
-- **PUT**
+- ***PUT***
     - **URL:** ?api=category&id={categoryId}
     - **Required Fields:**
         - code | string
@@ -70,13 +70,13 @@
         ````
 ---
 ### *Cores*
-- **GET**
+- ***GET***
     - URL: ?api=color
-- **GET**
+- ***GET***
     - URL: ?api=color&id={colorId}
-- **DELETE**
+- ***DELETE***
     - URL: ?api=color&id={colorId}
-- **POST**
+- ***POST***
     - **URL:** ?api=color
     - **Required Fields:**
         - code | string
@@ -88,7 +88,7 @@
             "name": "Color Test"
         }
         ````
-- **PUT**
+- ***PUT***
     - **URL:** ?api=color&id={colorId}
     - **Required Fields:**
         - code | string
@@ -102,13 +102,13 @@
         ````
 ---
 ### *Tamanhos*
-- **GET**
+- ***GET***
     - **URL:** ?api=size
-- **GET**
+- ***GET***
     - **URL:** ?api=size&id={sizeId}
-- **DELETE**
+- ***DELETE***
     - **URL:** ?api=size&id={sizeId}
-- **POST**
+- ***POST***
     - **URL:** ?api=size
     - **Required Fields:**
         - code | string
@@ -120,7 +120,7 @@
             "name": "Size Test"
         }
         ````
-- **PUT**
+- ***PUT***
     - **URL:** ?api=size&id={sizeId}
     - **Required Fields|Type:**
         - code | string
@@ -134,13 +134,13 @@
         ````
 ---
 ### *Produtos*
-- **GET**
+- ***GET***
     - **URL:** ?api=product
-- **GET**
+- ***GET***
     - **URL:** ?api=product&id={productId}
-- **DELETE**
+- ***DELETE***
     - **URL:** ?api=product&id={productId}
-- **POST**
+- ***POST***
     - **URL:** ?api=product
     - **Required Fields:**
         - code | string
@@ -186,7 +186,7 @@
             ]
         }
         ````
-- **PUT**
+- ***PUT***
     - **URL:** ?api=product&id={productId}
     - **Required Fields:**
         - code | string
@@ -205,13 +205,13 @@
     ````
 ---
 ### *Estoques*
-- **GET**
+- ***GET***
     - **URL:** ?api=stock
-- **GET**
+- ***GET***
     - **URL:** ?api=stock&id={stockId}
-- **DELETE**
+- ***DELETE***
     - **URL** ?api=stock&id={stockId}
-- **POST**
+- ***POST***
     - **URL:** ?api=stock
     - **Required Fields:**
         - code | string
@@ -243,7 +243,7 @@
             "grossWeight": 1600
         }
        ````
-- **PUT**
+- ***PUT***
     - **URL** ?api=stock&id={stockId}
     - **Required Fields:**
         - code | string

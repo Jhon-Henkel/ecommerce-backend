@@ -15,6 +15,11 @@ abstract class BasicBO
         if (!ValidateTools::validateParamsFieldsInArray($paramsFields, (array)$item)) {
             Response::renderRequiredAttributesMissing();
         }
+        foreach ((array)$item as $key => $value) {
+            if (empty($value)) {
+                Response::renderInvalidFieldValue($key);
+            }
+        }
     }
 
     public function deleteById(int $id): void

@@ -1,14 +1,21 @@
 # *EndPoint's API Produtos e seus atributos*
 ### *Cliente*
 - ***GET***
-    - **URL:** ?api=client
+    - **URL:** ?app=client
 - ***GET***
-    - **URL:** ?api=client&id={clientId}
+    - **URL:** ?app=client&id={clientId}
 - ***DELETE***
-    - **URL:** ?api=client&id={clientId}
+    - **URL:** ?app=client&id={clientId}
 - ***POST***
-    - **URL:** ?api=client
+    - **URL:** ?app=client
     - **Required Fields | Type:**
+      - name | string
+      - documentType | int
+      - document | string|int
+      - email | string
+      - birthDate | dateTime
+      - password | string
+      - address | object of address
     - **JSON:**
         ````
         {
@@ -31,9 +38,15 @@
             }
         }
         ````
-- **PUT**
-    - **URL:** ?api=client&id={clientId}
+- ***PUT***
+    - **URL:** ?app=client&id={clientId}
     - **Required Fields | Type:**
+      - name | string
+      - documentType | int
+      - document | string|int
+      - email | string
+      - birthDate | dateTime
+      - password | string
     - **JSON:**
         ````
         {
@@ -49,8 +62,54 @@
         ````
 ### *Endereço*
 - ***GET***
-  - **URL:** ?api=address
+  - **URL:** ?app=address
 - ***GET***
-  - **URL:** ?api=address&id={addressId}
+  - **URL:** ?app=address&id={addressId}
 - ***DELETE***
-  - **URL:** ?api=client&id={clientId}
+  - **URL:** ?app=address&id={addressId}
+- ***POST***
+  - **URL:** ?app=address
+  - **Required Fields | Type:**
+    - clientId | int
+    - street | string
+    - zipCode | string|int
+    - district | string
+    - city | string
+    - state | string
+  - **JSON:**
+      ````
+      {
+        "clientId": 3,
+        "street": "Avenida Brasil",
+        "zipCode": "88750-000",
+        "complement": "entregar no 6º andar",
+        "number": 25,
+        "district": "centro",
+        "city": "cidade das estrelas",
+        "state": "santa catarina",
+        "reference": "proximo ao mercado do vilmar"
+      }
+      ````
+- ***PUT***
+  - **URL:** ?app=address&id={addressId}
+  - **Required Fields | Type:**
+    - clientId | int
+    - street | string
+    - zipCode | string|int
+    - district | string
+    - city | string
+    - state | string
+  - **JSON:**
+      ````
+      {
+        "clientId": 3,
+        "street": "Avenida Brasil",
+        "zipCode": "88750-000",
+        "complement": "entregar no 6º andar",
+        "number": 25,
+        "district": "centro",
+        "city": "cidade das estrelas",
+        "state": "santa catarina",
+        "reference": "proximo ao mercado do vilmar"
+      }
+      ````

@@ -39,17 +39,24 @@ class AddressDAO extends BasicDAO
 
     public function getUpdateSting(): string
     {
-        // TODO: Implement getUpdateSting() method.
+        $strUpdate = 'address_client_id = :clientId, address_street = :street, address_zip_code = :zip,';
+        $strUpdate .= ' address_number = :number, address_complement = :complement, address_district = :district,';
+        $strUpdate .= ' address_city = :city, address_state = :state, address_reference = :reference';
+        return $strUpdate;
     }
 
     public function getWhereClausuleToUpdate(): string
     {
-        // TODO: Implement getWhereClausuleToUpdate() method.
+        return 'address_id = :id';
     }
 
+    /**
+     * @param AddressDTO $item
+     * @return array
+     */
     public function getParamsArrayToUpdate($item): array
     {
-        // TODO: Implement getParamsArrayToUpdate() method.
+        return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }
 
     public function findByClientId(int $id): null|array

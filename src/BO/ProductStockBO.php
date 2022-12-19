@@ -73,7 +73,8 @@ class ProductStockBO extends BasicBO
 
     public function validateProductExistsForApiById(int $id): void
     {
-        if (!$this->dao->countByColumnValue(FieldsEnum::PRODUCT_ID_DB, $id)) {
+        $productDAO = new ProductStockDAO(TableEnum::PRODUCT);
+        if (!$productDAO->countByColumnValue(FieldsEnum::PRODUCT_ID_DB, $id)) {
             Response::renderAttributeNotFound(FieldsEnum::PRODUCT_ID_JSON);
         }
     }
