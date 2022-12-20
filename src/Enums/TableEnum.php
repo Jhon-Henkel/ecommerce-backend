@@ -12,4 +12,5 @@ class TableEnum
     const SIZE = 'size';
     const ADDRESS = 'address';
     const CLIENT = 'client';
+    const GIFT_CARD = 'gift_card';
 }

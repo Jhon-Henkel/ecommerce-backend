@@ -44,14 +44,14 @@ class AddressBO extends BasicBO
     public function validateClientExistsForApiById(int $id): void
     {
         $clientDAO = new ClientDAO(TableEnum::CLIENT);
-        if (!$clientDAO->countByColumnValue(FieldsEnum::ID_JSON, $id)) {
+        if (!$clientDAO->countByColumnValue(FieldsEnum::ID, $id)) {
             Response::renderAttributeNotFound(FieldsEnum::CLIENT_ID_JSON);
         }
     }
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
-        if (!$this->dao->countByColumnValue(FieldsEnum::ID_JSON, $item->id)) {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
             Response::renderNotFound();
         }
         $this->validateFieldsExist($paramsFields, $item);

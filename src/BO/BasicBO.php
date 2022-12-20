@@ -35,7 +35,7 @@ abstract class BasicBO
 
     public function countById(int $id): int
     {
-        return $this->dao->countByColumnValue(FieldsEnum::ID_JSON, $id);
+        return $this->dao->countByColumnValue(FieldsEnum::ID, $id);
     }
 
     public function findAll()
@@ -77,7 +77,7 @@ abstract class BasicBO
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
-        if (!$this->dao->countByColumnValue(FieldsEnum::ID_JSON, $item->id)) {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
             Response::renderNotFound();
         }
         $this->validateFieldsExist($paramsFields, $item);

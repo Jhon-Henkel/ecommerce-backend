@@ -27,7 +27,7 @@ class ClientBO extends BasicBO
 
     public function validatePostParamsApi(array $paramsFields, \stdClass $client): void
     {
-        $paramsFields = array_merge($paramsFields, array(FieldsEnum::ADDRESS_JSON));
+        $paramsFields = array_merge($paramsFields, array(FieldsEnum::ADDRESS));
         $this->validateFieldsExist($paramsFields, $client);
         $this->validateClientDataApi($client);
         $this->validateItemValueMustNotExistsInDb(FieldsEnum::getClientRequiredFieldsMustNotExistsInDb(), $client);
@@ -58,10 +58,10 @@ class ClientBO extends BasicBO
             Response::renderInvalidFieldValue(FieldsEnum::DOCUMENT_TYPE_JSON);
         }
         if (!$this->validateDocument($client->document, $client->documentType)) {
-            Response::renderInvalidFieldValue(FieldsEnum::DOCUMENT_JSON);
+            Response::renderInvalidFieldValue(FieldsEnum::DOCUMENT);
         }
         if (!ValidateTools::validateEmail($client->email)) {
-            Response::renderInvalidFieldValue(FieldsEnum::EMAIL_JSON);
+            Response::renderInvalidFieldValue(FieldsEnum::EMAIL);
         }
     }
 
@@ -74,7 +74,7 @@ class ClientBO extends BasicBO
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
-        if (!$this->dao->countByColumnValue(FieldsEnum::ID_JSON, $item->id)) {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
             Response::renderNotFound();
         }
         $this->validateFieldsExist($paramsFields, $item);

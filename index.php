@@ -21,11 +21,11 @@ if (isset($controller)) {
             unset($controller);
             break;
         case (RequestTypeEnum::DELETE):
-            $controller->apiDelete((int)RequestTools::inputGet(FieldsEnum::ID_JSON));
+            $controller->apiDelete((int)RequestTools::inputGet(FieldsEnum::ID));
             unset($controller);
             break;
         case (RequestTypeEnum::GET):
-            $id = RequestTools::inputGet(FieldsEnum::ID_JSON);
+            $id = RequestTools::inputGet(FieldsEnum::ID);
             if ($id){
                 $controller->apiGet((int)$id);
             } else {

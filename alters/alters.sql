@@ -101,3 +101,17 @@ CREATE TABLE IF NOT EXISTS address (
     PRIMARY KEY (address_id),
     FOREIGN KEY (address_client_id) REFERENCES client(client_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- criando tabela cupom desconto --
+CREATE TABLE IF NOT EXISTS gift_card (
+    gift_card_id int(10) NOT NULL AUTO_INCREMENT,
+    gift_card_code varchar(100) NOT NULL,
+    gift_card_discount_type int(10) NOT NULL,
+    gift_card_discount decimal(6, 2) NOT NULL,
+    gift_card_usages int(10) NOT NULL DEFAULT 0,
+    gift_card_max_usages int(100) NOT NULL,
+    gift_card_status int(10) NOT NULL,
+    gift_card_created_at datetime DEFAULT current_timestamp(),
+    gift_card_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    PRIMARY KEY (gift_card_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

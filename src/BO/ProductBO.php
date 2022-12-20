@@ -32,7 +32,7 @@ class ProductBO extends BasicBO
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $product): void
     {
-        if (!$this->dao->countByColumnValue(FieldsEnum::ID_JSON, $product->id)) {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $product->id)) {
             Response::renderNotFound();
         }
         $this->validateFieldsExist($paramsFields, $product);
