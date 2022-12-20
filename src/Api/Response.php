@@ -5,6 +5,9 @@ namespace src\Api;
 use src\Enums\ApiResponseMessageEnum;
 use src\Enums\HttpStatusCodeEnum;
 
+/**
+ * @codeCoverageIgnore
+ */
 class Response
 {
     public static function render(int $code, mixed $print): void

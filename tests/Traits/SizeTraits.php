@@ -14,4 +14,13 @@ trait SizeTraits
         $size->setCode('size-test-12');
         return $size;
     }
+
+    public function makeStdSizeTest12(): \stdClass
+    {
+        $size = new \stdClass();
+        $size->id = 12;
+        $size->name = 'Size Test';
+        $size->code = 'size-test-12';
+        return $size;
+    }
 }
