@@ -15,6 +15,7 @@ class ApiColorFeatureTest extends TestCase
 {
     use ColorTraits, HttpRequestTrait;
 
+    public \stdClass $color94;
     public \stdClass $color95;
     public \stdClass $color96;
     public ColorDAO $colorDAO;
@@ -24,6 +25,7 @@ class ApiColorFeatureTest extends TestCase
     {
         $this->api = 'api=color';
         $this->deleteColors();
+        $this->color94 = $this->makeStdColorTest94();
         $this->color95 = $this->makeStdColorTest95();
         $this->color96 = $this->makeStdColorTest96();
         $this->colorDAO = new ColorDAO(TableEnum::COLOR);
@@ -134,6 +136,7 @@ class ApiColorFeatureTest extends TestCase
      */
     public function testIndex()
     {
+        $this->post($this->api, $this->color94);
         $response = $this->get($this->api);
         $beforeInsert = count(json_decode($response->getBody()));
         $this->post($this->api, $this->color95);
@@ -184,6 +187,7 @@ class ApiColorFeatureTest extends TestCase
      */
     public function testPutParametersInvalid(string $attribute)
     {
+        $this->post($this->api, $this->color95);
         $colorDAO = new ColorDAO(TableEnum::COLOR);
         $last = $colorDAO->findLastInserted();
         $this->color95->$attribute = null;
@@ -240,6 +244,7 @@ class ApiColorFeatureTest extends TestCase
     public function deleteColors():void
     {
         $db = new Database();
+        $db->delete("DELETE FROM color WHERE color_code = :color", array('color' => 'color-test-94'));
         $db->delete("DELETE FROM color WHERE color_code = :color", array('color' => 'color-test-95'));
         $db->delete("DELETE FROM color WHERE color_code = :color", array('color' => 'color-test-95-put'));
         $db->delete("DELETE FROM color WHERE color_code = :color", array('color' => 'color-test-96'));

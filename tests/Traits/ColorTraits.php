@@ -24,6 +24,15 @@ trait ColorTraits
         return $color;
     }
 
+    public function makeStdColorTest94(): \stdClass
+    {
+        $color = new \stdClass();
+        $color->id = 94;
+        $color->name = 'Color Test 94';
+        $color->code = 'color-test-94';
+        return $color;
+    }
+
     public function makeStdColorTest95(): \stdClass
     {
         $color = new \stdClass();

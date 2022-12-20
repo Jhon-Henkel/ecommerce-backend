@@ -11,7 +11,7 @@
         - code | string
         - discountType | int
         - status | int
-        - discount | int
+        - discount | float
         - maxUsages | int
     - **JSON:**
         ````
@@ -19,7 +19,7 @@
             "code": "CUPOM10",
             "discountType": 1,
             "status": 1,
-            "discount": 1045,
+            "discount": 10.45,
             "maxUsages": 99
         }
         ````
@@ -29,7 +29,7 @@
         - code | string
         - discountType | int
         - status | int
-        - discount | int
+        - discount | float
         - maxUsages | int
     - **JSON:**
         ````
@@ -37,7 +37,7 @@
             "code": "CUPOM10",
             "discountType": 1,
             "status": 1,
-            "discount": 1045,
+            "discount": 10.45,
             "maxUsages": 99
         }
         ````
