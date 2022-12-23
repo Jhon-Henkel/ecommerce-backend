@@ -115,3 +115,29 @@ CREATE TABLE IF NOT EXISTS gift_card (
     gift_card_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (gift_card_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- criando tabela carrinho --
+CREATE TABLE IF NOT EXISTS cart (
+    cart_id int(10) NOT NULL AUTO_INCREMENT,
+    cart_client_id int(10) NOT NULL,
+    cart_order_done int(1) NOT NULL DEFAULT 0,
+    cart_hash varchar(100) NOT NULL,
+    cart_gift_card_id int(10) DEFAULT NULL,
+    cart_created_at datetime DEFAULT current_timestamp(),
+    cart_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    PRIMARY KEY (cart_id),
+    FOREIGN KEY (cart_client_id) REFERENCES client(client_id),
+    FOREIGN KEY (cart_gift_card_id) REFERENCES gift_card(gift_card_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- criando tabela item carrinho --
+CREATE TABLE IF NOT EXISTS cart_item (
+    cart_item_id int(10) NOT NULL AUTO_INCREMENT,
+    cart_item_cart_id int(10) NOT NULL,
+    cart_item_stock_id int(10) NOT NULL,
+    cart_created_at datetime DEFAULT current_timestamp(),
+    cart_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    PRIMARY KEY (cart_item_id),
+    FOREIGN KEY (cart_item_cart_id) REFERENCES cart(cart_id),
+    FOREIGN KEY (cart_item_stock_id) REFERENCES product_stock(product_stock_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
