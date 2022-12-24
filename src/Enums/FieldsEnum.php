@@ -7,6 +7,7 @@ class FieldsEnum
     const DISCOUNT_TYPE_JSON = 'discountType';
     const DOCUMENT_TYPE_JSON = 'documentType';
     const GROSS_WEIGHT_JSON = 'grossWeight';
+    const GIFT_CART_ID_JSON = 'giftCardId';
     const CATEGORY_ID_JSON = 'categoryId';
     const MAX_USAGES_JSON = 'maxUsages';
     const PRODUCT_ID_JSON = 'productId';
@@ -16,6 +17,8 @@ class FieldsEnum
     const PRODUCT_ID_DB = 'product_id';
     const BRAND_ID_JSON = 'brandId';
     const ZIP_CODE_JSON = 'zipCode';
+    const ORDER_DONE_DB = 'order_done';
+    const CLIENT_ID_DB = 'client_id';
     const SIZE_ID_JSON = 'sizeId';
     const DESCRIPTION = 'description';
     const PASSWORD = 'password';
@@ -111,6 +114,13 @@ class FieldsEnum
             self::DISCOUNT,
             self::MAX_USAGES_JSON,
             self::STATUS
+        );
+    }
+
+    public static function getCartInsertRequiredFields(): array
+    {
+        return array(
+            self::CLIENT_ID_JSON
         );
     }
 }

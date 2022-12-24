@@ -16,4 +16,5 @@ class ApiRouteEnum
     const CLIENT = 'client';
     const ADDRESS = 'address';
     const GIFT_CARD = 'gift-card';
+    const CART = 'cart';
 }

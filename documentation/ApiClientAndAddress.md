@@ -1,4 +1,4 @@
-# *EndPoint's API Produtos e seus atributos*
+# *EndPoint's API Cliente e endereços*
 ### *Cliente*
 - ***GET***
     - **URL:** ?app=client

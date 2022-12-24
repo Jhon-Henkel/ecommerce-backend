@@ -61,4 +61,10 @@ class Response
         $message = ApiResponseMessageEnum::INVALID_VALUE . $field;
         Response::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
+
+    public static function renderCartOpenForThisClient(): void
+    {
+        $message = ApiResponseMessageEnum::CART_OPEN_FOR_THIS_CLIENT;
+        self::render(HttpStatusCodeEnum::HTTP_CONFLICT, $message);
+    }
 }

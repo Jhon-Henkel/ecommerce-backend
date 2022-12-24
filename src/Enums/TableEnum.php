@@ -13,4 +13,5 @@ class TableEnum
     const ADDRESS = 'address';
     const CLIENT = 'client';
     const GIFT_CARD = 'gift_card';
+    const CART = 'cart';
 }
