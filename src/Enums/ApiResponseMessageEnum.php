@@ -11,5 +11,7 @@ class ApiResponseMessageEnum
     const ATTRIBUTE_NOT_FOUND = 'O id do seguinte atributo não foi encontrado: ';
     const FATHER_CATEGORY_NOT_FOUND = 'Categoria pai não encontrada!';
     const INVALID_VALUE = 'O valor para o seguinte campo é inválido: ';
-    const CART_OPEN_FOR_THIS_CLIENT= 'Já existe carrinho sem pedido finalizado para este cliente!';
+    const CART_OPEN_FOR_THIS_CLIENT = 'Já existe carrinho sem pedido finalizado para este cliente!';
+    const INVALID_USE_FOR_THIS_FIELD = 'Uso inválido para o campo: ';
+    const MAX_USAGES_OR_INATIVE = 'O item pode ter atingido o máximo de utilizações ou está inativo!';
 }

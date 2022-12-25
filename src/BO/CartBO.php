@@ -4,10 +4,13 @@ namespace src\BO;
 
 use src\Api\Response;
 use src\DAO\CartDAO;
+use src\DTO\GiftCardDTO;
 use src\Enums\CartEnum;
 use src\Enums\FieldsEnum;
+use src\Enums\StatusEnum;
 use src\Enums\TableEnum;
 use src\Factory\CartDtoFactory;
+use src\Tools\ValidateTools;
 
 class CartBO extends BasicBO
 {
@@ -30,8 +33,11 @@ class CartBO extends BasicBO
             Response::renderCartOpenForThisClient();
         }
         if (isset($item->giftCardId)) {
-            if (!$this->validateGiftCard((int)$item->giftCardId)) {
+            if (!$this->validateGiftCardExistsById((int)$item->giftCardId)) {
                 Response::renderAttributeNotFound(FieldsEnum::GIFT_CART_ID_JSON);
+            }
+            if (!$this->isValidGiftCardById((int)$item->giftCardId)) {
+                Response::renderInvalidUseForField(FieldsEnum::GIFT_CART_ID_JSON);
             }
         }
     }
@@ -53,9 +59,41 @@ class CartBO extends BasicBO
         return true;
     }
 
-    public function validateGiftCard(int $giftCardId): bool
+    public function validateGiftCardExistsById(int $giftCardId): bool
     {
         $giftCardBO = new GiftCardBO();
         return (bool)$giftCardBO->countById($giftCardId);
+    }
+
+    public function isValidGiftCardById(int $giftCardId): bool
+    {
+        $giftCardBO = new GiftCardBO();
+        /**@var GiftCardDTO $giftCard */
+        $giftCard = $giftCardBO->findById($giftCardId);
+        if ($giftCard->getUsages() >= $giftCard->getMaxUsages()) {
+            return false;
+        }
+        if ($giftCard->getStatus() == StatusEnum::INATIVE) {
+            return false;
+        }
+        return true;
+    }
+
+    public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
+    {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
+            Response::renderNotFound();
+        }
+        if (!ValidateTools::validateParamsFieldsInArray(array(FieldsEnum::ORDER_DONE_JSON), (array)$item)) {
+            Response::renderRequiredAttributesMissing();
+        }
+        if (isset($item->giftCardId)) {
+            if (!$this->validateGiftCardExistsById((int)$item->giftCardId)) {
+                Response::renderAttributeNotFound(FieldsEnum::GIFT_CART_ID_JSON);
+            }
+            if (!$this->isValidGiftCardById((int)$item->giftCardId)) {
+                Response::renderInvalidUseForField(FieldsEnum::GIFT_CART_ID_JSON);
+            }
+        }
     }
 }

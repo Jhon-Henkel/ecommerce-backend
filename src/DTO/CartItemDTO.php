@@ -7,6 +7,7 @@ class CartItemDTO
     private null|int $id;
     private int $cartId;
     private int $stockId;
+    private int $quantity;
     private null|\DateTime $createdAt;
     private null|\DateTime $updatedAt;
 
@@ -56,6 +57,22 @@ class CartItemDTO
     public function setStockId(int $stockId): void
     {
         $this->stockId = $stockId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getQuantity(): int
+    {
+        return $this->quantity;
+    }
+
+    /**
+     * @param int $quantity
+     */
+    public function setQuantity(int $quantity): void
+    {
+        $this->quantity = $quantity;
     }
 
     /**

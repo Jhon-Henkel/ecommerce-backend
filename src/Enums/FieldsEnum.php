@@ -12,6 +12,7 @@ class FieldsEnum
     const MAX_USAGES_JSON = 'maxUsages';
     const PRODUCT_ID_JSON = 'productId';
     const BIRTH_DATE_JSON = 'birthDate';
+    const ORDER_DONE_JSON = 'orderDone';
     const CLIENT_ID_JSON = 'clientId';
     const COLOR_ID_JSON = 'colorId';
     const PRODUCT_ID_DB = 'product_id';

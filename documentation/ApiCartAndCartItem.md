@@ -1,17 +1,18 @@
 # *EndPoint's API Carrinho e seus itens*
 ### *Carrinho*
 - ***GET***
-    - Apresentação comum mesmo, sem mostrar os itens, mas mostrando valor.
     - **URL:** ?app=cart
 - ***GET***
-    - Fazer a apresentação com os itens do carrinho e mostrando valor.
-    - Se um item estiver fora de estoque, colocar um flag "outOfStock" = true
     - **URL:** ?app=cart&id={cartId}
+    - **Rule:**
+        - retorna um objeto com os itens do carrinho, caso não exista o item ou esteja com o estoque zerado, retorna o id como chave do item com a mensagem de "out of stock".
 - ***DELETE***
-    - Fazer o delete de item antes de deletar o carrinho9
     - **URL:** ?app=cart&id={cartId}
 - ***POST***
     - **URL:** ?app=cart
+    - **Rule:**
+        - O cliente deve existir e é obrigatório para cadastrar carrinho.
+        - O cartão presente é opcional, mas quando preenchido, deve ser válido, estando ativo e não ter atingido o máximo de utilizações.
     - **Required Fields | Type:**
         - clientId | int
     - **JSON:**
@@ -22,11 +23,16 @@
         }
         ````
 - ***PUT***
-    - validar ainda como vai funcionar o PUT
     - **URL:** ?app=cart&id={cartId}
+    - **Rule:**
+        - O cartão presente é opcional, mas quando preenchido, deve ser válido, estando ativo e não ter atingido o máximo de utilizações.
+        - O campo de order done deve ser preenchido com 0 ou 1 para ser válido.
     - **Required Fields | Type:**
+      - orderDone | int (0 inativo, 1 ativo)
     - **JSON:**
         ````
         {
+          "giftCardId": 2,
+          "orderDone": 1
         }
         ````

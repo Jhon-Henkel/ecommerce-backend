@@ -56,4 +56,15 @@ class CartDtoFactory extends BasicDtoFactory
         );
         return $cart;
     }
+
+    public function mergeObjectDbWitchObjectPut(CartDTO $objectDb, stdClass $objectPut): CartDTO
+    {
+        if (isset($objectPut->giftCardId)) {
+            $objectDb->setGiftCardId($objectPut->giftCardId);
+        }
+        if (isset($objectPut->orderDone)) {
+            $objectDb->setOrderDone($objectPut->orderDone);
+        }
+        return $objectDb;
+    }
 }

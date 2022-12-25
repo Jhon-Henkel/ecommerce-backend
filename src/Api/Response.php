@@ -59,12 +59,19 @@ class Response
     public static function renderInvalidFieldValue(string $field): void
     {
         $message = ApiResponseMessageEnum::INVALID_VALUE . $field;
-        Response::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 
     public static function renderCartOpenForThisClient(): void
     {
         $message = ApiResponseMessageEnum::CART_OPEN_FOR_THIS_CLIENT;
         self::render(HttpStatusCodeEnum::HTTP_CONFLICT, $message);
+    }
+
+    public static function renderInvalidUseForField(string $field): void
+    {
+        $message = ApiResponseMessageEnum::INVALID_USE_FOR_THIS_FIELD . $field;
+        $message .= '. ' . ApiResponseMessageEnum::MAX_USAGES_OR_INATIVE;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 }

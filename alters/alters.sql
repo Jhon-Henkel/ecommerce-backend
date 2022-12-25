@@ -135,8 +135,9 @@ CREATE TABLE IF NOT EXISTS cart_item (
     cart_item_id int(10) NOT NULL AUTO_INCREMENT,
     cart_item_cart_id int(10) NOT NULL,
     cart_item_stock_id int(10) NOT NULL,
-    cart_created_at datetime DEFAULT current_timestamp(),
-    cart_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    cart_item_quantity int(10) NOT NULL,
+    cart_item_created_at datetime DEFAULT current_timestamp(),
+    cart_item_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (cart_item_id),
     FOREIGN KEY (cart_item_cart_id) REFERENCES cart(cart_id),
     FOREIGN KEY (cart_item_stock_id) REFERENCES product_stock(product_stock_id)

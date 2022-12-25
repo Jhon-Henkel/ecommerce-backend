@@ -32,16 +32,22 @@ class CartDAO extends BasicDAO
 
     public function getUpdateSting(): string
     {
-        // TODO: Implement getUpdateSting() method.
+        $update = 'cart_client_id = :client, cart_hash = :hash,';
+        $update .= ' cart_gift_card_id = :giftCard, cart_order_done = :orderDone';
+        return $update;
     }
 
     public function getWhereClausuleToUpdate(): string
     {
-        // TODO: Implement getWhereClausuleToUpdate() method.
+        return 'cart_id = :id';
     }
 
+    /**
+     * @param CartDTO $item
+     * @return array
+     */
     public function getParamsArrayToUpdate($item): array
     {
-        // TODO: Implement getParamsArrayToUpdate() method.
+        return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }
 }
