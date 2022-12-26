@@ -3,37 +3,50 @@
 namespace src\DAO;
 
 use src\Database;
+use src\DTO\CartItemDTO;
 
 class CartItemDAO extends BasicDAO
 {
     public function getColumnsToInsert(): string
     {
-        // TODO: Implement getColumnsToInsert() method.
+        return 'cart_item_cart_id, cart_item_stock_id, cart_item_quantity';
     }
 
     public function getParamsStringToInsert(): string
     {
-        // TODO: Implement getParamsStringToInsert() method.
+        return ':cartId, :stockId, :quantity';
     }
 
+    /**
+     * @param CartItemDTO $item
+     * @return array
+     */
     public function getParamsArrayToInsert($item): array
     {
-        // TODO: Implement getParamsArrayToInsert() method.
+        return array(
+            'cartId' => $item->getCartId(),
+            'stockId' => $item->getStockId(),
+            'quantity' => $item->getQuantity()
+        );
     }
 
     public function getUpdateSting(): string
     {
-        // TODO: Implement getUpdateSting() method.
+        return 'cart_item_cart_id = :cartId, cart_item_stock_id = :stockId, cart_item_quantity = :quantity';
     }
 
     public function getWhereClausuleToUpdate(): string
     {
-        // TODO: Implement getWhereClausuleToUpdate() method.
+        return 'cart_item_id = :id';
     }
 
+    /**
+     * @param CartItemDTO $item
+     * @return array
+     */
     public function getParamsArrayToUpdate($item): array
     {
-        // TODO: Implement getParamsArrayToUpdate() method.
+        return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }
 
     public function findAllByCartId(int $cartId): null|array
@@ -48,5 +61,13 @@ class CartItemDAO extends BasicDAO
         $db = new Database();
         $query = "DELETE FROM cart_item WHERE cart_item_cart_id = :id";
         $db->delete($query, array('id' => $cartId));
+    }
+
+    public function countByColumnValueWithCartId(string $field, string $value, int $cartId): int
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE " . $this->table;
+        $query .= "_" . $field . " = :value AND " . $this->table . "_cart_id = :cartId";
+        $params = array('value' => $value, 'cartId' => $cartId);
+        return $this->database->selectCount($query, $params);
     }
 }

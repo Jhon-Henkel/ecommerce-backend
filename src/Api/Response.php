@@ -32,6 +32,14 @@ class Response
         );
     }
 
+    public static function renderAttributeAlreadyExistsInThisCart(string $attribute): void
+    {
+        self::render(
+            HttpStatusCodeEnum::HTTP_CONFLICT,
+            ApiResponseMessageEnum::ATTRIBUTE_ALREADY_EXISTS_IN_THIS_CART . $attribute
+        );
+    }
+
     public static function renderMethodNotAllowed(): void
     {
         self::render(
@@ -72,6 +80,36 @@ class Response
     {
         $message = ApiResponseMessageEnum::INVALID_USE_FOR_THIS_FIELD . $field;
         $message .= '. ' . ApiResponseMessageEnum::MAX_USAGES_OR_INATIVE;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+    }
+
+    public static function renderCartDontAllowInsertItens(): void
+    {
+        $message = ApiResponseMessageEnum::CART_DINT_ALLOW_INSERT_ITEM;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+    }
+
+    public static function renderOutOfStockItem(): void
+    {
+        $message = ApiResponseMessageEnum::ITEM_OUT_OF_STOCK;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+    }
+
+    public static function renderInsufficientStockBalanceItem(): void
+    {
+        $message = ApiResponseMessageEnum::ITEM_INSUFFICIENT_STOCK;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+    }
+
+    public static function renderItemHaveOrder(): void
+    {
+        $message = ApiResponseMessageEnum::ITEM_HAVE_ORDER;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+    }
+
+    public static function renderCartHaveOrder(): void
+    {
+        $message = ApiResponseMessageEnum::CART_HAVE_ORDER;
         self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 }

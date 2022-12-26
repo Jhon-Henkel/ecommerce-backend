@@ -49,6 +49,9 @@ class CartController extends BasicController
 
     public function apiDelete(int $id)
     {
+        if ($this->bo->validateOrderDoneByCartId($id)) {
+            Response::renderCartHaveOrder();
+        }
         $cartItemBO = new CartItemBO();
         $cartItemBO->deleteByCartId($id);
         $this->bo->deleteById($id);

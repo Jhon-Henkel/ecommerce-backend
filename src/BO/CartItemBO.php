@@ -2,8 +2,13 @@
 
 namespace src\BO;
 
+use src\Api\Response;
 use src\DAO\CartItemDAO;
+use src\DTO\CartDTO;
+use src\DTO\CartItemDTO;
 use src\DTO\ProductStockDTO;
+use src\Enums\FieldsEnum;
+use src\Enums\OrderEnum;
 use src\Enums\TableEnum;
 use src\Factory\CartItemDtoFactory;
 
@@ -54,5 +59,77 @@ class CartItemBO extends BasicBO
     public function deleteByCartId(int $cartId): void
     {
         $this->dao->deleteByCartId($cartId);
+    }
+
+    public function validatePostParamsApi(array $paramsFields, \stdClass $item): void
+    {
+        $this->validateFieldsExist($paramsFields, $item);
+        $this->validateCartExistsInDbByCartId($item->cartId);
+        $this->validateCartAllowInsertItemByCartId($item->cartId);
+        $this->validateItemStockMustNotExistsInDbWithCartId($item);
+        $this->validateStockExistsInDbByStockId($item->stockId);
+        $this->validateStockHaveBalanceByStockId($item->stockId, $item->quantity);
+    }
+
+    public function validateCartExistsInDbByCartId(int $cartId): void
+    {
+        $cartBO = new CartBO();
+        if (!$cartBO->countById($cartId)) {
+            Response::renderAttributeNotFound(FieldsEnum::CART_ID_JSON);
+        }
+    }
+
+    public function validateCartAllowInsertItemByCartId(int $cartId): void
+    {
+        $cartBO = new CartBO();
+        /**@var CartDTO $cart */
+        $cart = $cartBO->findById($cartId);
+        if ($cart->getOrderDone() == OrderEnum::ORDER_DONE) {
+            Response::renderCartDontAllowInsertItens();
+        }
+    }
+
+    public function validateItemStockMustNotExistsInDbWithCartId(\stdClass $item): void
+    {
+        if ($this->dao->countByColumnValueWithCartId(FieldsEnum::STOCK_ID_DB, $item->cartId, $item->cartId)) {
+            Response::renderAttributeAlreadyExistsInThisCart(FieldsEnum::STOCK_ID_JSON);
+        }
+    }
+
+    public function validateStockExistsInDbByStockId(int $stockId): void
+    {
+        $stockBO = new ProductStockBO();
+        if (!$stockBO->countById($stockId)) {
+            Response::renderAttributeNotFound(FieldsEnum::STOCK_ID_JSON);
+        }
+    }
+
+    public function validateStockHaveBalanceByStockId(int $stockId, int $quantity): void
+    {
+        $stockBO = new ProductStockBO();
+        /** @var ProductStockDTO $stock */
+        $stock = $stockBO->findById($stockId);
+        if ($stock->getQuantity() <= 0) {
+            Response::renderOutOfStockItem();
+        }
+        if ($stock->getQuantity() < $quantity) {
+            Response::renderInsufficientStockBalanceItem();
+        }
+    }
+
+    public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
+    {
+        if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
+            Response::renderNotFound();
+        }
+        $this->validateFieldsExist($paramsFields, $item);
+    }
+
+    public function validateOrderDoneByCartItemId(int $cartItemId): bool
+    {
+        /** @var CartItemDTO $item */
+        $item = $this->findById($cartItemId);
+        $cartBO = new CartBO();
+        return $cartBO->validateOrderDoneByCartId($item->getCartId());
     }
 }

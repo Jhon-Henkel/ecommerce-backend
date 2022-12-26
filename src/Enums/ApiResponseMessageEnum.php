@@ -6,6 +6,7 @@ class ApiResponseMessageEnum
 {
     const REQUIRED_ATTRIBUTES_MISSING = 'Atributos obrigatórios ausentes, revise a documentação!';
     const ATTRIBUTE_ALREADY_EXISTS = 'O seguinte atributo já está cadastrado: ';
+    const ATTRIBUTE_ALREADY_EXISTS_IN_THIS_CART = 'O seguinte atributo já está cadastrado neste carrinho: ';
     const METHOD_NOT_ALLOWED = 'Método não aceito, revise a documentação!';
     const NOT_FOUND = 'Registro não encontrado!';
     const ATTRIBUTE_NOT_FOUND = 'O id do seguinte atributo não foi encontrado: ';
@@ -14,4 +15,9 @@ class ApiResponseMessageEnum
     const CART_OPEN_FOR_THIS_CLIENT = 'Já existe carrinho sem pedido finalizado para este cliente!';
     const INVALID_USE_FOR_THIS_FIELD = 'Uso inválido para o campo: ';
     const MAX_USAGES_OR_INATIVE = 'O item pode ter atingido o máximo de utilizações ou está inativo!';
+    const CART_DINT_ALLOW_INSERT_ITEM = 'Este carrinho não permite inserir itens!';
+    const ITEM_OUT_OF_STOCK = 'Este item não tem estoque!';
+    const ITEM_INSUFFICIENT_STOCK = 'Este item não tem estoque suficiente!';
+    const ITEM_HAVE_ORDER = 'Impossível alterar. Este item já tem pedido finalizado!';
+    const CART_HAVE_ORDER = 'Impossível alterar. Este carrinho já tem pedido finalizado!';
 }

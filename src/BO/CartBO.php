@@ -7,6 +7,7 @@ use src\DAO\CartDAO;
 use src\DTO\GiftCardDTO;
 use src\Enums\CartEnum;
 use src\Enums\FieldsEnum;
+use src\Enums\OrderEnum;
 use src\Enums\StatusEnum;
 use src\Enums\TableEnum;
 use src\Factory\CartDtoFactory;
@@ -95,5 +96,14 @@ class CartBO extends BasicBO
                 Response::renderInvalidUseForField(FieldsEnum::GIFT_CART_ID_JSON);
             }
         }
+    }
+
+    public function validateOrderDoneByCartId(int $cartId): bool
+    {
+        $cart = $this->findById($cartId);
+        if ($cart->getOrderDone() == OrderEnum::ORDER_DONE) {
+            return true;
+        }
+        return false;
     }
 }

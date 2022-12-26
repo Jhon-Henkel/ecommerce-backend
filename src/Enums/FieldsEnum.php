@@ -18,9 +18,12 @@ class FieldsEnum
     const PRODUCT_ID_DB = 'product_id';
     const BRAND_ID_JSON = 'brandId';
     const ZIP_CODE_JSON = 'zipCode';
+    const STOCK_ID_JSON = 'stockId';
     const ORDER_DONE_DB = 'order_done';
     const CLIENT_ID_DB = 'client_id';
+    const CART_ID_JSON = 'cartId';
     const SIZE_ID_JSON = 'sizeId';
+    const STOCK_ID_DB = 'stock_id';
     const DESCRIPTION = 'description';
     const PASSWORD = 'password';
     const QUANTITY = 'quantity';
@@ -122,6 +125,15 @@ class FieldsEnum
     {
         return array(
             self::CLIENT_ID_JSON
+        );
+    }
+
+    public static function getCartItemInsertRequiredFields(): array
+    {
+        return array(
+            self::CART_ID_JSON,
+            self::STOCK_ID_JSON,
+            self::QUANTITY
         );
     }
 }

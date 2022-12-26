@@ -8,7 +8,12 @@ class CartItemDtoFactory extends BasicDtoFactory
 {
     public function factory(\stdClass $item): CartItemDTO
     {
-        // TODO: Implement factory() method.
+        $cartItem = new CartItemDTO();
+        $cartItem->setId($item->id ?? null);
+        $cartItem->setQuantity($item->quantity);
+        $cartItem->setStockId($item->stockId);
+        $cartItem->setCartId($item->cartId);
+        return $cartItem;
     }
 
     /**
@@ -21,7 +26,7 @@ class CartItemDtoFactory extends BasicDtoFactory
         $cartItem->id = $item->getId();
         $cartItem->cartId = $item->getCartId();
         $cartItem->stockId = $item->getStockId();
-        $cartItem->quantity = $item->getStockId();
+        $cartItem->quantity = $item->getQuantity();
         return $cartItem;
     }
 
@@ -33,5 +38,11 @@ class CartItemDtoFactory extends BasicDtoFactory
         $cartItem->setStockId($item['cart_item_stock_id']);
         $cartItem->setQuantity($item['cart_item_quantity']);
         return $cartItem;
+    }
+
+    public function factoryItemPut(\stdClass $object, CartItemDTO $item): CartItemDTO
+    {
+        $item->setQuantity($object->quantity);
+        return $item;
     }
 }

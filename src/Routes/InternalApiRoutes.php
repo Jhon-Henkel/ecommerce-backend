@@ -7,6 +7,7 @@ use src\Api\Response;
 use src\Controllers\AddressController;
 use src\Controllers\GiftCardController;
 use src\Controllers\CartController;
+use src\Controllers\CartItemController;
 
 if (RequestTools::inputGet(ApiRouteEnum::APP)) {
     switch (RequestTools::inputGet(ApiRouteEnum::APP)) {
@@ -21,6 +22,9 @@ if (RequestTools::inputGet(ApiRouteEnum::APP)) {
             break;
         case (ApiRouteEnum::CART):
             $controller = new CartController();
+            break;
+        case (ApiRouteEnum::CART_ITEM):
+            $controller = new CartItemController();
             break;
         default:
             Response::renderMethodNotAllowed();
