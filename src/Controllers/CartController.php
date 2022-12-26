@@ -38,13 +38,13 @@ class CartController extends BasicController
     {
         /** @var CartDTO $cart */
         $cart = $this->bo->findById($id);
-        if ($cart){
-            $itemBO = new CartItemBO();
-            $cartFactored = $this->factory->makePublic($cart);
-            $cartFactored->cartItens = $itemBO->findAllByCartId($cart->getId());
-            Response::render(HttpStatusCodeEnum::HTTP_OK, $cartFactored);
+        if (!$cart){
+            Response::renderNotFound();
         }
-        Response::renderNotFound();
+        $itemBO = new CartItemBO();
+        $cartFactored = $this->factory->makePublic($cart);
+        $cartFactored->cartItens = $itemBO->findAllByCartId($cart->getId());
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $cartFactored);
     }
 
     public function apiDelete(int $id)

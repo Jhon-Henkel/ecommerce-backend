@@ -32,7 +32,7 @@ class CartItemBO extends BasicBO
      * @param array $itens
      * @return array
      */
-    private function getItensWithStock(array $itens): array
+    public function getItensWithStock(array $itens): array
     {
         $itemStockBO = new ProductStockBO();
         $itensWithStock = array();
