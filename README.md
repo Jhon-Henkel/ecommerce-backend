@@ -1,6 +1,5 @@
 # Ecommerce-clean-code
 Plataforma de ecommerce feita com base no conceito clean code, clean architecture e TDD que estou vendo no curso do Rodrigo Branas.
-
 # *Como iniciar o projeto*
 Para iniciar asse projeto, basta executar os seguintes passos:
 - Executar o ***composer update*** e o ***npm update*** dentro do container docker.
@@ -38,9 +37,10 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Validar quantidade de caracteres dos valores inseridos.
 - Colocar o 'criado em' e de 'atualizado em' nas tabelas de produtos e seus atributos.
 - Salvar CPF no banco com formatação mesmo se vir sem formatação.
+- Salvar telefones com formatação mesmo se vier sem formatação.
+- Salvar cep com formatação mesmo se vier sem formatação.
 - Melhorar documentação API já existente.
 ---
 ## Documentações
-- [Api de produtos e seus atributos](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation/ApiProductAndAttributes.md)
-- [Api de cliente e endereços](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation/ApiClientAndAddress.md)
+- [Api's](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation)
 ---
