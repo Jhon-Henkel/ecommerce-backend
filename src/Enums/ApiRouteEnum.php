@@ -18,4 +18,5 @@ class ApiRouteEnum
     const GIFT_CARD = 'gift-card';
     const CART = 'cart';
     const CART_ITEM = 'cart-item';
+    const ORDER = 'order';
 }

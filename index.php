@@ -21,7 +21,11 @@ if (isset($controller)) {
             unset($controller);
             break;
         case (RequestTypeEnum::DELETE):
-            $controller->apiDelete((int)RequestTools::inputGet(FieldsEnum::ID));
+            $id = RequestTools::inputGet(FieldsEnum::ID);
+            if (!$id) {
+                Response::renderMethodNotAllowed();
+            }
+            $controller->apiDelete((int)$id);
             unset($controller);
             break;
         case (RequestTypeEnum::GET):

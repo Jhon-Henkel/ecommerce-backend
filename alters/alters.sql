@@ -142,3 +142,36 @@ CREATE TABLE IF NOT EXISTS cart_item (
     FOREIGN KEY (cart_item_cart_id) REFERENCES cart(cart_id),
     FOREIGN KEY (cart_item_stock_id) REFERENCES product_stock(product_stock_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- criando tabela pedidos --
+CREATE TABLE IF NOT EXISTS order_data (
+    order_data_id int(10) NOT NULL AUTO_INCREMENT,
+    order_data_client_name varchar(255) NOT NULL,
+    order_data_client_document_type int(10) NOT NULL,
+    order_data_client_document varchar(20) NOT NULL,
+    order_data_client_main_phone varchar(20) NOT NULL,
+    order_data_client_second_phone varchar(20) NOT NULL,
+    order_data_client_email varchar(150) NOT NULL,
+    order_data_address_street varchar(255) NOT NULL,
+    order_data_address_zip_code varchar(10) NOT NULL,
+    order_data_address_number int(10) NOT NULL,
+    order_data_address_complement varchar(255) DEFAULT NULL,
+    order_data_address_district varchar(255) NOT NULL,
+    order_data_address_city varchar(255) NOT NULL,
+    order_data_address_state varchar(255) NOT NULL,
+    order_data_address_reference varchar(255) DEFAULT NULL,
+    order_data_status int(10) NOT NULL DEFAULT 5,
+    order_data_cart_id int(10) NOT NULL,
+    order_data_itens_quantity int(10) NOT NULL,
+    order_data_gift_card_code varchar(255) DEFAULT NULL,
+    order_data_gift_card_value decimal(6, 2) DEFAULT NULL,
+    order_data_shipping_value decimal(6, 2) DEFAULT NULL,
+    order_data_itens_value decimal(6, 2) NOT NULL,
+    order_data_extra_fare_value decimal(6, 2) DEFAULT NULL,
+    order_data_total_value decimal(6, 2) NOT NULL,
+    order_data_shipping_deadline int(10) DEFAULT NULL,
+    order_data_created_at datetime DEFAULT current_timestamp(),
+    order_data_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    PRIMARY KEY (order_data_id),
+    FOREIGN KEY (order_data_cart_id) REFERENCES cart(cart_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

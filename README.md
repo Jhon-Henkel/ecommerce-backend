@@ -40,7 +40,8 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Salvar telefones com formatação mesmo se vier sem formatação.
 - Salvar cep com formatação mesmo se vier sem formatação.
 - Melhorar documentação API já existente.
+- Ao deletar produto validar se não tem pedido vinculado.
 ---
 ## Documentações
-- [Api's](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation)
+- [API's](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation/API)
 ---

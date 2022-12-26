@@ -15,4 +15,5 @@ class TableEnum
     const GIFT_CARD = 'gift_card';
     const CART = 'cart';
     const CART_ITEM = 'cart_item';
+    const ORDER_DATA = 'order_data';
 }
