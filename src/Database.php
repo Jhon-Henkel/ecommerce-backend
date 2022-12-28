@@ -14,6 +14,10 @@ class Database
 {
     private null|PDO $conn;
 
+    /**
+     * @return void
+     * @codeCoverageIgnore
+     */
     private function connectDb(): void
     {
         try {

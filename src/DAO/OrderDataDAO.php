@@ -71,7 +71,7 @@ class OrderDataDAO extends BasicDAO
         $updateString .= 'order_data_client_document_type = :clientDocumentType, ';
         $updateString .= 'order_data_client_document = :clientDocument, ';
         $updateString .= 'order_data_client_main_phone = :clientMainPhone, ';
-        $updateString .= 'order_data_client_second_phone = clientSecondPhone, ';
+        $updateString .= 'order_data_client_second_phone = :clientSecondPhone, ';
         $updateString .= 'order_data_client_email = :clientEmail, order_data_address_street = :addressStreet, ';
         $updateString .= 'order_data_address_zip_code = :addressZipCode, order_data_address_number = :addressNumber, ';
         $updateString .= 'order_data_address_complement = :addressComplement, ';
@@ -97,6 +97,6 @@ class OrderDataDAO extends BasicDAO
      */
     public function getParamsArrayToUpdate($item): array
     {
-        array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
+        return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
     }
 }

@@ -41,9 +41,7 @@ class CartController extends BasicController
         if (!$cart){
             Response::renderNotFound();
         }
-        $itemBO = new CartItemBO();
-        $cartFactored = $this->factory->makePublic($cart);
-        $cartFactored->cartItens = $itemBO->findAllByCartId($cart->getId());
+        $cartFactored = $this->bo->getCartWithStocksPublicByCart($cart);
         Response::render(HttpStatusCodeEnum::HTTP_OK, $cartFactored);
     }
 

@@ -35,14 +35,28 @@ class OrderDataBO extends BasicBO
         }
         $cartBO = new CartBO();
         $cartBO->validateCartToOrderById($item->cartId);
-        $this->validateStatusAptToInsert($item->status);
-    }
-
-    public function validateStatusAptToInsert(int $status): void
-    {
-        if ($status != OrderEnum::STATUS_PENDENTE || $status != OrderEnum::STATUS_PAGO) {
+        if (!$this->validateStatusAptToInsert($item->status)) {
             Response::renderInvalidFieldValue(FieldsEnum::STATUS);
         }
+    }
+
+    public function validateStatusAptToInsert(int $status): bool
+    {
+        if ($status == OrderEnum::STATUS_PENDENTE || $status == OrderEnum::STATUS_PAGO) {
+            return true;
+        }
+        return false;
+    }
+
+    public function validateStatusIsValid(int $status): bool
+    {
+        $statusList = OrderEnum::getListOfAllStatus();
+        foreach ($statusList as $item => $key) {
+            if ($status == $key) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public function calculateTotalOrderValue(

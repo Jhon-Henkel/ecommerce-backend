@@ -137,4 +137,12 @@ class CartBO extends BasicBO
         }
         $cartItemBO->validateItensStockBalance($itens);
     }
+
+    public function getCartWithStocksPublicByCart(CartDTO $cart): \stdClass
+    {
+        $itemBO = new CartItemBO();
+        $cartFactored = $this->factory->makePublic($cart);
+        $cartFactored->cartItens = $itemBO->findAllByCartId($cart->getId());
+        return $cartFactored;
+    }
 }

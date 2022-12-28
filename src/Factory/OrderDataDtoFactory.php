@@ -160,12 +160,46 @@ class OrderDataDtoFactory extends BasicDtoFactory
 
     public function makeCompletePublicOrder(OrderDataDTO $order): stdClass
     {
-        /**
-         * Fazer para o get de pedido.
-         * A ideia é trazer em um único objeto todos os dados do pedido como cliente endereço e itens.
-         */
+        $cartBO = new CartBO();
+        $cart = $cartBO->getCartWithStocksPublicByCart($cartBO->findById($order->getCartId()));
         $completeOrder = new stdClass();
         $completeOrder->id = $order->getId();
+        $completeOrder->code = $order->getCode();
+        $completeOrder->client = new stdClass();
+        $completeOrder->client->name = $order->getClientName();
+        $completeOrder->client->documentType = $order->getClientDocumentType();
+        $completeOrder->client->document = $order->getClientDocument();
+        $completeOrder->client->minPhone = $order->getClientMainPhone();
+        $completeOrder->client->secondPhone = $order->getClientSecondPhone();
+        $completeOrder->client->email = $order->getClientEmail();
+        $completeOrder->address = new stdClass();
+        $completeOrder->address->street = $order->getAddressStreet();
+        $completeOrder->address->zipCode = $order->getAddressZipCode();
+        $completeOrder->address->number = $order->getAddressNumber();
+        $completeOrder->address->complement = $order->getAddressComplement();
+        $completeOrder->address->district = $order->getAddressDistrict();
+        $completeOrder->address->city = $order->getAddressCity();
+        $completeOrder->address->state = $order->getAddressState();
+        $completeOrder->address->reference = $order->getAddressReference();
+        $completeOrder->cart = $cart;
+        $completeOrder->tatalItensQuantity = $order->getTotalItensQuantity();
+        $completeOrder->giftCardValue = $order->getGiftCardValue();
+        $completeOrder->giftCardCode = $order->getGiftCardCode();
+        $completeOrder->shippingValue = $order->getShippingValue();
+        $completeOrder->totalItensValue = $order->getTotalItensValue();
+        $completeOrder->extraFareValue = $order->getExtraFareValue();
+        $completeOrder->totalValue = $order->getTotalValue();
+        $completeOrder->shippingDeadline = $order->getShippingDeadline();
+        $completeOrder->createdAt = DateTools::dateTimeToStringConverter($order->getCreatedAt());
+        $completeOrder->updatedAt = DateTools::dateTimeToStringConverter($order->getUpdatedAt());
         return $completeOrder;
+    }
+
+    public function mergeObjectDbWitchObjectPut(OrderDataDTO $objectDb, stdClass $objectPut): OrderDataDTO
+    {
+        if (isset($objectPut->status)) {
+            $objectDb->setStatus((int)$objectPut->status);
+        }
+        return $objectDb;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace src\Factory;
 
+use Exception;
 use src\DTO\CartDTO;
 use src\Enums\CartEnum;
 use src\Tools\DateTools;
@@ -40,6 +41,11 @@ class CartDtoFactory extends BasicDtoFactory
         return $cart;
     }
 
+    /**
+     * @param array $item
+     * @return CartDTO
+     * @throws Exception
+     */
     public function populateDbToDto(array $item): CartDTO
     {
         $cart = new CartDTO();

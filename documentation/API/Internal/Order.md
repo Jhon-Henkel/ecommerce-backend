@@ -1,4 +1,13 @@
 # *EndPoint's API Pedidos*
+- ***GET***
+    - **URL:** ?app=order
+- ***GET***
+    - **URL:** ?app=order&id={orderId}
+    - **Rules:**
+        - Retorna um objeto com os dados completos do pedido, com itens, cliente e endereço.
+- ***DELETE***
+    - **Rules:**
+        - Não é permitido a exclusão de pedidos.
 - ***POST***
     - **URL:** ?app=order
     - **Rules:**
@@ -24,5 +33,25 @@
             "shippingValue": 15.00,
             "extraFareValue": 10.00,
             "shippingDeadline": 5
+        }
+        ````
+- ***PUT***
+    - **URL:** ?app=order&id={orderId}
+    - **Rules:**
+        - O pedido deve existir.
+        - Só é permitido alterar o status do pedido.
+        - Lista de status válido:
+            - pendente = 5
+            - pago = 6
+            - faturado = 7
+            - enviado = 8
+            - entregue = 9
+            - cancelado = 10
+    - **Required Fields | Type:**
+        - status | int
+    - **JSON:**
+        ````
+        {
+            "status": 6
         }
         ````
