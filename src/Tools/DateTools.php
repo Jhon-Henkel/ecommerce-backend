@@ -2,15 +2,27 @@
 
 namespace src\Tools;
 
+use DateTime;
+use Exception;
+
 class DateTools
 {
-    public static function stringToDateTimeConverter(string $date): \DateTime
+    /**
+     * @throws Exception
+     */
+    public static function stringToDateTimeConverter(null|string $date): null|DateTime
     {
-        return new \DateTime($date);
+        if ($date) {
+            return new DateTime($date);
+        }
+        return null;
     }
 
-    public static function dateTimeToStringConverter(\DateTime $date): string
+    public static function dateTimeToStringConverter(null|DateTime $date): null|string
     {
-        return $date->format('Y-m-d');
+        if ($date) {
+            return $date->format('Y-m-d');
+        }
+        return null;
     }
 }

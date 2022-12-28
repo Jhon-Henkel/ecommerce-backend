@@ -132,4 +132,40 @@ class CartItemBO extends BasicBO
         $cartBO = new CartBO();
         return $cartBO->validateOrderDoneByCartId($item->getCartId());
     }
+
+    public function validateItensStockBalance(array $itens): void
+    {
+        foreach ($itens as $item) {
+            if ($item->quantity <= 0) {
+                Response::renderInvalidFieldValue(FieldsEnum::QUANTITY . ' stock: ' . $item->getStockId());
+            }
+            if ($item->stock->quantity <= 0) {
+                Response::renderOutOfStockItem($item->stock->id);
+            }
+            if ($item->quantity > $item->stock->quantity) {
+                Response::renderInsufficientStockBalanceItem($item->stock->id);
+            }
+        }
+    }
+
+    public function getTotalItensAndValueOnCartId(int $cartId): array
+    {
+        $itens = $this->findAllByCartId($cartId);
+        $quantity = 0;
+        $value = 0;
+        foreach ($itens as $item) {
+            $quantity = $quantity + $item->quantity;
+            $value = $value + ($item->stock->price * $item->quantity);
+        }
+        return array('totalItens' => $quantity, 'totalValue' => $value);
+    }
+
+    public function updateStockItensPurchaseByCartId(int $cartId): void
+    {
+        $productStockBO = new ProductStockBO();
+        $itens = $this->findAllByCartId($cartId);
+        foreach ($itens as $item) {
+            $productStockBO->decreaseStockBalanceById($item->stock->id, $item->quantity);
+        }
+    }
 }

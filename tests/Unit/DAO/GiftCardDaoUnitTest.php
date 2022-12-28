@@ -49,7 +49,7 @@ class GiftCardDaoUnitTest extends TestCase
     {
         $updateString = $this->dao->getUpdateSting();
         $expected = 'gift_card_code = :code, gift_card_discount_type = :type, gift_card_discount = :discount,';
-        $expected .= ' gift_card_max_usages = :maxUsages, gift_card_status = :status';
+        $expected .= ' gift_card_max_usages = :maxUsages, gift_card_status = :status, gift_card_usages = :usages';
         $this->assertEquals($expected, $updateString);
     }
 
@@ -69,5 +69,6 @@ class GiftCardDaoUnitTest extends TestCase
         $this->assertEquals(99, $paramsArray['maxUsages']);
         $this->assertEquals(1, $paramsArray['status']);
         $this->assertEquals(1234, $paramsArray['id']);
+        $this->assertEquals(0, $paramsArray['usages']);
     }
 }

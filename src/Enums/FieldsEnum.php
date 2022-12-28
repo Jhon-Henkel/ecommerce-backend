@@ -13,6 +13,7 @@ class FieldsEnum
     const PRODUCT_ID_JSON = 'productId';
     const BIRTH_DATE_JSON = 'birthDate';
     const ORDER_DONE_JSON = 'orderDone';
+    const ADDRESS_ID_JSON = 'addressId';
     const CLIENT_ID_JSON = 'clientId';
     const COLOR_ID_JSON = 'colorId';
     const PRODUCT_ID_DB = 'product_id';
@@ -134,6 +135,16 @@ class FieldsEnum
             self::CART_ID_JSON,
             self::STOCK_ID_JSON,
             self::QUANTITY
+        );
+    }
+
+    public static function getOrderDataInsertRequiredFields(): array
+    {
+        return array(
+            self::CLIENT_ID_JSON,
+            self::ADDRESS_ID_JSON,
+            self::CART_ID_JSON,
+            self::STATUS
         );
     }
 }

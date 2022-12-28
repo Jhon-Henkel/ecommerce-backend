@@ -57,4 +57,14 @@ class AddressBO extends BasicBO
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateClientExistsForApiById($item->clientId);
     }
+
+    public function validateAddressExistsById(int $addressId): bool
+    {
+        $addressBO = new AddressBO();
+        $address = $addressBO->countById($addressId);
+        if (!$address) {
+            return false;
+        }
+        return true;
+    }
 }

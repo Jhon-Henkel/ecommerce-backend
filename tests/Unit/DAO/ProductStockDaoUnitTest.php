@@ -58,7 +58,7 @@ class ProductStockDaoUnitTest extends TestCase
     public function testGetUpdateSting()
     {
         $updateString = $this->dao->getUpdateSting();
-        $expected = 'product_stock_code = :product_id, product_stock_name = :name,';
+        $expected = 'product_stock_code = :code, product_stock_name = :name,';
         $expected .= ' product_stock_quantity = :quantity, product_stock_color_id = :color_id,';
         $expected .= ' product_stock_size_id = :size_id, product_stock_brand_id = :brand_id,';
         $expected .= ' product_stock_product_id = :product_id, product_stock_price = :price,';

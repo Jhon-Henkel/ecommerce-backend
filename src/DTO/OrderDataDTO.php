@@ -7,15 +7,16 @@ use DateTime;
 class OrderDataDTO
 {
     private null|int $id;
+    private null|string $code;
     private string $clientName;
     private int $clientDocumentType;
     private string $clientDocument;
-    private string $clientMainPhone;
-    private string $clientSecondPhone;
+    private null|string $clientMainPhone;
+    private null|string $clientSecondPhone;
     private string $clientEmail;
     private string $addressStreet;
     private string $addressZipCode;
-    private int $addressNumber;
+    private null|int $addressNumber;
     private null|string $addressComplement;
     private string $addressDistrict;
     private string $addressCity;
@@ -23,11 +24,11 @@ class OrderDataDTO
     private null|string $addressReference;
     private int $status;
     private int $cartId;
-    private int $itensQuantity;
+    private int $totalItensQuantity;
     private null|string $giftCardCode;
     private null|float $giftCardValue;
     private null|float $shippingValue;
-    private float $itensValue;
+    private float $totalItensValue;
     private null|float $extraFareValue;
     private float $totalValue;
     private null|int $shippingDeadline;
@@ -48,6 +49,22 @@ class OrderDataDTO
     public function setId(?int $id): void
     {
         $this->id = $id;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function getCode(): ?string
+    {
+        return $this->code;
+    }
+
+    /**
+     * @param string|null $code
+     */
+    public function setCode(?string $code): void
+    {
+        $this->code = $code;
     }
 
     /**
@@ -99,33 +116,33 @@ class OrderDataDTO
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getClientMainPhone(): string
+    public function getClientMainPhone(): ?string
     {
         return $this->clientMainPhone;
     }
 
     /**
-     * @param string $clientMainPhone
+     * @param string|null $clientMainPhone
      */
-    public function setClientMainPhone(string $clientMainPhone): void
+    public function setClientMainPhone(?string $clientMainPhone): void
     {
         $this->clientMainPhone = $clientMainPhone;
     }
 
     /**
-     * @return string
+     * @return string|null
      */
-    public function getClientSecondPhone(): string
+    public function getClientSecondPhone(): ?string
     {
         return $this->clientSecondPhone;
     }
 
     /**
-     * @param string $clientSecondPhone
+     * @param string|null $clientSecondPhone
      */
-    public function setClientSecondPhone(string $clientSecondPhone): void
+    public function setClientSecondPhone(?string $clientSecondPhone): void
     {
         $this->clientSecondPhone = $clientSecondPhone;
     }
@@ -179,17 +196,17 @@ class OrderDataDTO
     }
 
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAddressNumber(): int
+    public function getAddressNumber(): ?int
     {
         return $this->addressNumber;
     }
 
     /**
-     * @param int $addressNumber
+     * @param int|null $addressNumber
      */
-    public function setAddressNumber(int $addressNumber): void
+    public function setAddressNumber(?int $addressNumber): void
     {
         $this->addressNumber = $addressNumber;
     }
@@ -309,17 +326,17 @@ class OrderDataDTO
     /**
      * @return int
      */
-    public function getItensQuantity(): int
+    public function getTotalItensQuantity(): int
     {
-        return $this->itensQuantity;
+        return $this->totalItensQuantity;
     }
 
     /**
-     * @param int $itensQuantity
+     * @param int $totalItensQuantity
      */
-    public function setItensQuantity(int $itensQuantity): void
+    public function setTotalItensQuantity(int $totalItensQuantity): void
     {
-        $this->itensQuantity = $itensQuantity;
+        $this->totalItensQuantity = $totalItensQuantity;
     }
 
     /**
@@ -373,17 +390,17 @@ class OrderDataDTO
     /**
      * @return float
      */
-    public function getItensValue(): float
+    public function getTotalItensValue(): float
     {
-        return $this->itensValue;
+        return $this->totalItensValue;
     }
 
     /**
-     * @param float $itensValue
+     * @param float $totalItensValue
      */
-    public function setItensValue(float $itensValue): void
+    public function setTotalItensValue(float $totalItensValue): void
     {
-        $this->itensValue = $itensValue;
+        $this->totalItensValue = $totalItensValue;
     }
 
     /**

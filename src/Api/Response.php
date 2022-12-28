@@ -89,15 +89,21 @@ class Response
         self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 
-    public static function renderOutOfStockItem(): void
+    public static function renderOutOfStockItem(int $id = null): void
     {
         $message = ApiResponseMessageEnum::ITEM_OUT_OF_STOCK;
+        if ($id) {
+            $message .= 'Stock: ' . $id;
+        }
         self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 
-    public static function renderInsufficientStockBalanceItem(): void
+    public static function renderInsufficientStockBalanceItem(int $id = null): void
     {
         $message = ApiResponseMessageEnum::ITEM_INSUFFICIENT_STOCK;
+        if ($id) {
+            $message .= 'Stock: ' . $id;
+        }
         self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 
@@ -110,6 +116,12 @@ class Response
     public static function renderCartHaveOrder(): void
     {
         $message = ApiResponseMessageEnum::CART_HAVE_ORDER;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+    }
+
+    public static function renderCartDontHaveItens(): void
+    {
+        $message = ApiResponseMessageEnum::CART_DONT_HAVE_ITENS;
         self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 }

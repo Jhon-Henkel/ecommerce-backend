@@ -4,6 +4,7 @@ namespace src\BO;
 
 use src\Api\Response;
 use src\DAO\ProductStockDAO;
+use src\DTO\ProductStockDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
 use src\Factory\ProductStockDtoFactory;
@@ -101,5 +102,13 @@ class ProductStockBO extends BasicBO
         if (!$brandBO->countById($id)) {
             Response::renderAttributeNotFound(FieldsEnum::BRAND_ID_JSON);
         }
+    }
+
+    public function decreaseStockBalanceById(int $id, int $decrease)
+    {
+        /** @var ProductStockDTO $stock */
+        $stock = $this->findById($id);
+        $stock->setQuantity(($stock->getQuantity() - $decrease));
+        $this->update($stock);
     }
 }

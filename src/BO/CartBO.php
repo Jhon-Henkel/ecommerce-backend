@@ -4,7 +4,9 @@ namespace src\BO;
 
 use src\Api\Response;
 use src\DAO\CartDAO;
+use src\DTO\CartDTO;
 use src\DTO\GiftCardDTO;
+use src\Enums\ApiResponseMessageEnum;
 use src\Enums\CartEnum;
 use src\Enums\FieldsEnum;
 use src\Enums\OrderEnum;
@@ -105,5 +107,34 @@ class CartBO extends BasicBO
             return true;
         }
         return false;
+    }
+
+    public function updateCartOrderDone(CartDTO $cart): void
+    {
+        $cart->setOrderDone(OrderEnum::ORDER_DONE);
+        $this->update($cart);
+    }
+
+    public function validateCartToOrderById(int $cartId): void
+    {
+        $cart = $this->findById($cartId);
+        if (!$cart) {
+            Response::renderAttributeNotFound(FieldsEnum::CART_ID_JSON);
+        }
+        if ($cart->getGiftCardId()) {
+            $giftCardBO = new GiftCardBO();
+            if (!$giftCardBO->isValidGiftCardById($cart->getGiftCardId())) {
+                Response::renderInvalidUseForField(ApiResponseMessageEnum::INVALID_GIFT_CARD_IN_THIS_CART);
+            }
+            if (!$giftCardBO->isValidDiscountOnCart($cart->getGiftCardId(), $cartId)) {
+                Response::renderInvalidFieldValue(ApiResponseMessageEnum::INVALID_VALUE_GIFT_CARD_FOR_THIS_CART);
+            }
+        }
+        $cartItemBO = new CartItemBO();
+        $itens = $cartItemBO->findAllByCartId($cartId);
+        if (!$itens) {
+            Response::renderCartDontHaveItens();
+        }
+        $cartItemBO->validateItensStockBalance($itens);
     }
 }

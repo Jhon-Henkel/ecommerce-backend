@@ -45,7 +45,7 @@ class ProductStockDAO extends BasicDAO
 
     public function getUpdateSting(): string
     {
-        $updateString = 'product_stock_code = :product_id, product_stock_name = :name,';
+        $updateString = 'product_stock_code = :code, product_stock_name = :name,';
         $updateString .= ' product_stock_quantity = :quantity, product_stock_color_id = :color_id,';
         $updateString .= ' product_stock_size_id = :size_id, product_stock_brand_id = :brand_id,';
         $updateString .= ' product_stock_product_id = :product_id, product_stock_price = :price,';

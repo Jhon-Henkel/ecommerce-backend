@@ -83,7 +83,7 @@ class GiftCardDTO
      */
     public function getUsages(): int
     {
-        return $this->usages;
+        return $this->usages ?? 0;
     }
 
     /**

@@ -20,4 +20,7 @@ class ApiResponseMessageEnum
     const ITEM_INSUFFICIENT_STOCK = 'Este item não tem estoque suficiente!';
     const ITEM_HAVE_ORDER = 'Impossível alterar. Este item já tem pedido finalizado!';
     const CART_HAVE_ORDER = 'Impossível alterar. Este carrinho já tem pedido finalizado!';
+    const CART_DONT_HAVE_ITENS = 'Este carrinho não tem itens vinculados!';
+    const INVALID_GIFT_CARD_IN_THIS_CART = 'Gift Card inválido aplicado no carrinho';
+    const INVALID_VALUE_GIFT_CARD_FOR_THIS_CART = 'giftCard do carrinho. O valor de desconto não pode ser maior que o valor do carrinho';
 }

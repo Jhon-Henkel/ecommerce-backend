@@ -123,4 +123,14 @@ class ClientBO extends BasicBO
         $addressBO->deleteAddressesByClientId($id);
         parent::deleteById($id);
     }
+
+    public function validateClientExistsById(int $clientId): bool
+    {
+        $clientBO = new ClientBO();
+        $client = $clientBO->countById($clientId);
+        if (!$client) {
+            return false;
+        }
+        return true;
+    }
 }

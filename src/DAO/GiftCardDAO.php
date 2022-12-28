@@ -36,7 +36,7 @@ class GiftCardDAO extends BasicDAO
     public function getUpdateSting(): string
     {
         $update = 'gift_card_code = :code, gift_card_discount_type = :type, gift_card_discount = :discount,';
-        $update .= ' gift_card_max_usages = :maxUsages, gift_card_status = :status';
+        $update .= ' gift_card_max_usages = :maxUsages, gift_card_status = :status, gift_card_usages = :usages';
         return $update;
     }
 
@@ -51,6 +51,12 @@ class GiftCardDAO extends BasicDAO
      */
     public function getParamsArrayToUpdate($item): array
     {
-        return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
+        return array_merge(
+            $this->getParamsArrayToInsert($item),
+            array(
+                'id' => $item->getId(),
+                'usages' => $item->getUsages()
+            )
+        );
     }
 }
