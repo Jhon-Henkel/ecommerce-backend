@@ -41,7 +41,7 @@ class ProductDaoUnitTest extends TestCase
         $this->assertEquals('product-test-145', $paramsArray['code']);
         $this->assertEquals('Description for product 145', $paramsArray['description']);
         $this->assertEquals('product-test-145/product-test', $paramsArray['url']);
-        $this->assertEquals(50, $paramsArray['categoryId']);
+        $this->assertEquals(105, $paramsArray['categoryId']);
     }
 
     public function testGetUpdateSting()
@@ -67,6 +67,6 @@ class ProductDaoUnitTest extends TestCase
         $this->assertEquals('product-test-145', $paramsArray['code']);
         $this->assertEquals('Description for product 145', $paramsArray['description']);
         $this->assertEquals('product-test-145/product-test', $paramsArray['url']);
-        $this->assertEquals(50, $paramsArray['categoryId']);
+        $this->assertEquals(105, $paramsArray['categoryId']);
     }
 }

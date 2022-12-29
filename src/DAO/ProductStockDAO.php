@@ -54,7 +54,7 @@ class ProductStockDAO extends BasicDAO
         return $updateString;
     }
 
-    public function findByProductId(int $id): null|array
+    public function findByProductId(int $id): array
     {
         $query = 'SELECT * FROM product_stock WHERE product_stock_product_id = :id';
         return $this->database->select($query, array('id' => $id));

@@ -2,11 +2,18 @@
 
 namespace tests\Unit\DAO;
 
+use DateTime;
+use Exception;
 use PHPUnit\Framework\TestCase;
 use src\DAO\CartItemDAO;
+use src\DTO\CartItemDTO;
+use tests\Traits\CartItemTraits;
+use src\Tools\DateTools;
 
 class CartItemDaoUnitTest extends TestCase
 {
+    use CartItemTraits;
+
     public CartItemDAO $dao;
 
     protected function setUp(): void
@@ -40,5 +47,28 @@ class CartItemDaoUnitTest extends TestCase
         $where = $this->dao->getWhereClausuleToUpdate();
         $expect = 'cart_item_id = :id';
         $this->assertEquals($expect, $where);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testGetParamsArrayToInsert()
+    {
+        $item = $this->dao->getParamsArrayToInsert($this->makeDtoCartItem775());
+        $this->assertEquals(852, $item['cartId']);
+        $this->assertEquals(12, $item['quantity']);
+        $this->assertEquals(74, $item['stockId']);
+    }
+
+    /**
+     * @throws Exception
+     */
+    public function testGetParamsArrayToUpdate()
+    {
+        $item = $this->dao->getParamsArrayToUpdate($this->makeDtoCartItem775());
+        $this->assertEquals(775, $item['id']);
+        $this->assertEquals(852, $item['cartId']);
+        $this->assertEquals(12, $item['quantity']);
+        $this->assertEquals(74, $item['stockId']);
     }
 }

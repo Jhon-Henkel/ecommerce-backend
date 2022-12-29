@@ -10,7 +10,7 @@ use src\Factory\CartDtoFactory;
 use tests\Traits\CartTraits;
 use src\Tools\DateTools;
 
-class cartDtoFactoryUnitTest extends TestCase
+class CartDtoFactoryUnitTest extends TestCase
 {
     use CartTraits;
 
@@ -33,7 +33,7 @@ class cartDtoFactoryUnitTest extends TestCase
         $this->assertInstanceOf(CartDTO::class, $item);
         $this->assertInstanceOf(DateTime::class, $item->getCreatedAt());
         $this->assertInstanceOf(DateTime::class, $item->getUpdatedAt());
-        $this->assertEquals(777, $item->getClientId());
+        $this->assertEquals(741, $item->getClientId());
         $this->assertEquals(852, $item->getId());
         $this->assertEquals(1, $item->getOrderDone());
         $this->assertEquals(987, $item->getGiftCardId());
@@ -82,16 +82,12 @@ class cartDtoFactoryUnitTest extends TestCase
         $this->assertInstanceOf(CartDTO::class, $item);
         $this->assertInstanceOf(DateTime::class, $item->getCreatedAt());
         $this->assertInstanceOf(DateTime::class, $item->getUpdatedAt());
-        $this->assertEquals(777, $item->getClientId());
+        $this->assertEquals(741, $item->getClientId());
         $this->assertEquals(852, $item->getId());
         $this->assertEquals(1, $item->getOrderDone());
         $this->assertEquals(987, $item->getGiftCardId());
         $this->assertEquals('098f6bcd4621d373cade4e832627b4f6', $item->getHash());
         $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
         $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
-
-
-
-
     }
 }
