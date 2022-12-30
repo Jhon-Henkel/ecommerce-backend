@@ -8,6 +8,8 @@ use src\BO\CartItemBO;
 use src\DTO\CartDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
+use src\Exceptions\CartExceptions\CartAlreadyOrderedException;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\CartDtoFactory;
 use src\Tools\RequestTools;
 
@@ -36,23 +38,31 @@ class CartController extends BasicController
 
     public function apiGet(int $id)
     {
-        /** @var CartDTO $cart */
-        $cart = $this->bo->findById($id);
-        if (!$cart){
+        try {
+            /** @var CartDTO $cart */
+            $cart = $this->bo->findById($id);
+            if (!$cart) {
+                throw new NotFoundException();
+            }
+            $cartFactored = $this->bo->getCartWithStocksPublicByCart($cart);
+            Response::render(HttpStatusCodeEnum::HTTP_OK, $cartFactored);
+        } catch (NotFoundException $exception) {
             Response::renderNotFound();
         }
-        $cartFactored = $this->bo->getCartWithStocksPublicByCart($cart);
-        Response::render(HttpStatusCodeEnum::HTTP_OK, $cartFactored);
     }
 
     public function apiDelete(int $id)
     {
-        if ($this->bo->validateOrderDoneByCartId($id)) {
+        try {
+            if ($this->bo->validateOrderDoneByCartId($id)) {
+                throw new CartAlreadyOrderedException();
+            }
+            $cartItemBO = new CartItemBO();
+            $cartItemBO->deleteByCartId($id);
+            $this->bo->deleteById($id);
+            Response::render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
+        } catch (CartAlreadyOrderedException $exception) {
             Response::renderCartHaveOrder();
         }
-        $cartItemBO = new CartItemBO();
-        $cartItemBO->deleteByCartId($id);
-        $this->bo->deleteById($id);
-        Response::render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
     }
 }
