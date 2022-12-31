@@ -19,7 +19,7 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - **Unitários:** composer run php-unit
 - **Integração:** composer run php-feature
 - **Coverage:** composer run php-coverage
-- **Atalho relatório coverage:** (Aqui)[http://localhost/tests/coverage/] 
+- **Atalho relatório coverage:** [Aqui](http://localhost/tests/coverage/)
 ---
 # *Bibliotecas Utilizadas*
 - Kint - Utilizado para debug no php. 
@@ -27,11 +27,11 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Jest - Sem uso até o momento.
 - Composer - Utilizado para instalar as bibliotecas mencionadas aqui.
 - GuzzleHttp - Utilizado para as requisições http, no momento estou utilizando nos testes unitários para garantir o funcionamento dos meus endpoinsts da API.
+- Calculo correios - https://github.com/glauberportella/correios
 ---
 # Fazer
 - Autenticação nas API's.
 - apiIndex com paginação.
-- Documentação API.
 - Chave estrangeira na coluna de categoria pai.
 - Delete de atributo terá que validar se o mesmo não está vinculado a algum produto.
 - Validar quantidade de caracteres dos valores inseridos.
@@ -39,8 +39,8 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Salvar CPF no banco com formatação mesmo se vir sem formatação.
 - Salvar telefones com formatação mesmo se vier sem formatação.
 - Salvar cep com formatação mesmo se vier sem formatação.
-- Melhorar documentação API já existente.
 - Ao deletar produto validar se não tem pedido vinculado.
+- Verificar validação validateCartClient, pois acho que tem bug.
 ---
 ## Documentações
 - [API's](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation/API)
