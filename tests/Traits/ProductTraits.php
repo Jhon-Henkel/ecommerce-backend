@@ -33,8 +33,8 @@ trait ProductTraits
             "INSERT INTO size (size_id, size_code, size_name) VALUES (12, 'Size Test 12', 'size-test-12')",
             "INSERT INTO category (category_id, category_code, category_name, category_father_id) VALUES (105, 'Category Test 105', 'Size-test-105', null)",
             "INSERT INTO product (product_id, product_code, product_name, product_url, product_description, product_category_id) VALUES (145, 'product-test-145', 'Product Test', 'product-test-145/product-test', 'Description for product 145', 105)",
-            "INSERT INTO product_stock ($stock) VALUES (74, 'stock-test-74', 'Stock Test', 9999, 95, 12, 99, 145, 10.50, 10, 10, 10, 1000)",
-            "INSERT INTO product_stock ($stock) VALUES (75, 'stock-test-75', 'Stock Test 75', 9999, 95, 12, 99, 145, 100.59, 150, 100, 10, 500)",
+            "INSERT INTO product_stock ($stock) VALUES (74, 'stock-test-74', 'Stock Test', 9999, 95, 12, 99, 145, 10.50, 10, 10, 10, 2)",
+            "INSERT INTO product_stock ($stock) VALUES (75, 'stock-test-75', 'Stock Test 75', 9999, 95, 12, 99, 145, 100.59, 15, 20, 10, 5)",
         );
         foreach ($queries as $query) {
             $db->insert($query);

@@ -14,7 +14,7 @@ class ShippingPackageDTO
      */
     public function getGrossWeight(): int|float
     {
-        return $this->grossWeight;
+        return $this->grossWeight ?? 0;
     }
 
     /**
@@ -30,7 +30,7 @@ class ShippingPackageDTO
      */
     public function getLength(): int
     {
-        return $this->length;
+        return $this->length ?? 0;
     }
 
     /**
@@ -46,7 +46,7 @@ class ShippingPackageDTO
      */
     public function getHeight(): int
     {
-        return $this->height;
+        return $this->height ?? 0;
     }
 
     /**
@@ -62,7 +62,7 @@ class ShippingPackageDTO
      */
     public function getWidth(): int
     {
-        return $this->width;
+        return $this->width ?? 0;
     }
 
     /**

@@ -42,4 +42,26 @@ class StringToolsUnitTest extends TestCase
             'shouldBeValidWhenReturnIsEmpty' => ['value' => 'abcdefgh', 'expectedResult' => ''],
         ];
     }
+
+    /**
+     * @param $expect
+     * @param $price
+     * @return void
+     * @dataProvider dataProviderPriceFloatConvert
+     */
+    public function testPriceFloatConvert($expect, $price)
+    {
+        $this->assertEquals($expect, StringTools::priceFloatConvert($price));
+    }
+
+    public function dataProviderPriceFloatConvert():array
+    {
+        return array(
+            'testOnlyPriceNumbers' => array('expect' => '100.5', 'price' => '100,50'),
+            'testPriceBrFormat' => array('expect' => false, 'price' => 'R$ 5,63'),
+            'testNotPriceString' => array('expect' => false, 'price' => 'test not price string'),
+            'testIntPrice' => array('expect' => '5', 'price' => '5'),
+            'testIntPriceWithDecimalZero' => array('expect' => '9', 'price' => '9,00')
+        );
+    }
 }

@@ -18,4 +18,9 @@ class StringTools
     {
         return preg_replace('/ /', '-', $string);
     }
+
+    public static function priceFloatConvert(string $price): float|bool
+    {
+        return (float)preg_replace('/,/', '.', $price) ?? false;
+    }
 }

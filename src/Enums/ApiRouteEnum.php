@@ -19,4 +19,6 @@ class ApiRouteEnum
     const CART = 'cart';
     const CART_ITEM = 'cart-item';
     const ORDER = 'order';
+    const CALCULATE_SHIPPING = 'calculate-shipping';
+    const TYPE = 'type';
 }
