@@ -2,7 +2,6 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\CartItemDAO;
 use src\DTO\CartDTO;
 use src\DTO\CartItemDTO;
@@ -10,6 +9,13 @@ use src\DTO\ProductStockDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\OrderEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\CartExceptions\CartDontAllowInsertItensException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
+use src\Exceptions\GenericExceptions\NotFoundException;
+use src\Exceptions\ProductExceptions\InsufficientStockBalanceForItemException;
+use src\Exceptions\ProductExceptions\OutOfStockItemException;
 use src\Factory\CartItemDtoFactory;
 
 class CartItemBO extends BasicBO
@@ -75,7 +81,7 @@ class CartItemBO extends BasicBO
     {
         $cartBO = new CartBO();
         if (!$cartBO->countById($cartId)) {
-            Response::renderAttributeNotFound(FieldsEnum::CART_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::CART_ID_JSON);
         }
     }
 
@@ -85,14 +91,14 @@ class CartItemBO extends BasicBO
         /**@var CartDTO $cart */
         $cart = $cartBO->findById($cartId);
         if ($cart->getOrderDone() == OrderEnum::ORDER_DONE) {
-            Response::renderCartDontAllowInsertItens();
+            throw new CartDontAllowInsertItensException();
         }
     }
 
     public function validateItemStockMustNotExistsInDbWithCartId(\stdClass $item): void
     {
         if ($this->dao->countByColumnValueWithCartId(FieldsEnum::STOCK_ID_DB, $item->cartId, $item->cartId)) {
-            Response::renderAttributeAlreadyExistsInThisCart(FieldsEnum::STOCK_ID_JSON);
+            throw new AttributeAlreadyExistsException(FieldsEnum::STOCK_ID_JSON);
         }
     }
 
@@ -100,7 +106,7 @@ class CartItemBO extends BasicBO
     {
         $stockBO = new ProductStockBO();
         if (!$stockBO->countById($stockId)) {
-            Response::renderAttributeNotFound(FieldsEnum::STOCK_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::STOCK_ID_JSON);
         }
     }
 
@@ -110,17 +116,17 @@ class CartItemBO extends BasicBO
         /** @var ProductStockDTO $stock */
         $stock = $stockBO->findById($stockId);
         if ($stock->getQuantity() <= 0) {
-            Response::renderOutOfStockItem();
+            throw new OutOfStockItemException();
         }
         if ($stock->getQuantity() < $quantity) {
-            Response::renderInsufficientStockBalanceItem();
+            throw new InsufficientStockBalanceForItemException();
         }
     }
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
-            Response::renderNotFound();
+            throw new NotFoundException();
         }
         $this->validateFieldsExist($paramsFields, $item);
     }
@@ -137,13 +143,13 @@ class CartItemBO extends BasicBO
     {
         foreach ($itens as $item) {
             if ($item->quantity <= 0) {
-                Response::renderInvalidFieldValue(FieldsEnum::QUANTITY . ' stock: ' . $item->getStockId());
+                throw new InvalidFieldValueException(FieldsEnum::QUANTITY . ' stock: ' . $item->getStockId());
             }
             if ($item->stock->quantity <= 0) {
-                Response::renderOutOfStockItem($item->stock->id);
+                throw new OutOfStockItemException($item->stock->id);
             }
             if ($item->quantity > $item->stock->quantity) {
-                Response::renderInsufficientStockBalanceItem($item->stock->id);
+                throw new InsufficientStockBalanceForItemException($item->stock->id);
             }
         }
     }

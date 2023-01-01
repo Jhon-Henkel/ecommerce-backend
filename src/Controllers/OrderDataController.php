@@ -10,6 +10,8 @@ use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
 use src\Exceptions\CartExceptions\CartDontHaveItensException;
 use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Exceptions\FieldsExceptions\InvalidUseForFieldException;
+use src\Exceptions\ProductExceptions\InsufficientStockBalanceForItemException;
+use src\Exceptions\ProductExceptions\OutOfStockItemException;
 use src\Factory\OrderDataDtoFactory;
 use src\Tools\RequestTools;
 
@@ -43,6 +45,10 @@ class OrderDataController extends BasicController
             Response::renderInvalidFieldValue($exception->getMessage());
         } catch (CartDontHaveItensException $exception) {
             Response::renderCartDontHaveItens();
+        } catch (OutOfStockItemException $exception) {
+            Response::renderOutOfStockItem($exception->getMessage());
+        } catch (InsufficientStockBalanceForItemException $exception) {
+            Response::renderInsufficientStockBalanceItem($exception->getMessage());
         }
     }
 
