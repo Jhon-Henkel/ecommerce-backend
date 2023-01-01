@@ -1,6 +1,6 @@
 <?php
 
-namespace src\Exceptions\GenericExceptions;
+namespace src\Exceptions\ShippingExceptions;
 
 class UnableToCalculateShipping extends \RuntimeException
 {

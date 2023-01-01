@@ -6,6 +6,10 @@ use src\Api\Response;
 use src\BO\OrderDataBO;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\CartExceptions\CartDontHaveItensException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
+use src\Exceptions\FieldsExceptions\InvalidUseForFieldException;
 use src\Factory\OrderDataDtoFactory;
 use src\Tools\RequestTools;
 
@@ -24,12 +28,22 @@ class OrderDataController extends BasicController
 
     public function apiPost(\stdClass $object)
     {
-        $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);
-        $itemToInsert = $this->factory->factoryToInsert($object);
-        $this->bo->insert($itemToInsert);
-        $this->bo->afterInsert($itemToInsert->getCartId());
-        $inserted = $this->bo->findLastInserted();
-        Response::render(HttpStatusCodeEnum::HTTP_CREATED, $this->factory->makePublic($inserted));
+        try {
+            $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);
+            $itemToInsert = $this->factory->factoryToInsert($object);
+            $this->bo->insert($itemToInsert);
+            $this->bo->afterInsert($itemToInsert->getCartId());
+            $inserted = $this->bo->findLastInserted();
+            Response::render(HttpStatusCodeEnum::HTTP_CREATED, $this->factory->makePublic($inserted));
+        } catch (AttributeNotFoundException $exception) {
+            Response::renderAttributeNotFound($exception->getMessage());
+        } catch (InvalidUseForFieldException $exception) {
+            Response::renderInvalidUseForField($exception->getMessage());
+        } catch (InvalidFieldValueException $exception) {
+            Response::renderInvalidFieldValue($exception->getMessage());
+        } catch (CartDontHaveItensException $exception) {
+            Response::renderCartDontHaveItens();
+        }
     }
 
     public function apiGet(int $id)

@@ -5,6 +5,9 @@ namespace src\Controllers;
 use src\Api\Response;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\ClientExceptions\CartOpenForThisClientException;
+use src\Exceptions\FieldsExceptions\InvalidUseForFieldException;
 use src\Tools\RequestTools;
 
 abstract class BasicController
@@ -13,11 +16,19 @@ abstract class BasicController
 
     public function apiPost(\stdClass $object)
     {
-        $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);
-        $itemToInsert = $this->factory->factory($object);
-        $this->bo->insert($itemToInsert);
-        $inserted = $this->bo->findLastInserted();
-        Response::render(HttpStatusCodeEnum::HTTP_CREATED, $this->factory->makePublic($inserted));
+        try {
+            $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);
+            $itemToInsert = $this->factory->factory($object);
+            $this->bo->insert($itemToInsert);
+            $inserted = $this->bo->findLastInserted();
+            Response::render(HttpStatusCodeEnum::HTTP_CREATED, $this->factory->makePublic($inserted));
+        } catch (AttributeNotFoundException $exception) {
+            Response::renderAttributeNotFound($exception->getMessage());
+        } catch (CartOpenForThisClientException $exception) {
+            Response::renderCartOpenForThisClient();
+        } catch (InvalidUseForFieldException $exception) {
+            Response::renderInvalidUseForField($exception->getMessage());
+        }
     }
 
     public function apiPut(\stdClass $object)

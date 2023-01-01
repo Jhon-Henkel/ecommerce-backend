@@ -5,8 +5,8 @@ namespace src\BO;
 use src\DTO\ShippingPackageDTO;
 use src\Enums\ShippingCorreiosEnum;
 use src\Enums\ShopkeeperEnum;
-use src\Exceptions\GenericExceptions\UnableToCalculateShipping;
 use src\Exceptions\ShippingExceptions\InvalidParamCalculateException;
+use src\Exceptions\ShippingExceptions\UnableToCalculateShipping;
 use src\Tools\StringTools;
 
 class ShippingCorreiosBO

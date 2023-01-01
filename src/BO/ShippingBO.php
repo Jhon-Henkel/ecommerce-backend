@@ -5,8 +5,8 @@ namespace src\BO;
 use src\DTO\ShippingPackageDTO;
 use src\Enums\FieldsEnum;
 use src\Exceptions\GenericExceptions\NotFoundException;
-use src\Exceptions\GenericExceptions\UnableToCalculateShipping;
 use src\Exceptions\ShippingExceptions\InvalidParamCalculateException;
+use src\Exceptions\ShippingExceptions\UnableToCalculateShipping;
 use src\Factory\ShippingFactory;
 
 class ShippingBO

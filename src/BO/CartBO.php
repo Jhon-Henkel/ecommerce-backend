@@ -2,7 +2,6 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\CartDAO;
 use src\DTO\CartDTO;
 use src\DTO\GiftCardDTO;
@@ -12,6 +11,13 @@ use src\Enums\FieldsEnum;
 use src\Enums\OrderEnum;
 use src\Enums\StatusEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
+use src\Exceptions\CartExceptions\CartDontHaveItensException;
+use src\Exceptions\ClientExceptions\CartOpenForThisClientException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
+use src\Exceptions\FieldsExceptions\InvalidUseForFieldException;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\CartDtoFactory;
 use src\Tools\ValidateTools;
 
@@ -30,17 +36,17 @@ class CartBO extends BasicBO
     {
         $this->validateFieldsExist($paramsFields, $item);
         if (!$this->validateClient((int)$item->clientId)) {
-            Response::renderAttributeNotFound(FieldsEnum::CLIENT_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::CLIENT_ID_JSON);
         }
         if (!$this->validateCartClient((int)$item->clientId)) {
-            Response::renderCartOpenForThisClient();
+            throw new CartOpenForThisClientException();
         }
         if (isset($item->giftCardId)) {
             if (!$this->validateGiftCardExistsById((int)$item->giftCardId)) {
-                Response::renderAttributeNotFound(FieldsEnum::GIFT_CART_ID_JSON);
+                throw new AttributeNotFoundException(FieldsEnum::GIFT_CART_ID_JSON);
             }
             if (!$this->isValidGiftCardById((int)$item->giftCardId)) {
-                Response::renderInvalidUseForField(FieldsEnum::GIFT_CART_ID_JSON);
+                throw new InvalidUseForFieldException(FieldsEnum::GIFT_CART_ID_JSON);
             }
         }
     }
@@ -85,17 +91,17 @@ class CartBO extends BasicBO
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
-            Response::renderNotFound();
+            throw new NotFoundException();
         }
         if (!ValidateTools::validateParamsFieldsInArray(array(FieldsEnum::ORDER_DONE_JSON), (array)$item)) {
-            Response::renderRequiredAttributesMissing();
+            throw new RequiredAttributesMissingException();
         }
         if (isset($item->giftCardId)) {
             if (!$this->validateGiftCardExistsById((int)$item->giftCardId)) {
-                Response::renderAttributeNotFound(FieldsEnum::GIFT_CART_ID_JSON);
+                throw new AttributeNotFoundException(FieldsEnum::GIFT_CART_ID_JSON);
             }
             if (!$this->isValidGiftCardById((int)$item->giftCardId)) {
-                Response::renderInvalidUseForField(FieldsEnum::GIFT_CART_ID_JSON);
+                throw new InvalidUseForFieldException(FieldsEnum::GIFT_CART_ID_JSON);
             }
         }
     }
@@ -119,21 +125,23 @@ class CartBO extends BasicBO
     {
         $cart = $this->findById($cartId);
         if (!$cart) {
-            Response::renderAttributeNotFound(FieldsEnum::CART_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::CART_ID_JSON);
         }
         if ($cart->getGiftCardId()) {
             $giftCardBO = new GiftCardBO();
             if (!$giftCardBO->isValidGiftCardById($cart->getGiftCardId())) {
-                Response::renderInvalidUseForField(ApiResponseMessageEnum::INVALID_GIFT_CARD_IN_THIS_CART);
+                throw new InvalidUseForFieldException(ApiResponseMessageEnum::INVALID_GIFT_CARD_IN_THIS_CART);
             }
             if (!$giftCardBO->isValidDiscountOnCart($cart->getGiftCardId(), $cartId)) {
-                Response::renderInvalidFieldValue(ApiResponseMessageEnum::INVALID_VALUE_GIFT_CARD_FOR_THIS_CART);
+                throw new InvalidFieldValueException(
+                    ApiResponseMessageEnum::INVALID_VALUE_GIFT_CARD_FOR_THIS_CART
+                );
             }
         }
         $cartItemBO = new CartItemBO();
         $itens = $cartItemBO->findAllByCartId($cartId);
         if (!$itens) {
-            Response::renderCartDontHaveItens();
+            throw new CartDontHaveItensException();
         }
         $cartItemBO->validateItensStockBalance($itens);
     }

@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 use src\BO\ShippingCorreiosBO;
 use src\DTO\ShippingPackageDTO;
 use src\Enums\ShippingCorreiosEnum;
-use src\Exceptions\GenericExceptions\UnableToCalculateShipping;
 use src\Exceptions\ShippingExceptions\InvalidParamCalculateException;
+use src\Exceptions\ShippingExceptions\UnableToCalculateShipping;
 
 class ShippingCorreiosBoFeatureTest extends TestCase
 {
