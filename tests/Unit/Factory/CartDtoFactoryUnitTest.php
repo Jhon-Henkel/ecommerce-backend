@@ -60,6 +60,8 @@ class CartDtoFactoryUnitTest extends TestCase
         $this->assertEquals(1, $this->dtoItem->getOrderDone());
         $put = new \stdClass();
         $put->orderDone = 0;
+        $put->giftCardId = 1;
+        $put->clientId = 1234;
         $item = $this->factory->mergeObjectDbWitchObjectPut($this->dtoItem, $put);
         $this->assertInstanceOf(CartDTO::class, $item);
         $this->assertInstanceOf(DateTime::class, $item->getCreatedAt());
@@ -67,7 +69,7 @@ class CartDtoFactoryUnitTest extends TestCase
         $this->assertEquals(777, $item->getClientId());
         $this->assertEquals(852, $item->getId());
         $this->assertEquals(0, $item->getOrderDone());
-        $this->assertEquals(987, $item->getGiftCardId());
+        $this->assertEquals(1, $item->getGiftCardId());
         $this->assertEquals('098f6bcd4621d373cade4e832627b4f6', $item->getHash());
         $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
         $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
