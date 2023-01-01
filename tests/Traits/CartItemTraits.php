@@ -6,6 +6,7 @@ use Exception;
 use src\Database;
 use src\DTO\CartItemDTO;
 use src\Tools\DateTools;
+use stdClass;
 
 trait CartItemTraits
 {
@@ -38,6 +39,16 @@ trait CartItemTraits
         $item->setStockId(75);
         $item->setCreatedAt(DateTools::stringToDateTimeConverter('2022-10-01'));
         $item->setUpdatedAt(null);
+        return $item;
+    }
+
+    public function makeStdCartItem775(): stdClass
+    {
+        $item = new stdClass();
+        $item->id = 775;
+        $item->quantity = 12;
+        $item->cartId = 852;
+        $item->stockId = 74;
         return $item;
     }
 
