@@ -41,6 +41,7 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Salvar cep com formatação mesmo se vier sem formatação.
 - Ao deletar produto validar se não tem pedido vinculado.
 - Verificar validação validateCartClient, pois acho que tem bug.
+- Definir o preenchimento das dimensões e do peso como obrigatório no item. 
 ---
 ## Documentações
 - [API's](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation/API)

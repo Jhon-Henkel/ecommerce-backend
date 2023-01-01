@@ -2,6 +2,7 @@
 
 namespace src\Factory;
 
+use src\DTO\ProductStockDTO;
 use src\DTO\ShippingCalculatedDTO;
 use src\DTO\ShippingPackageDTO;
 use src\Enums\ShippingCorreiosEnum;
@@ -22,5 +23,15 @@ class ShippingFactory
         $packageCalculation->setLength($package->getLength());
         $packageCalculation->setGrossWeight($package->getGrossWeight());
         return $packageCalculation;
+    }
+
+    public function factoryShippingPackageDtoFromItemStock(ProductStockDTO $item): ShippingPackageDTO
+    {
+        $package = new ShippingPackageDTO();
+        $package->setWidth($item->getWidth());
+        $package->setLength($item->getLength());
+        $package->setHeight($item->getHeight());
+        $package->setGrossWeight($item->getGrossWeight());
+        return $package;
     }
 }

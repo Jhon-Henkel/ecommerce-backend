@@ -28,6 +28,7 @@ class ShippingController
 
     public function calculateByStockId(int $id, string $destinationZipCode)
     {
-        Response::render(HttpStatusCodeEnum::HTTP_OK, 'Em desenvolvimento!');
+        $calc = $this->bo->calculateShippingCartByStockId($id, $destinationZipCode);
+        Response::render(HttpStatusCodeEnum::HTTP_OK, $calc);
     }
 }

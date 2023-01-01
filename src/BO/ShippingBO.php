@@ -62,4 +62,15 @@ class ShippingBO
             return array('Correios' => 'Correios não conseguiu fazer o cálculo!');
         }
     }
+
+    public function calculateShippingCartByStockId(int $id, string $destinationZipCode): array
+    {
+        $itemBO = new ProductStockBO();
+        $item = $itemBO->findById($id);
+        if (!$item) {
+            throw new NotFoundException(FieldsEnum::ID);
+        }
+        $package = $this->factory->factoryShippingPackageDtoFromItemStock($item);
+        return $this->calculateShippingCorreios($package, $destinationZipCode);
+    }
 }
