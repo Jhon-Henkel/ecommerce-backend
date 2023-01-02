@@ -2,7 +2,9 @@
 
 namespace src\DAO;
 
+use src\Database;
 use src\DTO\CartDTO;
+use src\Enums\OrderEnum;
 
 class CartDAO extends BasicDAO
 {
@@ -49,5 +51,13 @@ class CartDAO extends BasicDAO
     public function getParamsArrayToUpdate($item): array
     {
         return array_merge($this->getParamsArrayToInsert($item), array('id' => $item->getId()));
+    }
+
+    public function IsClientWithCartOpenByClientId(int $clientId): bool
+    {
+        $db = new Database();
+        $query = "SELECT * FROM cart WHERE cart_client_id = :clientId AND cart_order_done = :done";
+        $count = $db->selectCount($query, array('clientId' => $clientId, 'done' => OrderEnum::ORDER_NOT_DONE));
+        return (bool)$count;
     }
 }

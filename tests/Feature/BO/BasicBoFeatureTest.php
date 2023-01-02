@@ -6,6 +6,8 @@ use PHPUnit\Framework\TestCase;
 use src\BO\SizeBO;
 use src\Database;
 use src\DTO\SizeDTO;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use tests\Traits\SizeTraits;
 
 class BasicBoFeatureTest extends TestCase
@@ -28,8 +30,19 @@ class BasicBoFeatureTest extends TestCase
 
     public function testValidateFieldsExist()
     {
-        $this->bo->validateFieldsExist(array('code', 'name'), $this->makeStdSizeTest12());
+        $item = $this->makeStdSizeTest12();
+        $this->bo->validateFieldsExist(array('code', 'name'), $item);
         $this->assertTrue(true);
+        $this->expectException(RequiredAttributesMissingException::class);
+        $this->bo->validateFieldsExist(array('code', 'name', 'test'), $item);
+    }
+
+    public function testInvalidFieldValue()
+    {
+        $item = $this->makeStdSizeTest12();
+        $this->expectException(InvalidFieldValueException::class);
+        $item->code = '';
+        $this->bo->validateFieldsExist(array('code', 'name'), $item);
     }
 
     public function testDeleteById()

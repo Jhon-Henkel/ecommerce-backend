@@ -2,6 +2,7 @@
 
 namespace tests\Traits;
 
+use src\Database;
 use src\DTO\GiftCardDTO;
 use stdClass;
 
@@ -42,5 +43,20 @@ trait GiftCardTraits
         $item['gift_card_max_usages'] = 99;
         $item['gift_card_usages'] = 1;
         return $item;
+    }
+
+    public function insertOnDbGiftCard987()
+    {
+        $columns = 'gift_card_id, gift_card_code, gift_card_discount_type, ';
+        $columns .= 'gift_card_discount, gift_card_max_usages, gift_card_status';
+        $query = "INSERT INTO gift_card ($columns) VALUES (987, 'COUPOM10', 1, 10.00, 99, 1)";
+        $db = new Database();
+        $db->insert($query);
+    }
+
+    public function deleteOnDbGiftCard987()
+    {
+        $db = new Database();
+        $db->delete("DELETE FROM gift_card WHERE gift_card_id = 987");
     }
 }

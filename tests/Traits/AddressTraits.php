@@ -2,6 +2,7 @@
 
 namespace tests\Traits;
 
+use src\Database;
 use src\DTO\AddressDTO;
 
 trait AddressTraits
@@ -58,5 +59,20 @@ trait AddressTraits
             'address_created_at' => new \DateTime('2022-10-01'),
             'address_updated_at' => new \DateTime('2022-11-10')
         );
+    }
+
+    public function insertOnDbAddress1234(): void
+    {
+        $columns = 'address_id, address_client_id, address_street, address_zip_code, address_number,';
+        $columns .= ' address_complement, address_district, address_city, address_state, address_reference';
+        $query = "INSERT INTO address ($columns) VALUES (1234, 741, 'Avenida Felipe Schimidt', '88750-000', 2514, 'Em frete a Tim', 'Centro', 'Braço do Norte', 'SC', null)";
+        $db = new Database();
+        $db->insert($query);
+    }
+
+    public function deleteOnDbAddress1234()
+    {
+        $db = new Database();
+        $db->delete("DELETE FROM address WHERE address_id = 1234");
     }
 }

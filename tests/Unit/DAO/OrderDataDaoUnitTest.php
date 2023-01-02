@@ -4,9 +4,14 @@ namespace tests\Unit\DAO;
 
 use PHPUnit\Framework\TestCase;
 use src\DAO\OrderDataDAO;
+use src\Enums\DocumentEnum;
+use src\Enums\OrderEnum;
+use tests\Traits\OrderDataTraits;
 
 class OrderDataDaoUnitTest extends TestCase
 {
+    use OrderDataTraits;
+
     public OrderDataDAO $dao;
 
     protected function setUp(): void
@@ -67,5 +72,68 @@ class OrderDataDaoUnitTest extends TestCase
         $where = $this->dao->getWhereClausuleToUpdate();
         $expect = 'order_data_id = :id';
         $this->assertEquals($expect, $where);
+    }
+
+    public function testGetParamsArrayToInsert()
+    {
+        $order = $this->dao->getParamsArrayToInsert($this->makeDtoOrderData951());
+        $this->assertIsArray($order);
+        $this->assertEquals('12584BXC', $order['code']);
+        $this->assertEquals('Fulaninho da Silva', $order['clientName']);
+        $this->assertEquals(DocumentEnum::CPF, $order['clientDocumentType']);
+        $this->assertEquals('985.785.258-88', $order['clientDocument']);
+        $this->assertEquals('(48)98475-5588', $order['clientMainPhone']);
+        $this->assertEquals('(48)99655-4577', $order['clientSecondPhone']);
+        $this->assertEquals('test@testmail.com', $order['clientEmail']);
+        $this->assertEquals('Avenida Felipe Schimidt', $order['addressStreet']);
+        $this->assertEquals('887500-000', $order['addressZipCode']);
+        $this->assertEquals(2514, $order['addressNumber']);
+        $this->assertEquals('Em frente a Tim', $order['addressComplement']);
+        $this->assertEquals('Centro', $order['addressDistrict']);
+        $this->assertEquals('Braço do Norte', $order['addressCity']);
+        $this->assertEquals('SC', $order['addressState']);
+        $this->assertEquals(null, $order['addressReference']);
+        $this->assertEquals(OrderEnum::STATUS_PAGO, $order['status']);
+        $this->assertEquals(852, $order['cartId']);
+        $this->assertEquals(2, $order['totalItensQuantity']);
+        $this->assertEquals(null, $order['giftCardCode']);
+        $this->assertEquals(null, $order['giftCardValue']);
+        $this->assertEquals(14.50, $order['shippingValue']);
+        $this->assertEquals(111.09, $order['itensValue']);
+        $this->assertEquals(2.50, $order['extraFareValue']);
+        $this->assertEquals(128.09, $order['totalValue']);
+        $this->assertEquals(5, $order['shippingDeadline']);
+    }
+
+    public function testGetParamsArrayToUpdate()
+    {
+        $order = $this->dao->getParamsArrayToUpdate($this->makeDtoOrderData951());
+        $this->assertIsArray($order);
+        $this->assertEquals(951, $order['id']);
+        $this->assertEquals('12584BXC', $order['code']);
+        $this->assertEquals('Fulaninho da Silva', $order['clientName']);
+        $this->assertEquals(DocumentEnum::CPF, $order['clientDocumentType']);
+        $this->assertEquals('985.785.258-88', $order['clientDocument']);
+        $this->assertEquals('(48)98475-5588', $order['clientMainPhone']);
+        $this->assertEquals('(48)99655-4577', $order['clientSecondPhone']);
+        $this->assertEquals('test@testmail.com', $order['clientEmail']);
+        $this->assertEquals('Avenida Felipe Schimidt', $order['addressStreet']);
+        $this->assertEquals('887500-000', $order['addressZipCode']);
+        $this->assertEquals(2514, $order['addressNumber']);
+        $this->assertEquals('Em frente a Tim', $order['addressComplement']);
+        $this->assertEquals('Centro', $order['addressDistrict']);
+        $this->assertEquals('Braço do Norte', $order['addressCity']);
+        $this->assertEquals('SC', $order['addressState']);
+        $this->assertEquals(null, $order['addressReference']);
+        $this->assertEquals(OrderEnum::STATUS_PAGO, $order['status']);
+        $this->assertEquals(852, $order['cartId']);
+        $this->assertEquals(2, $order['totalItensQuantity']);
+        $this->assertEquals(null, $order['giftCardCode']);
+        $this->assertEquals(null, $order['giftCardValue']);
+        $this->assertEquals(14.50, $order['shippingValue']);
+        $this->assertEquals(111.09, $order['itensValue']);
+        $this->assertEquals(2.50, $order['extraFareValue']);
+        $this->assertEquals(128.09, $order['totalValue']);
+        $this->assertEquals(5, $order['shippingDeadline']);
     }
 }

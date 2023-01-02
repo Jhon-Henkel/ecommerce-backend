@@ -5,6 +5,7 @@ namespace tests\Traits;
 use src\Database;
 use src\DTO\ClientDTO;
 use src\Enums\DocumentEnum;
+use stdClass;
 
 trait ClientTraits
 {
@@ -22,6 +23,36 @@ trait ClientTraits
         $client->setName('Fulaninho da Silva');
         $client->setCreatedAt(new \DateTime('2022-10-01'));
         $client->setUpdatedAt(new \DateTime('2022-11-10'));
+        return $client;
+    }
+
+    public function makeStdClientTest741(): stdClass
+    {
+        $client = new stdClass();
+        $client->id = 741;
+        $client->password = '12345678';
+        $client->birthDate = '1995-12-10';
+        $client->email = 'test@testmail.com';
+        $client->secondPhone = '(48)98475-5588';
+        $client->mainPhone = '(48)99655-4577';
+        $client->document = '985.785.258-88';
+        $client->documentType = DocumentEnum::CPF;
+        $client->name = 'Fulaninho da Silva';
+        return $client;
+    }
+
+    public function makeDbClientTest741(): array
+    {
+        $client = array();
+        $client['client_id'] = 741;
+        $client['client_password'] = '12345678';
+        $client['client_birth_date'] = '1995-12-10';
+        $client['client_email'] = 'test@testmail.com';
+        $client['client_second_phone'] = '(48)98475-5588';
+        $client['client_main_phone'] = '(48)99655-4577';
+        $client['client_document'] = '985.785.258-88';
+        $client['client_document_type'] = DocumentEnum::CPF;
+        $client['client_name'] = 'Fulaninho da Silva';
         return $client;
     }
 

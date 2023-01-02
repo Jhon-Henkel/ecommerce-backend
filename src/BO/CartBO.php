@@ -59,10 +59,7 @@ class CartBO extends BasicBO
 
     public function validateCartClient(int $clientId): bool
     {
-        if (
-            $this->dao->countByColumnValue(FieldsEnum::CLIENT_ID_DB, $clientId)
-            && $this->dao->countByColumnValue(FieldsEnum::ORDER_DONE_DB, CartEnum::ORDER_DONT_DONE)
-        ) {
+        if ($this->dao->isClientWithCartOpenByClientId($clientId)) {
             return false;
         }
         return true;

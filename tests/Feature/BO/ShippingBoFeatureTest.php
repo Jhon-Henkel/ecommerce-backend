@@ -63,4 +63,12 @@ class ShippingBoFeatureTest extends TestCase
         $this->assertArrayHasKey('Correios', $calc);
         $this->assertEquals('Correios não conseguiu fazer o cálculo!', $calc['Correios']);
     }
+
+    public function testCalculateShippingCartByStockId()
+    {
+        $calc = $this->bo->calculateShippingCartByStockId(75, '88790-000');
+        $this->assertIsArray($calc);
+        $this->expectException(NotFoundException::class);
+        $this->bo->calculateShippingCartByStockId(99999999, '88790-000');
+    }
 }
