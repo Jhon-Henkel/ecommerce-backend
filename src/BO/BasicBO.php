@@ -2,8 +2,11 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\Enums\FieldsEnum;
+use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Tools\ValidateTools;
 
 abstract class BasicBO
@@ -13,11 +16,11 @@ abstract class BasicBO
     public function validateFieldsExist(array $paramsFields, \stdClass $item): void
     {
         if (!ValidateTools::validateParamsFieldsInArray($paramsFields, (array)$item)) {
-            Response::renderRequiredAttributesMissing();
+            throw new RequiredAttributesMissingException();
         }
         foreach ((array)$item as $key => $value) {
             if (empty($value)) {
-                Response::renderInvalidFieldValue($key);
+                throw new InvalidFieldValueException($key);
             }
         }
     }
@@ -78,7 +81,7 @@ abstract class BasicBO
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
-            Response::renderNotFound();
+            throw new NotFoundException();
         }
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateItemValueMustNotExistsInDbExceptId($paramsFields, $item, $item->id);
@@ -88,7 +91,7 @@ abstract class BasicBO
     {
         foreach ($mustNotExists as $paramField) {
             if ($this->dao->countByColumnValue($paramField, $item->$paramField)) {
-                Response::renderAttributeAlreadyExists($paramField);
+                throw new AttributeAlreadyExistsException($paramField);
             }
         }
     }
@@ -97,7 +100,7 @@ abstract class BasicBO
     {
         foreach ($mustNotExists as $paramField) {
             if ($this->dao->countByColumnValueExceptId($paramField, $item->$paramField, $id)) {
-                Response::renderAttributeAlreadyExists($paramField);
+                throw new AttributeAlreadyExistsException($paramField);
             }
         }
     }

@@ -7,6 +7,7 @@ use src\BO\OrderDataBO;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
 use src\Exceptions\CartExceptions\CartDontHaveItensException;
 use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Exceptions\FieldsExceptions\InvalidUseForFieldException;
@@ -49,6 +50,8 @@ class OrderDataController extends BasicController
             Response::renderOutOfStockItem($exception->getMessage());
         } catch (InsufficientStockBalanceForItemException $exception) {
             Response::renderInsufficientStockBalanceItem($exception->getMessage());
+        } catch (RequiredAttributesMissingException $exception) {
+            Response::renderRequiredAttributesMissing();
         }
     }
 

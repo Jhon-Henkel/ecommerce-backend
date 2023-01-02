@@ -8,6 +8,7 @@ use src\BO\ClientBO;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
 use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Factory\ClientDtoFactory;
 
@@ -42,6 +43,8 @@ class ClientController extends BasicController
             Response::renderInvalidFieldValue($exception->getMessage());
         } catch (AttributeAlreadyExistsException $exception) {
             Response::renderAttributeAlreadyExists($exception->getMessage());
+        } catch (RequiredAttributesMissingException $exception) {
+            Response::renderRequiredAttributesMissing();
         }
     }
 

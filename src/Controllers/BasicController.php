@@ -7,6 +7,7 @@ use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
 use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
 use src\Exceptions\ClientExceptions\CartOpenForThisClientException;
 use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Exceptions\FieldsExceptions\InvalidUseForFieldException;
@@ -33,6 +34,10 @@ abstract class BasicController
             Response::renderInvalidUseForField($exception->getMessage());
         } catch (AttributeAlreadyExistsException $exception) {
             Response::renderAttributeAlreadyExists($exception->getMessage());
+        } catch (InvalidFieldValueException $exception) {
+            Response::renderInvalidFieldValue($exception->getMessage());
+        } catch (RequiredAttributesMissingException $exception) {
+            Response::renderRequiredAttributesMissing();
         }
     }
 
@@ -52,6 +57,8 @@ abstract class BasicController
             Response::renderNotFound();
         } catch (AttributeAlreadyExistsException $exception) {
             Response::renderAttributeAlreadyExists($exception->getMessage());
+        } catch (RequiredAttributesMissingException $exception) {
+            Response::renderRequiredAttributesMissing();
         }
     }
 

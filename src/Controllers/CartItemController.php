@@ -8,7 +8,9 @@ use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
 use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
 use src\Exceptions\CartExceptions\CartDontAllowInsertItensException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Exceptions\ProductExceptions\InsufficientStockBalanceForItemException;
 use src\Exceptions\ProductExceptions\OutOfStockItemException;
@@ -46,6 +48,10 @@ class CartItemController extends BasicController
             Response::renderInsufficientStockBalanceItem();
         } catch (OutOfStockItemException $exception) {
             Response::renderOutOfStockItem();
+        } catch (InvalidFieldValueException $exception) {
+            Response::renderInvalidFieldValue($exception->getMessage());
+        } catch (RequiredAttributesMissingException $exception) {
+            Response::renderRequiredAttributesMissing();
         }
     }
 
@@ -65,6 +71,10 @@ class CartItemController extends BasicController
             Response::renderOutOfStockItem();
         } catch (NotFoundException) {
             Response::renderNotFound();
+        } catch (InvalidFieldValueException $exception) {
+            Response::renderInvalidFieldValue($exception->getMessage());
+        } catch (RequiredAttributesMissingException $exception) {
+            Response::renderRequiredAttributesMissing();
         }
     }
 
