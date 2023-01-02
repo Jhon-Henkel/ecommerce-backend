@@ -2,11 +2,11 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\ProductStockDAO;
 use src\DTO\ProductStockDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
 use src\Factory\ProductStockDtoFactory;
 
 class ProductStockBO extends BasicBO
@@ -76,7 +76,7 @@ class ProductStockBO extends BasicBO
     {
         $productDAO = new ProductStockDAO(TableEnum::PRODUCT);
         if (!$productDAO->countByColumnValue(FieldsEnum::PRODUCT_ID_DB, $id)) {
-            Response::renderAttributeNotFound(FieldsEnum::PRODUCT_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::PRODUCT_ID_JSON);
         }
     }
 
@@ -84,7 +84,7 @@ class ProductStockBO extends BasicBO
     {
         $colorBO = new ColorBO();
         if (!$colorBO->countById($id)) {
-            Response::renderAttributeNotFound(FieldsEnum::COLOR_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::COLOR_ID_JSON);
         }
     }
 
@@ -92,7 +92,7 @@ class ProductStockBO extends BasicBO
     {
         $sizeBO = new SizeBO();
         if (!$sizeBO->countById($id)) {
-            Response::renderAttributeNotFound(FieldsEnum::SIZE_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::SIZE_ID_JSON);
         }
     }
 
@@ -100,7 +100,7 @@ class ProductStockBO extends BasicBO
     {
         $brandBO = new BrandBO();
         if (!$brandBO->countById($id)) {
-            Response::renderAttributeNotFound(FieldsEnum::BRAND_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::BRAND_ID_JSON);
         }
     }
 

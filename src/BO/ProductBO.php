@@ -2,11 +2,12 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\ProductDAO;
 use src\DTO\ProductDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\ProductDtoFactory;
 
 class ProductBO extends BasicBO
@@ -26,19 +27,19 @@ class ProductBO extends BasicBO
         $this->validateItemValueMustNotExistsInDb(FieldsEnum::getBasicRequiredFields(), $product);
         $categoryBO = new CategoryBO();
         if (!$categoryBO->countById($product->categoryId)) {
-            Response::renderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::CATEGORY_ID_JSON);
         }
     }
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $product): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $product->id)) {
-            Response::renderNotFound();
+            throw new NotFoundException();
         }
         $this->validateFieldsExist($paramsFields, $product);
         $categoryBO = new CategoryBO();
         if (!$categoryBO->countById($product->categoryId)) {
-            Response::renderAttributeNotFound(FieldsEnum::CATEGORY_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::CATEGORY_ID_JSON);
         }
         $this->validateItemValueMustNotExistsInDbExceptId(FieldsEnum::getBasicRequiredFields(), $product, $product->id);
     }

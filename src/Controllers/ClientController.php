@@ -7,6 +7,8 @@ use src\BO\AddressBO;
 use src\BO\ClientBO;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
+use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Factory\ClientDtoFactory;
 
 class ClientController extends BasicController
@@ -24,17 +26,23 @@ class ClientController extends BasicController
 
     public function apiPost(\stdClass $object)
     {
-        $addressBO = new AddressBO();
-        $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);
-        $this->bo->validateAddressInClientInsert($object->address);
-        $clientToInsert = $this->factory->factory($object);
-        $this->bo->insert($clientToInsert);
-        $clientInserted = $this->bo->findLastInserted();
-        $addressToInsert = $this->bo->factoryAddressToInsertInClient($object->address, $clientInserted->getId());
-        $addressBO->insert($addressToInsert);
-        $addressInserted = $addressBO->findLastInserted();
-        $clientWithAddress = $this->factory->factoryClientWithAddress($clientInserted, $addressInserted);
-        Response::render(HttpStatusCodeEnum::HTTP_CREATED, $clientWithAddress);
+        try {
+            $addressBO = new AddressBO();
+            $this->bo->validatePostParamsApi($this->fieldsToValidate, $object);
+            $this->bo->validateAddressInClientInsert($object->address);
+            $clientToInsert = $this->factory->factory($object);
+            $this->bo->insert($clientToInsert);
+            $clientInserted = $this->bo->findLastInserted();
+            $addressToInsert = $this->bo->factoryAddressToInsertInClient($object->address, $clientInserted->getId());
+            $addressBO->insert($addressToInsert);
+            $addressInserted = $addressBO->findLastInserted();
+            $clientWithAddress = $this->factory->factoryClientWithAddress($clientInserted, $addressInserted);
+            Response::render(HttpStatusCodeEnum::HTTP_CREATED, $clientWithAddress);
+        } catch (InvalidFieldValueException $exception) {
+            Response::renderInvalidFieldValue($exception->getMessage());
+        } catch (AttributeAlreadyExistsException $exception) {
+            Response::renderAttributeAlreadyExists($exception->getMessage());
+        }
     }
 
     public function apiGet(int $id)

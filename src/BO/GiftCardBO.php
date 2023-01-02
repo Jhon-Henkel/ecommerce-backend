@@ -2,11 +2,11 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\GiftCardDAO;
 use src\DTO\GiftCardDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\GiftCardDtoFactory;
 
 class GiftCardBO extends BasicBO
@@ -29,7 +29,7 @@ class GiftCardBO extends BasicBO
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
-            Response::renderNotFound();
+            throw new NotFoundException();
         }
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateItemValueMustNotExistsInDbExceptId(array(FieldsEnum::CODE), $item, $item->id);

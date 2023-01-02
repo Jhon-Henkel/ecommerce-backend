@@ -15,6 +15,7 @@ class FieldsEnum
     const ORDER_DONE_JSON = 'orderDone';
     const ADDRESS_ID_JSON = 'addressId';
     const CLIENT_ID_JSON = 'clientId';
+    const FATHER_ID_JSON = 'fatherId';
     const COLOR_ID_JSON = 'colorId';
     const PRODUCT_ID_DB = 'product_id';
     const BRAND_ID_JSON = 'brandId';

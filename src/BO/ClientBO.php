@@ -2,13 +2,14 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\ClientDAO;
 use src\DTO\AddressDTO;
 use src\DTO\ClientDTO;
 use src\Enums\DocumentEnum;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\AddressDtoFactory;
 use src\Factory\ClientDtoFactory;
 use src\Tools\CpfTools;
@@ -55,13 +56,13 @@ class ClientBO extends BasicBO
     public function validateClientDataApi(\stdClass $client): void
     {
         if (!$this->validateDocumentType($client->documentType)) {
-            Response::renderInvalidFieldValue(FieldsEnum::DOCUMENT_TYPE_JSON);
+            throw new InvalidFieldValueException(FieldsEnum::DOCUMENT_TYPE_JSON);
         }
         if (!$this->validateDocument($client->document, $client->documentType)) {
-            Response::renderInvalidFieldValue(FieldsEnum::DOCUMENT);
+            throw new InvalidFieldValueException(FieldsEnum::DOCUMENT);
         }
         if (!ValidateTools::validateEmail($client->email)) {
-            Response::renderInvalidFieldValue(FieldsEnum::EMAIL);
+            throw new InvalidFieldValueException(FieldsEnum::EMAIL);
         }
     }
 
@@ -75,7 +76,7 @@ class ClientBO extends BasicBO
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
-            Response::renderNotFound();
+            throw new NotFoundException();
         }
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateClientDataApi($item);

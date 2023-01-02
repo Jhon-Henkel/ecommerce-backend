@@ -2,14 +2,14 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\OrderDataDAO;
 use src\DTO\CartDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\OrderEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Factory\OrderDataDtoFactory;
-use src\Tools\ValidateTools;
 
 class OrderDataBO extends BasicBO
 {
@@ -27,16 +27,16 @@ class OrderDataBO extends BasicBO
         $this->validateFieldsExist($paramsFields, $item);
         $clientBO = new ClientBO;
         if (!$clientBO->validateClientExistsById($item->clientId)) {
-            Response::renderAttributeNotFound(FieldsEnum::CLIENT_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::CLIENT_ID_JSON);
         }
         $addressBO = new AddressBO();
         if (!$addressBO->validateAddressExistsById($item->addressId)) {
-            Response::renderAttributeNotFound(FieldsEnum::ADDRESS_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::ADDRESS_ID_JSON);
         }
         $cartBO = new CartBO();
         $cartBO->validateCartToOrderById($item->cartId);
         if (!$this->validateStatusAptToInsert($item->status)) {
-            Response::renderInvalidFieldValue(FieldsEnum::STATUS);
+            throw new InvalidFieldValueException(FieldsEnum::STATUS);
         }
     }
 

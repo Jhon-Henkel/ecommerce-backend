@@ -2,11 +2,10 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\CategoryDAO;
-use src\Enums\ApiResponseMessageEnum;
-use src\Enums\HttpStatusCodeEnum;
+use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
 use src\Factory\CategoryDtoFactory;
 
 class CategoryBO extends BasicBO
@@ -24,9 +23,7 @@ class CategoryBO extends BasicBO
     {
         parent::validatePostParamsApi($paramsFields, $object);
         if (isset($object->fatherId) && !$this->dao->findById($object->fatherId)) {
-            $statusCode = HttpStatusCodeEnum::HTTP_NOT_FOUND;
-            $message = ApiResponseMessageEnum::FATHER_CATEGORY_NOT_FOUND;
-            Response::render($statusCode, $message);
+            throw new AttributeNotFoundException(FieldsEnum::FATHER_ID_JSON);
         }
     }
 
@@ -34,9 +31,7 @@ class CategoryBO extends BasicBO
     {
         parent::validatePutParamsApi($paramsFields, $object);
         if (isset($object->fatherId) && !$this->dao->findById($object->fatherId)) {
-            $statusCode = HttpStatusCodeEnum::HTTP_NOT_FOUND;
-            $message = ApiResponseMessageEnum::FATHER_CATEGORY_NOT_FOUND;
-            Response::render($statusCode, $message);
+            throw new AttributeNotFoundException(FieldsEnum::FATHER_ID_JSON);
         }
     }
 }

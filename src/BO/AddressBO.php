@@ -2,11 +2,12 @@
 
 namespace src\BO;
 
-use src\Api\Response;
 use src\DAO\AddressDAO;
 use src\DAO\ClientDAO;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\AddressDtoFactory;
 
 class AddressBO extends BasicBO
@@ -45,14 +46,14 @@ class AddressBO extends BasicBO
     {
         $clientDAO = new ClientDAO(TableEnum::CLIENT);
         if (!$clientDAO->countByColumnValue(FieldsEnum::ID, $id)) {
-            Response::renderAttributeNotFound(FieldsEnum::CLIENT_ID_JSON);
+            throw new AttributeNotFoundException(FieldsEnum::CLIENT_ID_JSON);
         }
     }
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void
     {
         if (!$this->dao->countByColumnValue(FieldsEnum::ID, $item->id)) {
-            Response::renderNotFound();
+            throw new NotFoundException();
         }
         $this->validateFieldsExist($paramsFields, $item);
         $this->validateClientExistsForApiById($item->clientId);
