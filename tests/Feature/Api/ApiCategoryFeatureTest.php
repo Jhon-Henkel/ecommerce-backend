@@ -51,6 +51,32 @@ class ApiCategoryFeatureTest extends TestCase
     }
 
     /**
+     * @throws GuzzleException
+     */
+    public function testValidPostFatherId()
+    {
+        $this->post($this->api, $this->item2);
+        $last = $this->dao->findLastInserted();
+        $this->item1->fatherId = $last['category_id'];
+        $response = $this->post($this->api, $this->item1);
+        $data = json_decode($response->getBody());
+        $this->assertEquals(HttpStatusCodeEnum::HTTP_CREATED, $response->getStatusCode());
+        $this->assertEquals('category-test-105', $data->code);
+        $this->assertEquals('Category Test 105', $data->name);
+        $this->assertEquals($last['category_id'], $data->fatherId);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function testInvalidPostFatherId()
+    {
+        $this->item1->fatherId = 9999999;
+        $response = $this->post($this->api, $this->item1);
+        $this->assertEquals(HttpStatusCodeEnum::HTTP_NOT_FOUND, $response->getStatusCode());
+    }
+
+    /**
      * @return void
      * @throws GuzzleException
      * @dataProvider dataProviderParametersInvalid
