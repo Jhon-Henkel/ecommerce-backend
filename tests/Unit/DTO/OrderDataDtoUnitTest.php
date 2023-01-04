@@ -74,7 +74,7 @@ class OrderDataDtoUnitTest extends TestCase
         $this->assertEquals(2.50, $this->orderData->getExtraFareValue());
         $this->assertEquals(128.09, $this->orderData->getTotalValue());
         $this->assertEquals(5, $this->orderData->getShippingDeadline());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($this->orderData->getCreatedAt()));
-        $this->assertEquals('2022-11-25', DateTools::dateTimeToStringConverter($this->orderData->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($this->orderData->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-25', DateTools::dateTimeToStringConverter($this->orderData->getUpdatedAt()));
     }
 }

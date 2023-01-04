@@ -46,7 +46,7 @@ class ClientDaoUnitTest extends TestCase
         $this->assertEquals('(48)99655-4577', $paramsArray['mainPhone']);
         $this->assertEquals('(48)98475-5588', $paramsArray['secondPhone']);
         $this->assertEquals('test@testmail.com', $paramsArray['email']);
-        $this->assertEquals('1995-12-10', $paramsArray['birthDate']);
+        $this->assertStringContainsString('1995-12-10', $paramsArray['birthDate']);
         $this->assertEquals('12345678', $paramsArray['password']);
     }
 
@@ -76,7 +76,7 @@ class ClientDaoUnitTest extends TestCase
         $this->assertEquals('(48)99655-4577', $paramsArray['mainPhone']);
         $this->assertEquals('(48)98475-5588', $paramsArray['secondPhone']);
         $this->assertEquals('test@testmail.com', $paramsArray['email']);
-        $this->assertEquals('1995-12-10', $paramsArray['birthDate']);
+        $this->assertStringContainsString('1995-12-10', $paramsArray['birthDate']);
         $this->assertEquals('12345678', $paramsArray['password']);
     }
 }

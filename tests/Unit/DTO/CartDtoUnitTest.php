@@ -31,7 +31,7 @@ class CartDtoUnitTest extends TestCase
         $this->assertEquals(1, $this->cart->getOrderDone());
         $this->assertEquals(987, $this->cart->getGiftCardId());
         $this->assertEquals($hash, $this->cart->getHash());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($this->cart->getCreatedAt()));
-        $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($this->cart->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($this->cart->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-10', DateTools::dateTimeToStringConverter($this->cart->getUpdatedAt()));
     }
 }

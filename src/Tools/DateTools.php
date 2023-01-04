@@ -21,7 +21,7 @@ class DateTools
     public static function dateTimeToStringConverter(null|DateTime $date): null|string
     {
         if ($date) {
-            return $date->format('Y-m-d');
+            return $date->format('Y-m-d H:m:s');
         }
         return null;
     }

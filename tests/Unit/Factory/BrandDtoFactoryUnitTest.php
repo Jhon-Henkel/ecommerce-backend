@@ -63,6 +63,8 @@ class BrandDtoFactoryUnitTest extends TestCase
         $brand->setId(123);
         $brand->setName('unit test dto brand');
         $brand->setCode('unit-test-dto-brand');
+        $brand->setCreatedAt(null);
+        $brand->setUpdatedAt(null);
         return $brand;
     }
 
@@ -72,6 +74,8 @@ class BrandDtoFactoryUnitTest extends TestCase
         $item['brand_id'] = 123;
         $item['brand_name'] = 'Brand Test';
         $item['brand_code'] = 'brand-test';
+        $item['brand_created_at'] = null;
+        $item['brand_updated_at'] = null;
         return $item;
     }
 }

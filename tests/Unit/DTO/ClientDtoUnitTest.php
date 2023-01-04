@@ -33,14 +33,14 @@ class ClientDtoUnitTest extends TestCase
         $this->client->setUpdatedAt(new \DateTime('2022-11-10'));
         $this->assertEquals(741, $this->client->getId());
         $this->assertEquals($pass, $this->client->getPassword());
-        $this->assertEquals('1995-12-10', DateTools::dateTimeToStringConverter($this->client->getBirthDate()));
+        $this->assertStringContainsString('1995-12-10', DateTools::dateTimeToStringConverter($this->client->getBirthDate()));
         $this->assertEquals('test@testmail.com', $this->client->getEmail());
         $this->assertEquals('(48)98475-5588', $this->client->getSecondPhone());
         $this->assertEquals('(48)99655-4577', $this->client->getMainPhone());
         $this->assertEquals('985.785.258-88', $this->client->getDocument());
         $this->assertEquals(DocumentEnum::CPF, $this->client->getDocumentType());
         $this->assertEquals('Fulaninho da Silva', $this->client->getName());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($this->client->getCreatedAt()));
-        $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($this->client->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($this->client->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-10', DateTools::dateTimeToStringConverter($this->client->getUpdatedAt()));
     }
 }

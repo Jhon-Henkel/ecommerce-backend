@@ -3,6 +3,7 @@
 namespace src\BO;
 
 use src\Enums\TableEnum;
+use src\Exceptions\AttributesExceptions\AttributeAlreadyLinkedInProduct;
 use src\Factory\BrandDtoFactory;
 use src\DAO\BrandDAO;
 
@@ -15,5 +16,13 @@ class BrandBO extends BasicBO
     {
         $this->dao = new BrandDAO(TableEnum::BRAND);
         $this->factory = new BrandDtoFactory();
+    }
+
+    public function deleteById(int $id): void
+    {
+        if ($this->countById($id)) {
+            throw new AttributeAlreadyLinkedInProduct();
+        }
+        parent::deleteById($id);
     }
 }

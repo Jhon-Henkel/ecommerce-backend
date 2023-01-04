@@ -38,8 +38,8 @@ class CartDtoFactoryUnitTest extends TestCase
         $this->assertEquals(1, $item->getOrderDone());
         $this->assertEquals(987, $item->getGiftCardId());
         $this->assertEquals('098f6bcd4621d373cade4e832627b4f6', $item->getHash());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
-        $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
     }
 
     public function testMakePublic(): void
@@ -51,8 +51,8 @@ class CartDtoFactoryUnitTest extends TestCase
         $this->assertEquals(1, $item->orderDone);
         $this->assertEquals(987, $item->giftCardId);
         $this->assertEquals('098f6bcd4621d373cade4e832627b4f6', $item->hash);
-        $this->assertEquals('2022-10-01', $item->createdAt);
-        $this->assertEquals('2022-11-10', $item->updatedAt);
+        $this->assertStringContainsString('2022-10-01', $item->createdAt);
+        $this->assertStringContainsString('2022-11-10', $item->updatedAt);
     }
 
     public function testMergeObjectDbWitchObjectPut(): void
@@ -71,8 +71,8 @@ class CartDtoFactoryUnitTest extends TestCase
         $this->assertEquals(0, $item->getOrderDone());
         $this->assertEquals(1, $item->getGiftCardId());
         $this->assertEquals('098f6bcd4621d373cade4e832627b4f6', $item->getHash());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
-        $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
     }
 
     /**
@@ -89,7 +89,7 @@ class CartDtoFactoryUnitTest extends TestCase
         $this->assertEquals(1, $item->getOrderDone());
         $this->assertEquals(987, $item->getGiftCardId());
         $this->assertEquals('098f6bcd4621d373cade4e832627b4f6', $item->getHash());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
-        $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($item->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-10', DateTools::dateTimeToStringConverter($item->getUpdatedAt()));
     }
 }

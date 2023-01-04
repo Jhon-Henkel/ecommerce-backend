@@ -24,6 +24,14 @@ class Response
         );
     }
 
+    public static function renderAttributeAlreadyLinkedInProduct(): void
+    {
+        self::render(
+            HttpStatusCodeEnum::HTTP_BAD_REQUEST,
+            ApiResponseMessageEnum::ATTRIBUTE_ALREADY_LINKED_IN_PRODUCT
+        );
+    }
+
     public static function renderAttributeAlreadyExists(string $attribute): void
     {
         self::render(

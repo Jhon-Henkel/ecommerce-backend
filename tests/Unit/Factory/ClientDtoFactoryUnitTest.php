@@ -33,7 +33,7 @@ class ClientDtoFactoryUnitTest extends TestCase
         $this->assertEquals('(48)99655-4577', $client->getMainPhone());
         $this->assertEquals('(48)98475-5588', $client->getSecondPhone());
         $this->assertEquals('test@testmail.com', $client->getEmail());
-        $this->assertEquals('1995-12-10', DateTools::dateTimeToStringConverter($client->getBirthDate()));
+        $this->assertStringContainsString('1995-12-10', DateTools::dateTimeToStringConverter($client->getBirthDate()));
         $this->assertEquals('12345678', $client->getPassword());
     }
 
@@ -48,7 +48,7 @@ class ClientDtoFactoryUnitTest extends TestCase
         $this->assertEquals('(48)99655-4577', $client->mainPhone);
         $this->assertEquals('(48)98475-5588', $client->secondPhone);
         $this->assertEquals('test@testmail.com', $client->email);
-        $this->assertEquals('1995-12-10', $client->birthDate);
+        $this->assertStringContainsString('1995-12-10', $client->birthDate);
         $this->assertEquals('12345678', $client->password);
     }
 
@@ -63,7 +63,7 @@ class ClientDtoFactoryUnitTest extends TestCase
         $this->assertEquals('(48)99655-4577', $client->getMainPhone());
         $this->assertEquals('(48)98475-5588', $client->getSecondPhone());
         $this->assertEquals('test@testmail.com', $client->getEmail());
-        $this->assertEquals('1995-12-10', DateTools::dateTimeToStringConverter($client->getBirthDate()));
+        $this->assertStringContainsString('1995-12-10', DateTools::dateTimeToStringConverter($client->getBirthDate()));
         $this->assertEquals('12345678', $client->getPassword());
     }
 

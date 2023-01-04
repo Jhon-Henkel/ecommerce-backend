@@ -30,7 +30,7 @@ class DateToolsUnitTest extends TestCase
         $date = DateTools::stringToDateTimeConverter('1998-10-12');
         $strDate = DateTools::dateTimeToStringConverter($date);
         $this->assertIsString($strDate);
-        $this->assertEquals('1998-10-12', $strDate);
+        $this->assertStringContainsString('1998-10-12', $strDate);
         $strDate = DateTools::dateTimeToStringConverter(null);
         $this->assertNull($strDate);
     }

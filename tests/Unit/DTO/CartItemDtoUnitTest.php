@@ -31,7 +31,8 @@ class CartItemDtoUnitTest extends TestCase
         $this->assertEquals(12, $this->cartItem->getQuantity());
         $this->assertEquals(852, $this->cartItem->getCartId());
         $this->assertEquals(74, $this->cartItem->getStockId());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($this->cartItem->getCreatedAt()));
+        $date = DateTools::dateTimeToStringConverter($this->cartItem->getCreatedAt());
+        $this->assertStringContainsString('2022-10-01', $date);
         $this->assertNull($this->cartItem->getUpdatedAt());
     }
 }

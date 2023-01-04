@@ -39,7 +39,7 @@ class AddressDtoUnitTest extends TestCase
         $this->assertEquals('Complement', $this->address->getComplement());
         $this->assertEquals('88780-000', $this->address->getZipCode());
         $this->assertEquals('Street', $this->address->getStreet());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($this->address->getCreatedAt()));
-        $this->assertEquals('2022-11-10', DateTools::dateTimeToStringConverter($this->address->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($this->address->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-10', DateTools::dateTimeToStringConverter($this->address->getUpdatedAt()));
     }
 }

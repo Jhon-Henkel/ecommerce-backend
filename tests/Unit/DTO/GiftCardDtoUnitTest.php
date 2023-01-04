@@ -34,7 +34,7 @@ class GiftCardDtoUnitTest extends TestCase
         $this->assertEquals(1, $this->giftCart->getDiscountType());
         $this->assertEquals('XDA-80%', $this->giftCart->getCode());
         $this->assertEquals(0, $this->giftCart->getUsages());
-        $this->assertEquals('2022-10-01', DateTools::dateTimeToStringConverter($this->giftCart->getCreatedAt()));
-        $this->assertEquals('2022-11-15', DateTools::dateTimeToStringConverter($this->giftCart->getUpdatedAt()));
+        $this->assertStringContainsString('2022-10-01', DateTools::dateTimeToStringConverter($this->giftCart->getCreatedAt()));
+        $this->assertStringContainsString('2022-11-15', DateTools::dateTimeToStringConverter($this->giftCart->getUpdatedAt()));
     }
 }

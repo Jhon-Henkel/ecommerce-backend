@@ -6,6 +6,7 @@ use src\Api\Response;
 use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
+use src\Exceptions\AttributesExceptions\AttributeAlreadyLinkedInProduct;
 use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
 use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
 use src\Exceptions\ClientExceptions\CartOpenForThisClientException;
@@ -79,7 +80,11 @@ abstract class BasicController
 
     public function apiDelete(int $id)
     {
-        $this->bo->deleteById($id);
-        Response::render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
+        try {
+            $this->bo->deleteById($id);
+            Response::render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
+        } catch (AttributeAlreadyLinkedInProduct $exception) {
+            Response::renderAttributeAlreadyLinkedInProduct();
+        }
     }
 }

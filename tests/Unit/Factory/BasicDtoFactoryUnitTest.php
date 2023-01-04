@@ -2,6 +2,7 @@
 
 namespace tests\Unit\Factory;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use src\DTO\BrandDTO;
 use src\Factory\BasicDtoFactory;
@@ -14,7 +15,7 @@ class BasicDtoFactoryUnitTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->itemToTest = $this->makeTestItem();
+        $this->itemToTest = $this->makeTestItens();
         $this->basicDtoFactory = new class extends BasicDtoFactory {
 
             public BrandDtoFactory $brandDtoFactory;
@@ -57,16 +58,20 @@ class BasicDtoFactoryUnitTest extends TestCase
         $this->assertEquals('brand-13', $itemTest[1]->code);
     }
 
-    public function makeTestItem(): array
+    public function makeTestItens(): array
     {
         $brand12 = array();
         $brand12['brand_id'] = 12;
         $brand12['brand_name'] = 'Brand 12';
         $brand12['brand_code'] = 'brand-12';
+        $brand12['brand_created_at'] = '2022-10-10';
+        $brand12['brand_updated_at'] = '2022-11-11';
         $brand13 = array();
         $brand13['brand_id'] = 13;
         $brand13['brand_name'] = 'Brand 13';
         $brand13['brand_code'] = 'brand-13';
+        $brand13['brand_created_at'] = '2022-10-10';
+        $brand13['brand_updated_at'] = '2022-11-11';
         return [$brand12, $brand13];
     }
 }

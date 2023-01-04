@@ -6,6 +6,8 @@ CREATE TABLE IF NOT EXISTS brand (
     brand_id int(10) NOT NULL AUTO_INCREMENT,
     brand_code varchar(50) NOT NULL,
     brand_name varchar(255) NOT NULL,
+    brand_created_at datetime DEFAULT current_timestamp(),
+    brand_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (brand_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
