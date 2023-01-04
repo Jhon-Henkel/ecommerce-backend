@@ -1,11 +1,13 @@
 # Ecommerce-clean-code
-Plataforma de ecommerce feita com base no conceito clean code, clean architecture e TDD que estou vendo no curso do Rodrigo Branas.
+Backend de uma plataforma de ecommerce feita com base no conceito clean code, clean architecture e TDD que estudei no curso do Rodrigo Branas.
+
+O objetivo desse projeto é solidificar os conhecimentos adquiridos nos estudos do curso.
 # *Como iniciar o projeto*
 Para iniciar asse projeto, basta executar os seguintes passos:
-- Executar o ***composer update*** e o ***npm update*** dentro do container docker.
+- Executar o ***composer update*** e ***npm update*** dentro do container docker.
 - Criar o banco de dados e as tabelas de acordo com o aquivo [SQL](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/alters/alters.sql).
 - Alterar as configurações nos arquivos da pasta ***src/Configs*** conforme for necessário.
-- Para rodar coverage, deve-se ter o php debug instalado e colocar o seguinte código (caso não tenha) no php.ini do container:
+- Para rodar coverage, deve-se ter o php debug instalado (No Dockerfile ja está instalando) e colocar o seguinte código no php.ini do container:
     ````
     [XDEBUG]
     zend_extension="xdebug.so"
@@ -24,12 +26,13 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 # *Bibliotecas Utilizadas*
 - Kint - Utilizado para debug no php. 
 - Php Unit - Utilizado para testes unitários, testes de integração e relatório de coverage.
-- Jest - Sem uso até o momento.
 - Composer - Utilizado para instalar as bibliotecas mencionadas aqui.
-- GuzzleHttp - Utilizado para as requisições http, no momento estou utilizando nos testes unitários para garantir o funcionamento dos meus endpoinsts da API.
-- Calculo correios - https://github.com/glauberportella/correios
+- GuzzleHttp - Utilizado para as requisições http, no momento estou utilizando nos testes para garantir o funcionamento dos meus end-points da API.
 ---
-# Fazer
+## Documentações
+- [API's](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation/API)
+---
+# Upgrades Futuros
 - Autenticação nas API's.
 - apiIndex com paginação.
 - Chave estrangeira na coluna de categoria pai.
@@ -41,7 +44,3 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Salvar cep com formatação mesmo se vier sem formatação.
 - Ao deletar produto validar se não tem pedido vinculado.
 - Definir o preenchimento das dimensões e do peso como obrigatório no item. 
----
-## Documentações
-- [API's](https://github.com/Jhon-Henkel/ecommerce-clean-code/blob/main/documentation/API)
----
