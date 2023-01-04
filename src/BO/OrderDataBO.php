@@ -72,10 +72,10 @@ class OrderDataBO extends BasicBO
     public function afterInsert(int $cartId): void
     {
         $cartBO = new CartBO();
-        $cartItemBO = new CartItemBO();
         /** @var CartDTO $cart */
         $cart = $cartBO->findById($cartId);
         $cartBO->updateCartOrderDone($cart);
+        $cartItemBO = new CartItemBO();
         $cartItemBO->updateStockItensPurchaseByCartId($cartId);
         if ($cart->getGiftCardId()) {
             $giftCardBO = new GiftCardBO();

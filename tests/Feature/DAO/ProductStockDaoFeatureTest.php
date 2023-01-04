@@ -39,7 +39,7 @@ class ProductStockDaoFeatureTest extends TestCase
     {
         $product = $this->dao->findByProductId(145);
         $this->assertCount(2, $product);
-        $this->dao->deleteByProductId(145);
+        $this->dao->deleteAllByProductId(145);
         $product = $this->dao->findByProductId(145);
         $this->assertCount(0, $product);
     }

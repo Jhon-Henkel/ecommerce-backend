@@ -5,6 +5,7 @@ namespace src\BO;
 use src\DAO\GiftCardDAO;
 use src\DTO\GiftCardDTO;
 use src\Enums\FieldsEnum;
+use src\Enums\StatusEnum;
 use src\Enums\TableEnum;
 use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\GiftCardDtoFactory;
@@ -42,7 +43,7 @@ class GiftCardBO extends BasicBO
         if (!$giftCard) {
             return false;
         }
-        if ($giftCard->getStatus() == 0) {
+        if ($giftCard->getStatus() == StatusEnum::INATIVE) {
             return false;
         }
         if ($giftCard->getUsages() >= $giftCard->getMaxUsages()) {

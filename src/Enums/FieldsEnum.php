@@ -21,9 +21,7 @@ class FieldsEnum
     const BRAND_ID_JSON = 'brandId';
     const ZIP_CODE_JSON = 'zipCode';
     const STOCK_ID_JSON = 'stockId';
-    const ORDER_DONE_DB = 'order_done';
     const ZIP_CODE_URL = 'zip-code';
-    const CLIENT_ID_DB = 'client_id';
     const CART_ID_JSON = 'cartId';
     const SIZE_ID_JSON = 'sizeId';
     const STOCK_ID_DB = 'stock_id';
@@ -49,12 +47,20 @@ class FieldsEnum
 
     public static function getBasicRequiredFields(): array
     {
-        return array(self::CODE, self::NAME);
+        return array(
+            self::CODE,
+            self::NAME
+        );
     }
 
     public static function getProductRequiredFields(): array
     {
-        return array(self::CODE, self::NAME, self::DESCRIPTION, self::CATEGORY_ID_JSON);
+        return array(
+            self::CODE,
+            self::NAME,
+            self::DESCRIPTION,
+            self::CATEGORY_ID_JSON
+        );
     }
 
     public static function getProductStockRequiredFields(): array
@@ -107,9 +113,13 @@ class FieldsEnum
 
     public static function getAddressRequiredFields(): array
     {
-        return array_merge(
-            self::getAddressRequiredFieldsInClientInsert(),
-            array(self::CLIENT_ID_JSON,)
+        return array(
+            self::STREET,
+            self::ZIP_CODE_JSON,
+            self::DISTRICT,
+            self::CITY,
+            self::STATE,
+            self::CLIENT_ID_JSON
         );
     }
 

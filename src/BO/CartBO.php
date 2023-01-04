@@ -38,7 +38,7 @@ class CartBO extends BasicBO
         if (!$this->validateClient((int)$item->clientId)) {
             throw new AttributeNotFoundException(FieldsEnum::CLIENT_ID_JSON);
         }
-        if (!$this->validateCartClient((int)$item->clientId)) {
+        if (!$this->validateCartByClientId((int)$item->clientId)) {
             throw new CartOpenForThisClientException();
         }
         if (isset($item->giftCardId)) {
@@ -57,7 +57,7 @@ class CartBO extends BasicBO
         return (bool)$clientBO->countById($clientId);
     }
 
-    public function validateCartClient(int $clientId): bool
+    public function validateCartByClientId(int $clientId): bool
     {
         if ($this->dao->isClientWithCartOpenByClientId($clientId)) {
             return false;
@@ -74,15 +74,7 @@ class CartBO extends BasicBO
     public function isValidGiftCardById(int $giftCardId): bool
     {
         $giftCardBO = new GiftCardBO();
-        /**@var GiftCardDTO $giftCard */
-        $giftCard = $giftCardBO->findById($giftCardId);
-        if ($giftCard->getUsages() >= $giftCard->getMaxUsages()) {
-            return false;
-        }
-        if ($giftCard->getStatus() == StatusEnum::INATIVE) {
-            return false;
-        }
-        return true;
+        return $giftCardBO->isValidGiftCardById($giftCardId);
     }
 
     public function validatePutParamsApi(array $paramsFields, \stdClass $item): void

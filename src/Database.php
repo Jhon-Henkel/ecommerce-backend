@@ -96,7 +96,7 @@ class Database
         }
     }
 
-    public function delete(string $query, array $params = null):void
+    public function delete(string $query, array $params = null): void
     {
         try {
             $query = trim($query);

@@ -3,10 +3,11 @@
 namespace src\Factory;
 
 use src\DTO\ProductStockDTO;
+use stdClass;
 
 class ProductStockDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): ProductStockDTO
+    public function factory(stdClass $item): ProductStockDTO
     {
         $productStockFactored = new ProductStockDTO();
         $productStockFactored->setId($item->id ?? null);
@@ -27,12 +28,12 @@ class ProductStockDtoFactory extends BasicDtoFactory
 
     /**
      * @param ProductStockDTO $item
-     * @return \stdClass
+     * @return stdClass
      *
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $stockPublic = new \stdClass();
+        $stockPublic = new stdClass();
         $stockPublic->id = $item->getId();
         $stockPublic->code = $item->getCode();
         $stockPublic->name = $item->getName();

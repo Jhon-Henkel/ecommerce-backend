@@ -60,9 +60,9 @@ class ProductStockBO extends BasicBO
         return $stocksFind;
     }
 
-    public function deleteStocksByProductId(int $id): void
+    public function deleteAllStocksByProductId(int $id): void
     {
-        $this->dao->deleteByProductId($id);
+        $this->dao->deleteAllByProductId($id);
     }
 
     public function validationsAttributesIdsExistsForApi(\stdClass $item): void
@@ -104,7 +104,7 @@ class ProductStockBO extends BasicBO
         }
     }
 
-    public function decreaseStockBalanceById(int $id, int $decrease)
+    public function decreaseStockBalanceByStockId(int $id, int $decrease)
     {
         /** @var ProductStockDTO $stock */
         $stock = $this->findById($id);

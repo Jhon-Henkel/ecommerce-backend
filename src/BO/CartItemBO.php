@@ -88,9 +88,7 @@ class CartItemBO extends BasicBO
     public function validateCartAllowInsertItemByCartId(int $cartId): void
     {
         $cartBO = new CartBO();
-        /**@var CartDTO $cart */
-        $cart = $cartBO->findById($cartId);
-        if ($cart->getOrderDone() == OrderEnum::ORDER_DONE) {
+        if ($cartBO->validateOrderDoneByCartId($cartId)) {
             throw new CartDontAllowInsertItensException();
         }
     }
@@ -171,7 +169,7 @@ class CartItemBO extends BasicBO
         $productStockBO = new ProductStockBO();
         $itens = $this->findAllByCartId($cartId);
         foreach ($itens as $item) {
-            $productStockBO->decreaseStockBalanceById($item->stock->id, $item->quantity);
+            $productStockBO->decreaseStockBalanceByStockId($item->stock->id, $item->quantity);
         }
     }
 }

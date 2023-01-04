@@ -3,10 +3,11 @@
 namespace src\Factory;
 
 use src\DTO\ColorDTO;
+use stdClass;
 
 class ColorDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): ColorDTO
+    public function factory(stdClass $item): ColorDTO
     {
         $colorFactored = new ColorDTO();
         $colorFactored->setCode($item->code);
@@ -17,11 +18,11 @@ class ColorDtoFactory extends BasicDtoFactory
 
     /**
      * @param ColorDTO $item
-     * @return \stdClass
+     * @return stdClass
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $colorPublic = new \stdClass();
+        $colorPublic = new stdClass();
         $colorPublic->id = $item->getId();
         $colorPublic->code = $item->getCode();
         $colorPublic->name = $item->getName();

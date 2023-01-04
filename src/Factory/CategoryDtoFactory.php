@@ -3,10 +3,11 @@
 namespace src\Factory;
 
 use src\DTO\CategoryDTO;
+use stdClass;
 
 class CategoryDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): CategoryDTO
+    public function factory(stdClass $item): CategoryDTO
     {
         $categoryFactored = new CategoryDTO();
         $categoryFactored->setFatherId($item->fatherId ?? null);
@@ -18,11 +19,11 @@ class CategoryDtoFactory extends BasicDtoFactory
 
     /**
      * @param CategoryDTO $item
-     * @return \stdClass
+     * @return stdClass
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $categoryPublic = new \stdClass();
+        $categoryPublic = new stdClass();
         $categoryPublic->id = $item->getId();
         $categoryPublic->code = $item->getCode();
         $categoryPublic->name = $item->getName();

@@ -4,10 +4,11 @@ namespace src\Factory;
 
 use src\DTO\ProductDTO;
 use src\Tools\StringTools;
+use stdClass;
 
 class ProductDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): ProductDTO
+    public function factory(stdClass $item): ProductDTO
     {
         $productFactored = new ProductDTO();
         $productFactored->setId($item->id ?? null);
@@ -31,7 +32,7 @@ class ProductDtoFactory extends BasicDtoFactory
         return $productDTO;
     }
 
-    public function factoryUrl(\stdClass $product): string
+    public function factoryUrl(stdClass $product): string
     {
         $name = StringTools::replaceSpacesInDashes($product->name);
         $code = StringTools::replaceSpacesInDashes($product->code);
@@ -40,11 +41,11 @@ class ProductDtoFactory extends BasicDtoFactory
 
     /**
      * @param ProductDTO $item
-     * @return \stdClass
+     * @return stdClass
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $productFactored = new \stdClass();
+        $productFactored = new stdClass();
         $productFactored->id = $item->getId();
         $productFactored->name = $item->getName();
         $productFactored->code = $item->getCode();
@@ -54,7 +55,7 @@ class ProductDtoFactory extends BasicDtoFactory
         return $productFactored;
     }
 
-    public function factoryProductWithStockPublic(ProductDTO $product, array $stocks): \stdClass
+    public function factoryProductWithStockPublic(ProductDTO $product, array $stocks): stdClass
     {
         $productFactored = $this->makePublic($product);
         $productFactored->stocks = $stocks;

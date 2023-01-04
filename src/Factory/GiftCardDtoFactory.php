@@ -3,10 +3,11 @@
 namespace src\Factory;
 
 use src\DTO\GiftCardDTO;
+use stdClass;
 
 class GiftCardDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): GiftCardDTO
+    public function factory(stdClass $item): GiftCardDTO
     {
         $giftCard = new GiftCardDTO();
         $giftCard->setId($item->id ?? null);
@@ -21,11 +22,11 @@ class GiftCardDtoFactory extends BasicDtoFactory
 
     /**
      * @param GiftCardDTO $item
-     * @return \stdClass
+     * @return stdClass
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $giftCard = new \stdClass();
+        $giftCard = new stdClass();
         $giftCard->id = $item->getId();
         $giftCard->code = $item->getCode();
         $giftCard->status = $item->getStatus();

@@ -3,10 +3,11 @@
 namespace src\Factory;
 
 use src\DTO\AddressDTO;
+use stdClass;
 
 class AddressDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): AddressDTO
+    public function factory(stdClass $item): AddressDTO
     {
         $address = new AddressDTO();
         $address->setId($item->id ?? null);
@@ -24,11 +25,11 @@ class AddressDtoFactory extends BasicDtoFactory
 
     /**
      * @param AddressDTO $item
-     * @return \stdClass
+     * @return stdClass
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $address = new \stdClass();
+        $address = new stdClass();
         $address->id = $item->getId();
         $address->clientId = $item->getClientId();
         $address->street = $item->getStreet();

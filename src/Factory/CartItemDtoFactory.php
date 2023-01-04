@@ -3,10 +3,11 @@
 namespace src\Factory;
 
 use src\DTO\CartItemDTO;
+use stdClass;
 
 class CartItemDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): CartItemDTO
+    public function factory(stdClass $item): CartItemDTO
     {
         $cartItem = new CartItemDTO();
         $cartItem->setId($item->id ?? null);
@@ -18,11 +19,11 @@ class CartItemDtoFactory extends BasicDtoFactory
 
     /**
      * @param CartItemDTO $item
-     * @return \stdClass
+     * @return stdClass
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $cartItem = new \stdClass();
+        $cartItem = new stdClass();
         $cartItem->id = $item->getId();
         $cartItem->cartId = $item->getCartId();
         $cartItem->stockId = $item->getStockId();
@@ -40,7 +41,7 @@ class CartItemDtoFactory extends BasicDtoFactory
         return $cartItem;
     }
 
-    public function factoryItemPut(\stdClass $object, CartItemDTO $item): CartItemDTO
+    public function factoryItemPut(stdClass $object, CartItemDTO $item): CartItemDTO
     {
         $item->setQuantity($object->quantity);
         return $item;

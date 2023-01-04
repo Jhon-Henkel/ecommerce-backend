@@ -67,10 +67,10 @@ class CartBoFeatureTest extends TestCase
 
     public function testValidateCartClient()
     {
-        $this->assertFalse($this->bo->validateCartClient(741));
+        $this->assertFalse($this->bo->validateCartByClientId(741));
         $db = new Database();
         $db->update("UPDATE cart SET cart_order_done = 1 WHERE cart_id = 852");
-        $this->assertTrue($this->bo->validateCartClient(741));
+        $this->assertTrue($this->bo->validateCartByClientId(741));
     }
 
     public function testValidateClient()

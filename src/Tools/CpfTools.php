@@ -4,9 +4,8 @@ namespace src\Tools;
 
 class CpfTools
 {
-    public static function validate (string $cpf): bool
+    public static function validate(string $cpf): bool
     {
-        if (!$cpf) return false;
         $cpf = StringTools::onlyNumbers($cpf);
         if (strlen($cpf) != 11) return false;
         for ($t = 9; $t < 11; $t++) {

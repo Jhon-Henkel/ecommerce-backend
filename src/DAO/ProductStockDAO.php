@@ -60,7 +60,7 @@ class ProductStockDAO extends BasicDAO
         return $this->database->select($query, array('id' => $id));
     }
 
-    public function deleteByProductId(int $id): void
+    public function deleteAllByProductId(int $id): void
     {
         $query = "DELETE FROM product_stock WHERE product_stock_product_id = :id";
         $this->database->delete($query, array('id' => $id));

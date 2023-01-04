@@ -5,10 +5,11 @@ namespace src\Factory;
 use src\DTO\AddressDTO;
 use src\DTO\ClientDTO;
 use src\Tools\DateTools;
+use stdClass;
 
 class ClientDtoFactory extends BasicDtoFactory
 {
-    public function factory(\stdClass $item): ClientDTO
+    public function factory(stdClass $item): ClientDTO
     {
         $client = new ClientDTO();
         $client->setId($item->id ?? null);
@@ -25,11 +26,11 @@ class ClientDtoFactory extends BasicDtoFactory
 
     /**
      * @param ClientDTO $item
-     * @return \stdClass
+     * @return stdClass
      */
-    public function makePublic($item): \stdClass
+    public function makePublic($item): stdClass
     {
-        $client = new \stdClass();
+        $client = new stdClass();
         $client->id = $item->getId();
         $client->name = $item->getName();
         $client->documentType = $item->getDocumentType();
@@ -57,7 +58,7 @@ class ClientDtoFactory extends BasicDtoFactory
         return $client;
     }
 
-    public function factoryClientWithAddress(ClientDTO $client, AddressDTO $address): \stdClass
+    public function factoryClientWithAddress(ClientDTO $client, AddressDTO $address): stdClass
     {
         $addressFactory = new AddressDtoFactory();
         $client = $this->makePublic($client);
@@ -65,7 +66,7 @@ class ClientDtoFactory extends BasicDtoFactory
         return $client;
     }
 
-    public function factoryClientWithAddressesPublic(ClientDTO $client, array $addresses): \stdClass
+    public function factoryClientWithAddressesPublic(ClientDTO $client, array $addresses): stdClass
     {
         $clientFactored = $this->makePublic($client);
         $clientFactored->address = $addresses;

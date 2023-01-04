@@ -100,7 +100,7 @@ class ProductBO extends BasicBO
     public function deleteById(int $id): void
     {
         $stockBO = new ProductStockBO();
-        $stockBO->deleteStocksByProductId($id);
+        $stockBO->deleteAllStocksByProductId($id);
         parent::deleteById($id);
     }
 }
