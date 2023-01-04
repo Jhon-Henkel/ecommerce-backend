@@ -18,9 +18,15 @@ class BrandBO extends BasicBO
         $this->factory = new BrandDtoFactory();
     }
 
+    public function isLinkedToProductByBrandId(int $id): bool
+    {
+        $productBO = new ProductStockBO();
+        return (bool)$productBO->countByBrandId($id);
+    }
+
     public function deleteById(int $id): void
     {
-        if ($this->countById($id)) {
+        if ($this->isLinkedToProductByBrandId($id)) {
             throw new AttributeAlreadyLinkedInProduct();
         }
         parent::deleteById($id);

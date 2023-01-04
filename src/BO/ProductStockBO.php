@@ -104,11 +104,16 @@ class ProductStockBO extends BasicBO
         }
     }
 
-    public function decreaseStockBalanceByStockId(int $id, int $decrease)
+    public function decreaseStockBalanceByStockId(int $id, int $decrease): void
     {
         /** @var ProductStockDTO $stock */
         $stock = $this->findById($id);
         $stock->setQuantity(($stock->getQuantity() - $decrease));
         $this->update($stock);
+    }
+
+    public function countByBrandId(int $id): int
+    {
+        return $this->dao->countByColumnValue(FieldsEnum::BRAND_ID_DB, $id);
     }
 }
