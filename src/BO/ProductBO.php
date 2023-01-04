@@ -103,4 +103,9 @@ class ProductBO extends BasicBO
         $stockBO->deleteAllStocksByProductId($id);
         parent::deleteById($id);
     }
+
+    public function countByCategoryId(int $id): int
+    {
+        return $this->dao->countByColumnValue(FieldsEnum::CATEGORY_ID_DB, $id);
+    }
 }

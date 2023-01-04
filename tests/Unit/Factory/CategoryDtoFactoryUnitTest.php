@@ -65,6 +65,8 @@ class CategoryDtoFactoryUnitTest extends TestCase
         $category->setName('unit test dto category');
         $category->setCode('unit-test-dto-category');
         $category->setFatherId(5);
+        $category->setCreatedAt(null);
+        $category->setUpdatedAt(null);
         return $category;
     }
 
@@ -75,6 +77,8 @@ class CategoryDtoFactoryUnitTest extends TestCase
         $item['category_name'] = 'Category Test';
         $item['category_code'] = 'category-test';
         $item['category_father_id'] = 5;
+        $item['category_created_at'] = null;
+        $item['category_updated_at'] = null;
         return $item;
     }
 }

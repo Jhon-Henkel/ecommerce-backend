@@ -3,6 +3,7 @@
 namespace src\Factory;
 
 use src\DTO\CategoryDTO;
+use src\Tools\DateTools;
 use stdClass;
 
 class CategoryDtoFactory extends BasicDtoFactory
@@ -14,6 +15,8 @@ class CategoryDtoFactory extends BasicDtoFactory
         $categoryFactored->setCode($item->code);
         $categoryFactored->setName($item->name);
         $categoryFactored->setId($item->id ?? null);
+        $categoryFactored->setCreatedAt($item->createdAt ?? null);
+        $categoryFactored->setUpdatedAt($item->updatedAt ?? null);
         return $categoryFactored;
     }
 
@@ -28,6 +31,12 @@ class CategoryDtoFactory extends BasicDtoFactory
         $categoryPublic->code = $item->getCode();
         $categoryPublic->name = $item->getName();
         $categoryPublic->fatherId = $item->getFatherId() ?? null;
+        $categoryPublic->createdAt = $item->getCreatedAt()
+            ? DateTools::dateTimeToStringConverter($item->getCreatedAt())
+            : null;
+        $categoryPublic->updatedAt = $item->getUpdatedAt()
+            ? DateTools::dateTimeToStringConverter($item->getUpdatedAt())
+            : null;
         return $categoryPublic;
     }
 
@@ -38,6 +47,12 @@ class CategoryDtoFactory extends BasicDtoFactory
         $categoryDTO->setName($item['category_name']);
         $categoryDTO->setCode($item['category_code']);
         $categoryDTO->setFatherId($item['category_father_id']);
+        $categoryDTO->setCreatedAt(DateTools::stringToDateTimeConverter($item['category_created_at']));
+        $categoryDTO->setUpdatedAt(
+            $item['category_updated_at']
+                ? DateTools::stringToDateTimeConverter($item['category_updated_at'])
+                : null
+        );
         return $categoryDTO;
     }
 }

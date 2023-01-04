@@ -17,7 +17,10 @@ CREATE TABLE IF NOT EXISTS category (
     category_code varchar(50) NOT NULL,
     category_name varchar(255) NOT NULL,
     category_father_id int(10) DEFAULT NULL,
-    PRIMARY KEY (category_id)
+    category_created_at datetime DEFAULT current_timestamp(),
+    category_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
+    PRIMARY KEY (category_id),
+    FOREIGN KEY (category_father_id) REFERENCES category(category_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- criando tabela cor --

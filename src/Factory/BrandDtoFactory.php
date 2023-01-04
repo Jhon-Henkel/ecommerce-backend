@@ -30,8 +30,12 @@ class BrandDtoFactory extends BasicDtoFactory
         $brandPublic->id = $item->getId();
         $brandPublic->name = $item->getName();
         $brandPublic->code = $item->getCode();
-        $brandPublic->createdAt = $item->getCreatedAt() ? DateTools::dateTimeToStringConverter($item->getCreatedAt()) : null;
-        $brandPublic->updatedAt = $item->getUpdatedAt() ? DateTools::dateTimeToStringConverter($item->getUpdatedAt()) : null;
+        $brandPublic->createdAt = $item->getCreatedAt()
+            ? DateTools::dateTimeToStringConverter($item->getCreatedAt())
+            : null;
+        $brandPublic->updatedAt = $item->getUpdatedAt()
+            ? DateTools::dateTimeToStringConverter($item->getUpdatedAt())
+            : null;
         return $brandPublic;
     }
 

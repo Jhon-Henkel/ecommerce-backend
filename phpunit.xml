@@ -28,6 +28,7 @@
             <directory>src/Exceptions</directory>
             <directory>src/Configs</directory>
             <directory>src/Routes</directory>
+            <directory>src/Api</directory>
         </exclude>
     </coverage>
 </phpunit>
