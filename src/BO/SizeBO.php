@@ -3,6 +3,7 @@
 namespace src\BO;
 
 use src\DAO\SizeDAO;
+use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyLinkedInProduct;
 use src\Factory\SizeDtoFactory;
@@ -18,15 +19,9 @@ class SizeBO extends BasicBO
         $this->factory = new SizeDtoFactory();
     }
 
-    public function isLinkedToProductBySizeId(int $id): bool
-    {
-        $productBO = new ProductStockBO();
-        return (bool)$productBO->countBySizeId($id);
-    }
-
     public function deleteById(int $id): void
     {
-        if ($this->isLinkedToProductBySizeId($id)) {
+        if ($this->isLinkedToProductStockByAttributeId(FieldsEnum::SIZE_ID_DB, $id)) {
             throw new AttributeAlreadyLinkedInProduct();
         }
         parent::deleteById($id);

@@ -111,19 +111,4 @@ class ProductStockBO extends BasicBO
         $stock->setQuantity(($stock->getQuantity() - $decrease));
         $this->update($stock);
     }
-
-    public function countByBrandId(int $id): int
-    {
-        return $this->dao->countByColumnValue(FieldsEnum::BRAND_ID_DB, $id);
-    }
-
-    public function countByColorId(int $id): int
-    {
-        return $this->dao->countByColumnValue(FieldsEnum::COLOR_ID_DB, $id);
-    }
-
-    public function countBySizeId(int $id): int
-    {
-        return $this->dao->countByColumnValue(FieldsEnum::SIZE_ID_DB, $id);
-    }
 }

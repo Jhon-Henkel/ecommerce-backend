@@ -2,6 +2,7 @@
 
 namespace src\BO;
 
+use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyLinkedInProduct;
 use src\Factory\BrandDtoFactory;
@@ -18,15 +19,9 @@ class BrandBO extends BasicBO
         $this->factory = new BrandDtoFactory();
     }
 
-    public function isLinkedToProductByBrandId(int $id): bool
-    {
-        $productBO = new ProductStockBO();
-        return (bool)$productBO->countByBrandId($id);
-    }
-
     public function deleteById(int $id): void
     {
-        if ($this->isLinkedToProductByBrandId($id)) {
+        if ($this->isLinkedToProductStockByAttributeId(FieldsEnum::BRAND_ID_DB, $id)) {
             throw new AttributeAlreadyLinkedInProduct();
         }
         parent::deleteById($id);

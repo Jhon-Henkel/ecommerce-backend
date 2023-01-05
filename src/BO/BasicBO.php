@@ -104,4 +104,10 @@ abstract class BasicBO
             }
         }
     }
+
+    public function isLinkedToProductStockByAttributeId(string $attribute, int $id): bool
+    {
+        $productBO = new ProductStockBO();
+        return (bool)$productBO->dao->countByColumnValue($attribute, $id);
+    }
 }

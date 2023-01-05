@@ -3,6 +3,7 @@
 namespace src\BO;
 
 use src\DAO\ColorDAO;
+use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyLinkedInProduct;
 use src\Factory\ColorDtoFactory;
@@ -18,15 +19,9 @@ class ColorBO extends BasicBO
         $this->factory = new ColorDtoFactory();
     }
 
-    public function isLinkedToProductByColorId(int $id): bool
-    {
-        $productBO = new ProductStockBO();
-        return (bool)$productBO->countByColorId($id);
-    }
-
     public function deleteById(int $id): void
     {
-        if ($this->isLinkedToProductByColorId($id)) {
+        if ($this->isLinkedToProductStockByAttributeId(FieldsEnum::COLOR_ID_DB, $id)) {
             throw new AttributeAlreadyLinkedInProduct();
         }
         parent::deleteById($id);
