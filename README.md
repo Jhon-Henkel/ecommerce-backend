@@ -35,12 +35,8 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 # Upgrades Futuros
 - Autenticação nas API's.
 - apiIndex com paginação.
-- Delete de atributo terá que validar se o mesmo não está vinculado a algum produto. (categoria e marca já estão ok)
 - Validar quantidade de caracteres dos valores inseridos.
-- Colocar o 'criado em' e de 'atualizado em' nas tabelas de produtos e seus atributos. (categoria e marca já estão ok)
 - Salvar CPF no banco com formatação mesmo se vir sem formatação.
 - Salvar telefones com formatação mesmo se vier sem formatação.
 - Salvar cep com formatação mesmo se vier sem formatação.
-- Ao deletar produto validar se não tem pedido vinculado. (categoria e marca já estão ok)
-- Definir o preenchimento das dimensões e do peso como obrigatório no produto.
 - Atualizar cálculo dos correios para a biblioteca que eu criei.

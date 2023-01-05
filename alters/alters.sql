@@ -72,6 +72,8 @@ CREATE TABLE IF NOT EXISTS product_stock (
     product_stock_height int(10) NOT NULL,
     product_stock_length int(10) NOT NULL,
     product_stock_gross_weight int(10) NOT NULL,
+    product_stock_created_at datetime DEFAULT current_timestamp(),
+    product_stock_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (product_stock_id),
     FOREIGN KEY (product_stock_color_id) REFERENCES color(color_id),
     FOREIGN KEY (product_stock_size_id) REFERENCES size(size_id),

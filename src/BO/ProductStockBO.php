@@ -2,6 +2,7 @@
 
 namespace src\BO;
 
+use src\DAO\ProductDAO;
 use src\DAO\ProductStockDAO;
 use src\DTO\ProductStockDTO;
 use src\Enums\FieldsEnum;
@@ -86,8 +87,8 @@ class ProductStockBO extends BasicBO
 
     public function validateProductExistsForApiById(int $id): void
     {
-        $productDAO = new ProductStockDAO(TableEnum::PRODUCT);
-        if (!$productDAO->countByColumnValue(FieldsEnum::PRODUCT_ID_DB, $id)) {
+        $productBO = new ProductBO();
+        if (!$productBO->countById($id)) {
             throw new AttributeNotFoundException(FieldsEnum::PRODUCT_ID_JSON);
         }
     }

@@ -23,5 +23,5 @@ class ApiResponseMessageEnum
     const INVALID_GIFT_CARD_IN_THIS_CART = 'Gift Card inválido aplicado no carrinho';
     const INVALID_VALUE_GIFT_CARD_FOR_THIS_CART = 'giftCard do carrinho. O valor de desconto não pode ser maior que o valor do carrinho';
     const ATTRIBUTE_ALREADY_LINKED_IN_PRODUCT = 'Este atributo já está vinculado com um produto!';
-    const PRODUCT_IS_LINKED_ON_ORDER = 'Este produto já está vinculado em um pedido!';
+    const PRODUCT_IS_LINKED_ON_ORDER = 'Este produto/estoque já está vinculado em um pedido!';
 }

@@ -2,6 +2,8 @@
 
 namespace src\DTO;
 
+use DateTime;
+
 class ProductStockDTO
 {
     private  null|int $id;
@@ -17,6 +19,8 @@ class ProductStockDTO
     private int $height;
     private int $length;
     private int $grossWeight;
+    private ?DateTime $createdAt;
+    private ?DateTime $updatedAt;
 
     /**
      * @return null|int
@@ -224,5 +228,37 @@ class ProductStockDTO
     public function setGrossWeight(int $grossWeight): void
     {
         $this->grossWeight = $grossWeight;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime|null $createdAt
+     */
+    public function setCreatedAt(?DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime|null $updatedAt
+     */
+    public function setUpdatedAt(?DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

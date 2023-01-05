@@ -113,6 +113,8 @@ class ProductStockDtoFactoryUnitTest extends TestCase
         $productStockDTO->setHeight(150);
         $productStockDTO->setLength(65);
         $productStockDTO->setGrossWeight(1500);
+        $productStockDTO->setCreatedAt(null);
+        $productStockDTO->setUpdatedAt(null);
         return $productStockDTO;
     }
 
@@ -132,6 +134,8 @@ class ProductStockDtoFactoryUnitTest extends TestCase
         $item['product_stock_height'] = 150;
         $item['product_stock_length'] = 65;
         $item['product_stock_gross_weight'] = 1500;
+        $item['product_stock_created_at'] = null;
+        $item['product_stock_updated_at'] = null;
         return $item;
     }
 }

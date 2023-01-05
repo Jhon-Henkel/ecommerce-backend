@@ -2,13 +2,21 @@
 
 namespace src\Factory;
 
+use Exception;
 use src\DTO\ProductStockDTO;
+use src\Tools\DateTools;
 use stdClass;
 
 class ProductStockDtoFactory extends BasicDtoFactory
 {
     public function factory(stdClass $item): ProductStockDTO
     {
+        if (!isset($item->createdAt)) {
+            $item->createdAt = null;
+        }
+        if (!isset($item->updatedAt)) {
+            $item->updatedAt = null;
+        }
         $productStockFactored = new ProductStockDTO();
         $productStockFactored->setId($item->id ?? null);
         $productStockFactored->setCode($item->code);
@@ -23,6 +31,8 @@ class ProductStockDtoFactory extends BasicDtoFactory
         $productStockFactored->setHeight($item->height);
         $productStockFactored->setLength($item->length);
         $productStockFactored->setGrossWeight($item->grossWeight);
+        $productStockFactored->setCreatedAt($item->createdAt ?? null);
+        $productStockFactored->setUpdatedAt($item->updatedAt ?? null);
         return $productStockFactored;
     }
 
@@ -47,9 +57,14 @@ class ProductStockDtoFactory extends BasicDtoFactory
         $stockPublic->height = $item->getHeight();
         $stockPublic->length = $item->getLength();
         $stockPublic->grossWeight = $item->getGrossWeight();
+        $stockPublic->createdAt = DateTools::dateTimeToStringConverter($item->getCreatedAt());
+        $stockPublic->updatedAt = DateTools::dateTimeToStringConverter($item->getUpdatedAt());
         return $stockPublic;
     }
 
+    /**
+     * @throws Exception
+     */
     public function populateDbToDto(array $item): ProductStockDTO
     {
         $productStockDTO = new ProductStockDTO();
@@ -66,6 +81,8 @@ class ProductStockDtoFactory extends BasicDtoFactory
         $productStockDTO->setHeight($item['product_stock_height']);
         $productStockDTO->setLength($item['product_stock_length']);
         $productStockDTO->setGrossWeight($item['product_stock_gross_weight']);
+        $productStockDTO->setCreatedAt(DateTools::stringToDateTimeConverter($item['product_stock_created_at']));
+        $productStockDTO->setUpdatedAt(DateTools::stringToDateTimeConverter($item['product_stock_updated_at']));
         return $productStockDTO;
     }
 }
