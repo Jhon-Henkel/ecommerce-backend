@@ -63,6 +63,8 @@ class SizeDtoFactoryUnitTest extends TestCase
         $size->setId(785);
         $size->setName('unit test dto size');
         $size->setCode('unit-test-dto-size');
+        $size->setCreatedAt(null);
+        $size->setUpdatedAt(null);
         return $size;
     }
 
@@ -72,6 +74,8 @@ class SizeDtoFactoryUnitTest extends TestCase
         $item['size_id'] = 785;
         $item['size_name'] = 'Size Test';
         $item['size_code'] = 'size-test';
+        $item['size_created_at'] = null;
+        $item['size_updated_at'] = null;
         return $item;
     }
 }

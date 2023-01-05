@@ -121,4 +121,9 @@ class ProductStockBO extends BasicBO
     {
         return $this->dao->countByColumnValue(FieldsEnum::COLOR_ID_DB, $id);
     }
+
+    public function countBySizeId(int $id): int
+    {
+        return $this->dao->countByColumnValue(FieldsEnum::SIZE_ID_DB, $id);
+    }
 }

@@ -29,6 +29,7 @@ class FieldsEnum
     const BRAND_ID_DB = 'brand_id';
     const STOCK_ID_DB = 'stock_id';
     const DESCRIPTION = 'description';
+    const SIZE_ID_DB = 'size_id';
     const PASSWORD = 'password';
     const QUANTITY = 'quantity';
     const DOCUMENT = 'document';

@@ -38,6 +38,8 @@ CREATE TABLE IF NOT EXISTS size (
     size_id int(10) NOT NULL AUTO_INCREMENT,
     size_code varchar(50) NOT NULL,
     size_name varchar(255) NOT NULL,
+    size_created_at datetime DEFAULT current_timestamp(),
+    size_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (size_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

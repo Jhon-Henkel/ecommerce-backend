@@ -4,6 +4,7 @@ namespace tests\Traits;
 
 use src\Database;
 use src\DTO\SizeDTO;
+use stdClass;
 
 trait SizeTraits
 {
@@ -16,12 +17,30 @@ trait SizeTraits
         return $size;
     }
 
-    public function makeStdSizeTest12(): \stdClass
+    public function makeStdSizeTest12(): stdClass
     {
-        $size = new \stdClass();
+        $size = new stdClass();
         $size->id = 12;
         $size->name = 'Size Test';
         $size->code = 'size-test-12';
+        return $size;
+    }
+
+    public function makeStdSizeTest13(): stdClass
+    {
+        $size = new stdClass();
+        $size->id = 13;
+        $size->name = 'Size Test 13';
+        $size->code = 'size-test-13';
+        return $size;
+    }
+
+    public function makeStdSizeTest14(): stdClass
+    {
+        $size = new stdClass();
+        $size->id = 14;
+        $size->name = 'Size Test 14';
+        $size->code = 'size-test-14';
         return $size;
     }
 
