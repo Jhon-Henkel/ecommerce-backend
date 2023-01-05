@@ -2,11 +2,15 @@
 
 namespace src\DTO;
 
+use DateTime;
+
 class ColorDTO
 {
     private null|int $id;
     private string $code;
     private string $name;
+    private ?DateTime $createdAt;
+    private ?DateTime $updatedAt;
 
     /**
      * @return null|int
@@ -54,4 +58,37 @@ class ColorDTO
     {
         $this->name = $name;
     }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getCreatedAt(): ?DateTime
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param DateTime|null $createdAt
+     */
+    public function setCreatedAt(?DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+     * @return DateTime|null
+     */
+    public function getUpdatedAt(): ?DateTime
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param DateTime|null $updatedAt
+     */
+    public function setUpdatedAt(?DateTime $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
+    }
+
 }

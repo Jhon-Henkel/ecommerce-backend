@@ -28,6 +28,8 @@ CREATE TABLE IF NOT EXISTS color (
     color_id int(10) NOT NULL AUTO_INCREMENT,
     color_code varchar(50) NOT NULL,
     color_name varchar(255) NOT NULL,
+    color_created_at datetime DEFAULT current_timestamp(),
+    color_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (color_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 

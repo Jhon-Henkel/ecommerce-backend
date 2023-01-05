@@ -263,7 +263,7 @@ class ApiCategoryFeatureTest extends TestCase
         $this->assertEquals('Atributos obrigatórios ausentes, revise a documentação!', $data);
     }
 
-    public function testDeleteBrandLinkedInProduct()
+    public function testDeleteCategoryLinkedInProduct()
     {
         $this->insertOnDbProductTest145();
         $response = $this->delete($this->api . '&id=105');

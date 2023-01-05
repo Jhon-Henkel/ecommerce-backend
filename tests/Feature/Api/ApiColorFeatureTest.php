@@ -10,10 +10,11 @@ use src\Enums\HttpStatusCodeEnum;
 use src\Enums\TableEnum;
 use tests\Traits\ColorTraits;
 use tests\Traits\HttpRequestTrait;
+use tests\Traits\ProductTraits;
 
 class ApiColorFeatureTest extends TestCase
 {
-    use ColorTraits, HttpRequestTrait;
+    use ColorTraits, HttpRequestTrait, ProductTraits;
 
     public \stdClass $color94;
     public \stdClass $color95;
@@ -25,6 +26,7 @@ class ApiColorFeatureTest extends TestCase
     {
         $this->api = 'api=color';
         $this->deleteColors();
+        $this->deleteOnDbProductTest145();
         $this->color94 = $this->makeStdColorTest94();
         $this->color95 = $this->makeStdColorTest95();
         $this->color96 = $this->makeStdColorTest96();
@@ -33,6 +35,7 @@ class ApiColorFeatureTest extends TestCase
 
     protected function tearDown(): void
     {
+        $this->deleteOnDbProductTest145();
         $this->deleteColors();
     }
 
@@ -239,6 +242,15 @@ class ApiColorFeatureTest extends TestCase
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $response->getStatusCode());
         $this->assertEquals('Atributos obrigatórios ausentes, revise a documentação!', $data);
+    }
+
+    public function testDeleteColorLinkedInProduct()
+    {
+        $this->insertOnDbProductTest145();
+        $response = $this->delete($this->api . '&id=95');
+        $data = json_decode($response->getBody());
+        $this->assertEquals(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $response->getStatusCode());
+        $this->assertEquals('Este atributo já está vinculado com um produto!', $data);
     }
 
     public function deleteColors():void

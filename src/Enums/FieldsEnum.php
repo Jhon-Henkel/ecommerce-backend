@@ -25,6 +25,7 @@ class FieldsEnum
     const ZIP_CODE_URL = 'zip-code';
     const CART_ID_JSON = 'cartId';
     const SIZE_ID_JSON = 'sizeId';
+    const COLOR_ID_DB = 'color_id';
     const BRAND_ID_DB = 'brand_id';
     const STOCK_ID_DB = 'stock_id';
     const DESCRIPTION = 'description';

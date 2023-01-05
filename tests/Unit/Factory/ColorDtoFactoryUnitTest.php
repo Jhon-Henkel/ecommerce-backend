@@ -54,6 +54,8 @@ class ColorDtoFactoryUnitTest extends TestCase
         $color->id = 785;
         $color->name = 'unit test std color';
         $color->code = 'unit-test-std-color';
+        $color->createdAt = null;
+        $color->updatedAt = null;
         return $color;
     }
 
@@ -63,6 +65,8 @@ class ColorDtoFactoryUnitTest extends TestCase
         $color->setId(785);
         $color->setName('unit test dto color');
         $color->setCode('unit-test-dto-color');
+        $color->setCreatedAt(null);
+        $color->setUpdatedAt(null);
         return $color;
     }
 
@@ -72,6 +76,8 @@ class ColorDtoFactoryUnitTest extends TestCase
         $item['color_id'] = 785;
         $item['color_name'] = 'Color Test';
         $item['color_code'] = 'color-test';
+        $item['color_created_at'] = null;
+        $item['color_updated_at'] = null;
         return $item;
     }
 }
