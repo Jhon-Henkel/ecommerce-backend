@@ -2,6 +2,7 @@
 
 namespace tests\Unit\Factory;
 
+use DateTime;
 use PHPUnit\Framework\TestCase;
 use src\DTO\CategoryDTO;
 use src\Factory\CategoryDtoFactory;
@@ -30,6 +31,20 @@ class CategoryDtoFactoryUnitTest extends TestCase
         $this->assertEquals('unit-test-dto-category', $publicCategory->code);
     }
 
+    public function testMakePublicWithDates()
+    {
+        $item = $this->dtoCategory;
+        $item->setCreatedAt(new DateTime('2022-01-15'));
+        $item->setUpdatedAt(new DateTime('2022-10-01'));
+        $publicCategory = $this->factory->makePublic($item);
+        $this->assertInstanceOf(\stdClass::class, $publicCategory);
+        $this->assertEquals(963, $publicCategory->id);
+        $this->assertEquals('unit test dto category', $publicCategory->name);
+        $this->assertEquals('unit-test-dto-category', $publicCategory->code);
+        $this->assertStringContainsString('2022-01-15', $publicCategory->createdAt);
+        $this->assertStringContainsString('2022-10-01', $publicCategory->updatedAt);
+    }
+
     public function testFactory()
     {
         $factored = $this->factory->factory($this->stdCategory);
@@ -46,6 +61,20 @@ class CategoryDtoFactoryUnitTest extends TestCase
         $this->assertEquals(963, $category->getId());
         $this->assertEquals('Category Test', $category->getName());
         $this->assertEquals('category-test', $category->getCode());
+    }
+
+    public function testPopulateDbToDtoWithDate()
+    {
+        $item = $this->dbCategory;
+        $item['category_created_at'] = '2022-01-15';
+        $item['category_updated_at'] = '2022-10-01';
+        $category = $this->factory->populateDbToDto($item);
+        $this->assertInstanceOf(CategoryDTO::class, $category);
+        $this->assertEquals(963, $category->getId());
+        $this->assertEquals('Category Test', $category->getName());
+        $this->assertEquals('category-test', $category->getCode());
+        $this->assertInstanceOf(DateTime::class, $category->getCreatedAt());
+        $this->assertInstanceOf(DateTime::class, $category->getUpdatedAt());
     }
 
     public function makeStdCategory(): \stdClass
