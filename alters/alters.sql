@@ -51,6 +51,8 @@ CREATE TABLE IF NOT EXISTS product (
     product_url varchar(255) NOT NULL,
     product_description text DEFAULT NULL,
     product_category_id int(10) NOT NULL,
+    product_created_at datetime DEFAULT current_timestamp(),
+    product_updated_at datetime DEFAULT NULL ON UPDATE current_timestamp(),
     PRIMARY KEY (product_id),
     FOREIGN KEY (product_category_id) REFERENCES category(category_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

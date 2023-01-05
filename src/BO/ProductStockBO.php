@@ -7,6 +7,7 @@ use src\DTO\ProductStockDTO;
 use src\Enums\FieldsEnum;
 use src\Enums\TableEnum;
 use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\ProductExceptions\ProductIsLinkedOnCartException;
 use src\Factory\ProductStockDtoFactory;
 
 class ProductStockBO extends BasicBO
@@ -62,6 +63,17 @@ class ProductStockBO extends BasicBO
 
     public function deleteAllStocksByProductId(int $id): void
     {
+        $stocks = $this->findByProductId($id);
+        if (!$stocks) {
+            return;
+        }
+        foreach ($stocks as $stock) {
+            $cartItemBO = new CartItemBO();
+            if (!$cartItemBO->validateStockIsNotCartDone($stock->getId())) {
+                throw new ProductIsLinkedOnCartException();
+            }
+            $cartItemBO->deleteByStockId($stock->getId());
+        }
         $this->dao->deleteAllByProductId($id);
     }
 

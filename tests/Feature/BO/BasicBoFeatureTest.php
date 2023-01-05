@@ -48,16 +48,16 @@ class BasicBoFeatureTest extends TestCase
     public function testDeleteById()
     {
         $db = new Database();
-        $before = $db->selectCount("SELECT * FROM size WHERE size_id = 1234");
+        $before = $db->selectCount("SELECT * FROM size WHERE size_id = 999999");
         $this->assertEquals(1, $before);
-        $this->bo->deleteById(1234);
-        $after = $db->selectCount("SELECT * FROM size WHERE size_id = 1234");
+        $this->bo->deleteById(999999);
+        $after = $db->selectCount("SELECT * FROM size WHERE size_id = 999999");
         $this->assertEquals(0, $after);
     }
 
     public function testFindById()
     {
-        $find = $this->bo->findById(1234);
+        $find = $this->bo->findById(999999);
         $this->assertInstanceOf(SizeDTO::class, $find);
         $findNull = $this->bo->findById(123456789);
         $this->assertNull($findNull);
@@ -65,7 +65,7 @@ class BasicBoFeatureTest extends TestCase
 
     public function testCountById()
     {
-        $count = $this->bo->countById(1234);
+        $count = $this->bo->countById(999999);
         $this->assertEquals(1, $count);
         $countZero = $this->bo->countById(123456789);
         $this->assertEquals(0, $countZero);
@@ -81,7 +81,7 @@ class BasicBoFeatureTest extends TestCase
     {
         $last = $this->bo->findLastInserted();
         $this->assertInstanceOf(SizeDTO::class, $last);
-        $this->assertEquals(1234, $last->getId());
+        $this->assertEquals(999999, $last->getId());
     }
 
     public function testValidatePostParamsApi()
@@ -112,13 +112,13 @@ class BasicBoFeatureTest extends TestCase
     public function insertSizeForTest()
     {
         $db = new Database();
-        $db->insert("INSERT INTO size (size_id, size_name, size_code) VALUES (1234, 'FIELD_NAME', 'FIELD_code')");
+        $db->insert("INSERT INTO size (size_id, size_name, size_code) VALUES (999999, 'FIELD_NAME', 'FIELD_code')");
     }
 
     public function deleteSizeForTest()
     {
         $db = new Database();
-        $db->delete("DELETE FROM size WHERE size_id = 1234");
+        $db->delete("DELETE FROM size WHERE size_id = 999999");
         $db->delete("DELETE FROM size WHERE size_code = 'size-test-12'");
     }
 }

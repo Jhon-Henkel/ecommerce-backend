@@ -94,6 +94,8 @@ class ProductDtoFactoryUnitTest extends TestCase
         $product->setCategoryId(2);
         $product->setDescription('description for product');
         $product->setUrl('url/test');
+        $product->setCreatedAt(null);
+        $product->setUpdatedAt(null);
         return $product;
     }
 
@@ -106,6 +108,8 @@ class ProductDtoFactoryUnitTest extends TestCase
         $item['product_category_id'] = 2;
         $item['product_description'] = 'description for product';
         $item['product_url'] = 'url/test';
+        $item['product_created_at'] = null;
+        $item['product_updated_at'] = null;
         return $item;
     }
 }

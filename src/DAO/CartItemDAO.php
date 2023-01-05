@@ -70,4 +70,18 @@ class CartItemDAO extends BasicDAO
         $params = array('value' => $value, 'cartId' => $cartId);
         return $this->database->selectCount($query, $params);
     }
+
+    public function findAllByStockId(int $stockId): array
+    {
+        $query = "SELECT * FROM " . $this->table . " WHERE " . $this->table .  "_stock_id = :id";
+        $params = array('id' => $stockId);
+        return $this->database->select($query, $params);
+    }
+
+    public function deleteByStockId(int $stockId): void
+    {
+        $query = "DELETE FROM " . $this->table . " WHERE " . $this->table .  "_stock_id = :id";
+        $params = array('id' => $stockId);
+        $this->database->delete($query, $params);
+    }
 }

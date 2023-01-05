@@ -127,6 +127,12 @@ class Response
         self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
     }
 
+    public static function renderProductIsLinkedOnOrder(): void
+    {
+        $message = ApiResponseMessageEnum::PRODUCT_IS_LINKED_ON_ORDER;
+        self::render(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $message);
+    }
+
     public static function renderCartDontHaveItens(): void
     {
         $message = ApiResponseMessageEnum::CART_DONT_HAVE_ITENS;

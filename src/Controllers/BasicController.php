@@ -13,6 +13,7 @@ use src\Exceptions\ClientExceptions\CartOpenForThisClientException;
 use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
 use src\Exceptions\FieldsExceptions\InvalidUseForFieldException;
 use src\Exceptions\GenericExceptions\NotFoundException;
+use src\Exceptions\ProductExceptions\ProductIsLinkedOnCartException;
 use src\Tools\RequestTools;
 
 abstract class BasicController
@@ -85,6 +86,8 @@ abstract class BasicController
             Response::render(HttpStatusCodeEnum::HTTP_OK, 'Ok');
         } catch (AttributeAlreadyLinkedInProduct $exception) {
             Response::renderAttributeAlreadyLinkedInProduct();
+        } catch (ProductIsLinkedOnCartException $exception) {
+            Response::renderProductIsLinkedOnOrder();
         }
     }
 }

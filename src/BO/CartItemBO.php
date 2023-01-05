@@ -6,6 +6,7 @@ use src\DAO\CartItemDAO;
 use src\DTO\CartDTO;
 use src\DTO\CartItemDTO;
 use src\DTO\ProductStockDTO;
+use src\Enums\CartEnum;
 use src\Enums\FieldsEnum;
 use src\Enums\OrderEnum;
 use src\Enums\TableEnum;
@@ -171,5 +172,41 @@ class CartItemBO extends BasicBO
         foreach ($itens as $item) {
             $productStockBO->decreaseStockBalanceByStockId($item->stock->id, $item->quantity);
         }
+    }
+
+    public function validateStockIsNotCartDone(int $stockId): bool
+    {
+        $cartItens = $this->findAllByStockId($stockId);
+        if (!$cartItens) {
+            return true;
+        }
+        $cartBO = new CartBO();
+        /** @var CartItemDTO $cartItem */
+        foreach ($cartItens as $cartItem) {
+            /** @var CartDTO $cart */
+            $cart = $cartBO->findById($cartItem->getCartId());
+            if ($cart->getOrderDone() == CartEnum::ORDER_DONE) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function findAllByStockId(int $stockId): null|array
+    {
+        $itensFind = $this->dao->findAllByStockId($stockId);
+        if (!$itensFind) {
+            return null;
+        }
+        $itens = array();
+        foreach ($itensFind as $itemFind) {
+            $itens[] = $this->factory->populateDbToDto($itemFind);
+        }
+        return $itens;
+    }
+
+    public function deleteByStockId(int $stockId): void
+    {
+        $this->dao->deleteByStockId($stockId);
     }
 }
