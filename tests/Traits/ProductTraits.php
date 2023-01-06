@@ -4,6 +4,7 @@ namespace tests\Traits;
 
 use src\Database;
 use src\DTO\ProductDTO;
+use stdClass;
 
 trait ProductTraits
 {
@@ -19,6 +20,33 @@ trait ProductTraits
         $size->setDescription('Description for product 145');
         $size->setCategoryId(105);
         return $size;
+    }
+
+    public function makeStdProduct150(): stdClass
+    {
+        $item = new stdClass();
+        $item->code = "produto-test-150";
+        $item->name =  "Produto Test 150";
+        $item->description = "product 150 description";
+        $item->categoryId = 104;
+        $item->stock = array(
+            $this->makeStdStock100(),
+            $this->makeStdStock101()
+        );
+        return $item;
+    }
+
+    public function makeStdProduct151(): stdClass
+    {
+        $item = new stdClass();
+        $item->code = "produto-test-151";
+        $item->name =  "Produto Test 151";
+        $item->description = "product 151 description";
+        $item->categoryId = 105;
+        $item->stock = array(
+            $this->makeStdStock102()
+        );
+        return $item;
     }
 
     public function insertOnDbProductTest145(): void

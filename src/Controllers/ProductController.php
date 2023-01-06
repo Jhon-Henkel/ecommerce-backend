@@ -9,6 +9,9 @@ use src\Enums\FieldsEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Exceptions\AttributesExceptions\AttributeAlreadyExistsException;
 use src\Exceptions\AttributesExceptions\AttributeNotFoundException;
+use src\Exceptions\AttributesExceptions\RequiredAttributesMissingException;
+use src\Exceptions\FieldsExceptions\InvalidFieldValueException;
+use src\Exceptions\GenericExceptions\NotFoundException;
 use src\Factory\ProductDtoFactory;
 
 class ProductController extends BasicController
@@ -42,6 +45,12 @@ class ProductController extends BasicController
             Response::renderAttributeNotFound($exception->getMessage());
         } catch (AttributeAlreadyExistsException $exception) {
             Response::renderAttributeAlreadyExists($exception->getMessage());
+        } catch (InvalidFieldValueException $exception) {
+            Response::renderInvalidFieldValue($exception->getMessage());
+        } catch (RequiredAttributesMissingException $exception) {
+            Response::renderRequiredAttributesMissing();
+        } catch (NotFoundException $exception) {
+            Response::renderNotFound();
         }
     }
 
