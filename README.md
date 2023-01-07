@@ -40,3 +40,4 @@ Para iniciar asse projeto, basta executar os seguintes passos:
 - Salvar telefones com formatação mesmo se vier sem formatação.
 - Salvar cep com formatação mesmo se vier sem formatação.
 - Atualizar cálculo dos correios para a biblioteca que eu criei.
+- Testes feature api estoque, gift card, carrinho, cliente, endereço, item carrinho, pedido.

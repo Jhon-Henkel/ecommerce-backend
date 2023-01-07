@@ -30,12 +30,8 @@ class ColorDtoFactory extends BasicDtoFactory
         $colorPublic->id = $item->getId();
         $colorPublic->code = $item->getCode();
         $colorPublic->name = $item->getName();
-        $colorPublic->createdAt = $item->getCreatedAt()
-            ? DateTools::dateTimeToStringConverter($item->getCreatedAt())
-            : null;
-        $colorPublic->updatedAt = $item->getUpdatedAt()
-            ? DateTools::dateTimeToStringConverter($item->getUpdatedAt())
-            : null;
+        $colorPublic->createdAt = DateTools::dateTimeToStringConverter($item->getCreatedAt());
+        $colorPublic->updatedAt = DateTools::dateTimeToStringConverter($item->getUpdatedAt());
         return $colorPublic;
     }
 
@@ -49,11 +45,7 @@ class ColorDtoFactory extends BasicDtoFactory
         $colorDTO->setName($item['color_name']);
         $colorDTO->setCode($item['color_code']);
         $colorDTO->setCreatedAt(DateTools::stringToDateTimeConverter($item['color_created_at']));
-        $colorDTO->setUpdatedAt(
-            $item['color_updated_at']
-                ? DateTools::stringToDateTimeConverter($item['color_updated_at'])
-                : null
-        );
+        $colorDTO->setUpdatedAt(DateTools::stringToDateTimeConverter($item['color_updated_at']));
         return $colorDTO;
     }
 }

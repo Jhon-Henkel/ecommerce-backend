@@ -50,4 +50,21 @@ class CartItemDaoFeatureTest extends TestCase
         $cartItem = $this->dao->countByColumnValueWithCartId(FieldsEnum::STOCK_ID_DB, 999, 852);
         $this->assertEquals(0, $cartItem);
     }
+
+    public function testFindAllByStockId()
+    {
+        $cartItens = $this->dao->findAllByStockId(74);
+        $this->assertCount(1, $cartItens);
+        $cartItens = $this->dao->findAllByStockId(9999999);
+        $this->assertCount(0, $cartItens);
+    }
+
+    public function testDeleteByStockId()
+    {
+        $cartItens = $this->dao->findAllByStockId(74);
+        $this->assertCount(1, $cartItens);
+        $this->dao->deleteByStockId(74);
+        $cartItens = $this->dao->findAllByStockId(74);
+        $this->assertCount(0, $cartItens);
+    }
 }

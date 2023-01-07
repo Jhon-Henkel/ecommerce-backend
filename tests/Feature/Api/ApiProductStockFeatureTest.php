@@ -4,45 +4,47 @@ namespace tests\Feature\Api;
 
 use GuzzleHttp\Exception\GuzzleException;
 use PHPUnit\Framework\TestCase;
-use src\DAO\CartDAO;
 use src\DAO\ProductDAO;
 use src\DAO\ProductStockDAO;
 use src\Database;
-use src\Enums\ApiResponseMessageEnum;
 use src\Enums\HttpStatusCodeEnum;
 use src\Enums\TableEnum;
 use stdClass;
-use tests\Traits\ClientTraits;
 use tests\Traits\HttpRequestTrait;
+use tests\Traits\ProductStockTrait;
 use tests\Traits\ProductTraits;
 
-class ApiProductFeatureTest extends TestCase
+class ApiProductStockFeatureTest extends TestCase
 {
-    use HttpRequestTrait, ProductTraits, ClientTraits;
+    use ProductStockTrait, HttpRequestTrait, ProductTraits;
 
     public stdClass $item1;
     public stdClass $item2;
-    public ProductDAO $dao;
+    public ProductStockDAO $dao;
     public string $api;
 
+    /**
+     * @throws GuzzleException
+     */
     protected function setUp(): void
     {
-        $this->deleteCartAndCartItemTest();
-        $this->deleteOnDbClient741();
-        $this->deleteTestProductsAndStock();
+        $this->deleteStocksTest();
+        $this->deleteProductTest();
         $this->deleteTestAttributes();
         $this->insertAttributesOnDb();
-        $this->item1 = $this->makeStdProduct150();
-        $this->item2 = $this->makeStdProduct151();
-        $this->dao = new ProductDAO(TableEnum::PRODUCT);
-        $this->api = 'api=product';
+        $productId = $this->insertProductTest();
+        $this->item1 = $this->makeStdStock100();
+        $this->item1->productId = $productId;
+        $this->item2 = $this->makeStdStock101();
+        $this->item2->productId = $productId;
+        $this->dao = new ProductStockDAO(TableEnum::PRODUCT_STOCK);
+        $this->api = 'api=stock';
     }
 
     protected function tearDown(): void
     {
-        $this->deleteCartAndCartItemTest();
-        $this->deleteOnDbClient741();
-        $this->deleteTestProductsAndStock();
+        $this->deleteStocksTest();
+        $this->deleteProductTest();
         $this->deleteTestAttributes();
     }
 
@@ -54,11 +56,17 @@ class ApiProductFeatureTest extends TestCase
         $response = $this->post($this->api, $this->item1);
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_CREATED, $response->getStatusCode());
-        $this->assertEquals("produto-test-150", $data->code);
-        $this->assertEquals("Produto Test 150", $data->name);
-        $this->assertEquals("product 150 description", $data->description);
-        $this->assertEquals(104, $data->categoryId);
-        $this->assertIsArray($data->stocks);
+        $this->assertEquals("stock-100", $data->code);
+        $this->assertEquals("Stock Teste 100", $data->name);
+        $this->assertEquals(15, $data->quantity);
+        $this->assertEquals(94, $data->colorId);
+        $this->assertEquals(11, $data->sizeId);
+        $this->assertEquals(98, $data->brandId);
+        $this->assertEquals(2, $data->price);
+        $this->assertEquals(18, $data->width);
+        $this->assertEquals(159, $data->height);
+        $this->assertEquals(36, $data->length);
+        $this->assertEquals(1600, $data->grossWeight);
     }
 
     /**
@@ -80,7 +88,16 @@ class ApiProductFeatureTest extends TestCase
         return [
             'testingNullCode' => ['attribute' => 'code'],
             'testingNullName' => ['attribute' => 'name'],
-            'testingNullCategoryId' => ['attribute' => 'categoryId'],
+            'testingNullQuantity' => ['attribute' => 'quantity'],
+            'testingNullColorId' => ['attribute' => 'colorId'],
+            'testingNullSizeId' => ['attribute' => 'sizeId'],
+            'testingNullBrandId' => ['attribute' => 'brandId'],
+            'testingNullProductId' => ['attribute' => 'productId'],
+            'testingNullPrice' => ['attribute' => 'price'],
+            'testingNullWidth' => ['attribute' => 'width'],
+            'testingNullHeight' => ['attribute' => 'height'],
+            'testingNullLength' => ['attribute' => 'length'],
+            'testingNullGrossWeight' => ['attribute' => 'grossWeight']
         ];
     }
 
@@ -119,7 +136,15 @@ class ApiProductFeatureTest extends TestCase
         return [
             'testingMissingCode' => ['attribute' => 'code'],
             'testingMissingName' => ['attribute' => 'name'],
-            'testingNullCategoryId' => ['attribute' => 'categoryId'],
+            'testingMissingQuantity' => ['attribute' => 'quantity'],
+            'testingMissingColorId' => ['attribute' => 'colorId'],
+            'testingMissingSizeId' => ['attribute' => 'sizeId'],
+            'testingMissingBrandId' => ['attribute' => 'brandId'],
+            'testingMissingPrice' => ['attribute' => 'price'],
+            'testingMissingWidth' => ['attribute' => 'width'],
+            'testingMissingHeight' => ['attribute' => 'height'],
+            'testingMissingLength' => ['attribute' => 'length'],
+            'testingMissingGrossWeight' => ['attribute' => 'grossWeight']
         ];
     }
 
@@ -130,14 +155,20 @@ class ApiProductFeatureTest extends TestCase
     {
         $this->post($this->api, $this->item1);
         $last = $this->dao->findLastInserted();
-        $response = $this->get($this->api . '&id=' . $last['product_id']);
+        $response = $this->get($this->api . '&id=' . $last['product_stock_id']);
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_OK, $response->getStatusCode());
-        $this->assertEquals("produto-test-150", $data->code);
-        $this->assertEquals("Produto Test 150", $data->name);
-        $this->assertEquals("product 150 description", $data->description);
-        $this->assertEquals(104, $data->categoryId);
-        $this->assertIsArray($data->stocks);
+        $this->assertEquals("stock-100", $data->code);
+        $this->assertEquals("Stock Teste 100", $data->name);
+        $this->assertEquals(15, $data->quantity);
+        $this->assertEquals(94, $data->colorId);
+        $this->assertEquals(11, $data->sizeId);
+        $this->assertEquals(98, $data->brandId);
+        $this->assertEquals(2, $data->price);
+        $this->assertEquals(18, $data->width);
+        $this->assertEquals(159, $data->height);
+        $this->assertEquals(36, $data->length);
+        $this->assertEquals(1600, $data->grossWeight);
     }
 
     public function testGetByInvalidId()
@@ -156,10 +187,11 @@ class ApiProductFeatureTest extends TestCase
         $response = $this->get($this->api);
         $beforeInsert = count(json_decode($response->getBody()));
         $this->post($this->api, $this->item2);
+        $this->post($this->api, $this->item1);
         $response = $this->get($this->api);
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_OK, $response->getStatusCode());
-        $this->assertCount($beforeInsert + 1, $data);
+        $this->assertCount($beforeInsert + 2, $data);
     }
 
     /**
@@ -169,9 +201,9 @@ class ApiProductFeatureTest extends TestCase
     {
         $this->post($this->api, $this->item1);
         $last = $this->dao->findLastInserted();
-        $response = $this->delete($this->api . '&id=' . $last['product_id']);
+        $response = $this->delete($this->api . '&id=' . $last['product_stock_id']);
         $this->assertEquals(HttpStatusCodeEnum::HTTP_OK, $response->getStatusCode());
-        $response = $this->get($this->api . '&id=' . $last['product_id']);
+        $response = $this->get($this->api . '&id=' . $last['product_stock_id']);
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_NOT_FOUND, $response->getStatusCode());
         $this->assertEquals('Registro não encontrado!', $data);
@@ -184,15 +216,22 @@ class ApiProductFeatureTest extends TestCase
     {
         $this->post($this->api, $this->item1);
         $last = $this->dao->findLastInserted();
-        $this->item1->code = 'produto-test-150-put';
-        $this->item1->name = 'Produto Test 150 Put';
-        $response = $this->put($this->api . '&id=' . $last['product_id'], $this->item1);
+        $this->item1->code = 'stock-100-put';
+        $this->item1->name = 'Stock Teste 100 Put';
+        $response = $this->put($this->api . '&id=' . $last['product_stock_id'], $this->item1);
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_OK, $response->getStatusCode());
-        $this->assertEquals("produto-test-150-put", $data->code);
-        $this->assertEquals("Produto Test 150 Put", $data->name);
-        $this->assertEquals("product 150 description", $data->description);
-        $this->assertEquals(104, $data->categoryId);
+        $this->assertEquals("stock-100-put", $data->code);
+        $this->assertEquals("Stock Teste 100 Put", $data->name);
+        $this->assertEquals(15, $data->quantity);
+        $this->assertEquals(94, $data->colorId);
+        $this->assertEquals(11, $data->sizeId);
+        $this->assertEquals(98, $data->brandId);
+        $this->assertEquals(2, $data->price);
+        $this->assertEquals(18, $data->width);
+        $this->assertEquals(159, $data->height);
+        $this->assertEquals(36, $data->length);
+        $this->assertEquals(1600, $data->grossWeight);
     }
 
     /**
@@ -205,7 +244,7 @@ class ApiProductFeatureTest extends TestCase
         $this->post($this->api, $this->item1);
         $last = $this->dao->findLastInserted();
         $this->item1->$attribute = null;
-        $response = $this->put($this->api . '&id=' . $last['product_id'], $this->item1);
+        $response = $this->put($this->api . '&id=' . $last['product_stock_id'], $this->item1);
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $response->getStatusCode());
         $this->assertEquals('O valor para o seguinte campo é inválido: ' . $attribute, $data);
@@ -222,7 +261,7 @@ class ApiProductFeatureTest extends TestCase
         $this->post($this->api, $this->item1);
         $last = $this->dao->findLastInserted();
         $this->item1->$attribute = $this->item2->$attribute;
-        $response = $this->put($this->api . '&id=' . $last['product_id'], $this->item1);
+        $response = $this->put($this->api . '&id=' . $last['product_stock_id'], $this->item1);
         $data = json_decode($response->getBody());
         $this->assertEquals(HttpStatusCodeEnum::HTTP_CONFLICT, $response->getStatusCode());
         $this->assertEquals('O seguinte atributo já está cadastrado: ' . $attribute, $data);
@@ -236,58 +275,67 @@ class ApiProductFeatureTest extends TestCase
         ];
     }
 
+//    /**
+//     * @param string $attribute
+//     * @return void
+//     * @throws GuzzleException
+//     * @dataProvider dataProviderMissingAttribute
+//     */
+//    public function testMissingAttributePut(string $attribute)
+//    {
+//        $this->post($this->api, $this->item1);
+//        $last = $this->dao->findLastInserted();
+//        unset($this->item1->$attribute);
+//        $response = $this->put($this->api . '&id=' . $last['product_id'], $this->item1);
+//        $data = json_decode($response->getBody());
+//        $this->assertEquals(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $response->getStatusCode());
+//        $this->assertEquals('Atributos obrigatórios ausentes, revise a documentação!', $data);
+//    }
+//
+//    public function testDeleteProductIsInCartDone()
+//    {
+//        $this->post($this->api, $this->item1);
+//        $stockDAO = new ProductStockDAO(TableEnum::PRODUCT_STOCK);
+//        $productInserted = $this->dao->findLastInserted();
+//        $stockInserted = $stockDAO->findLastInserted();
+//        $this->insertOnDbClient741();
+//        $db = new Database();
+//        $db->insert("INSERT INTO cart (cart_client_id, cart_order_done, cart_hash, cart_gift_card_id) VALUES (741, 1, 'ttteeess44', null)");
+//        $cartDAO = new CartDAO(TableEnum::CART);
+//        $cartInserted = $cartDAO->findLastInserted();
+//        $db->insert("INSERT INTO cart_item (cart_item_cart_id, cart_item_stock_id, cart_item_quantity) VALUES (" . $cartInserted['cart_id'] . ", " . $stockInserted['product_stock_id'] . ", 999999999)");
+//        $response = $this->delete($this->api . '&id=' . $productInserted['product_id']);
+//        $data = json_decode($response->getBody());
+//        $this->assertEquals(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $response->getStatusCode());
+//        $this->assertEquals(ApiResponseMessageEnum::PRODUCT_IS_LINKED_ON_ORDER, $data);
+//    }
+
+
     /**
-     * @param string $attribute
-     * @return void
      * @throws GuzzleException
-     * @dataProvider dataProviderMissingAttribute
      */
-    public function testMissingAttributePut(string $attribute)
+    public function insertProductTest(): int
     {
-        $this->post($this->api, $this->item1);
-        $last = $this->dao->findLastInserted();
-        unset($this->item1->$attribute);
-        $response = $this->put($this->api . '&id=' . $last['product_id'], $this->item1);
-        $data = json_decode($response->getBody());
-        $this->assertEquals(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $response->getStatusCode());
-        $this->assertEquals('Atributos obrigatórios ausentes, revise a documentação!', $data);
+        $this->post('api=product', $this->makeStdProduct151());
+        $productDAO = new ProductDAO(TableEnum::PRODUCT);
+        $last = $productDAO->findLastInserted();
+        return $last['product_id'];
     }
 
-    public function testDeleteProductIsInCartDone()
-    {
-        $this->post($this->api, $this->item1);
-        $stockDAO = new ProductStockDAO(TableEnum::PRODUCT_STOCK);
-        $productInserted = $this->dao->findLastInserted();
-        $stockInserted = $stockDAO->findLastInserted();
-        $this->insertOnDbClient741();
-        $db = new Database();
-        $db->insert("INSERT INTO cart (cart_client_id, cart_order_done, cart_hash, cart_gift_card_id) VALUES (741, 1, 'ttteeess44', null)");
-        $cartDAO = new CartDAO(TableEnum::CART);
-        $cartInserted = $cartDAO->findLastInserted();
-        $db->insert("INSERT INTO cart_item (cart_item_cart_id, cart_item_stock_id, cart_item_quantity) VALUES (" . $cartInserted['cart_id'] . ", " . $stockInserted['product_stock_id'] . ", 999999999)");
-        $response = $this->delete($this->api . '&id=' . $productInserted['product_id']);
-        $data = json_decode($response->getBody());
-        $this->assertEquals(HttpStatusCodeEnum::HTTP_BAD_REQUEST, $response->getStatusCode());
-        $this->assertEquals(ApiResponseMessageEnum::PRODUCT_IS_LINKED_ON_ORDER, $data);
-    }
-
-    public function deleteCartAndCartItemTest()
+    public function deleteProductTest()
     {
         $db = new Database();
-        $db->delete("DELETE FROM cart_item WHERE cart_item_quantity = 999999999");
-        $db->delete("DELETE FROM cart WHERE cart_client_id = 741");
+        $db->delete("DELETE FROM product_stock WHERE product_stock_code = 'stock-102'");
+        $db->delete("DELETE FROM product WHERE product_code = 'produto-test-151'");
     }
 
-    public function deleteTestProductsAndStock()
+    public function deleteStocksTest()
     {
         $db = new Database();
         $db->delete("DELETE FROM product_stock WHERE product_stock_code = 'stock-100'");
         $db->delete("DELETE FROM product_stock WHERE product_stock_code = 'stock-101'");
-        $db->delete("DELETE FROM product_stock WHERE product_stock_code = 'stock-102'");
-        $db->delete("DELETE FROM product WHERE product_code = 'produto-test-150'");
-        $db->delete("DELETE FROM product WHERE product_code = 'produto-test-151'");
-        $db->delete("DELETE FROM product WHERE product_code = 'produto-test-150-put'");
-        $db->delete("DELETE FROM product WHERE product_code = 'produto-test-151-put'");
+        $db->delete("DELETE FROM product_stock WHERE product_stock_code = 'stock-100-put'");
+        $db->delete("DELETE FROM product_stock WHERE product_stock_code = 'stock-101-put'");
     }
 
     public function deleteTestAttributes()
