@@ -1,4 +1,4 @@
-# Ecommerce-clean-code
+# Ecommerce-backend
 Backend de uma plataforma de ecommerce feita com base no conceito clean code, clean architecture e TDD que estudei no curso do Rodrigo Branas.
 
 O objetivo desse projeto é solidificar os conhecimentos adquiridos nos estudos do curso.
